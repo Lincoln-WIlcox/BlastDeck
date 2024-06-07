@@ -10,6 +10,10 @@ import
     Navbar,
     NavbarBrand,
     NavbarToggler,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
 } from "reactstrap";
 import { logout } from "../managers/authManager";
 
@@ -29,7 +33,20 @@ export default function NavBar({ loggedInUser, setLoggedInUser })
                     <>
                         <NavbarToggler onClick={toggleNavbar} />
                         <Collapse isOpen={open} navbar>
-                            <Nav navbar></Nav>
+                            <Nav className="me-auto" navbar>
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle className="my-text" nav caret>
+                                        Card
+                                    </DropdownToggle>
+                                    <DropdownMenu className="bg-battleship-gray" end>
+                                        <DropdownItem>
+                                            <NavLink className="my-text" href="/card">
+                                                All Cards
+                                            </NavLink>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
+                            </Nav>
                         </Collapse>
                         <Button
                             color="primary"

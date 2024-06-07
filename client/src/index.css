@@ -6,6 +6,18 @@ body {
   background-color: var(--black-olive);
 }
 
+.bg-ebony {
+  background-color: var(--ebony);
+}
+
+.bg-battleship-gray {
+  background-color: var(--battleship-gray);
+}
+
+.bg-sage {
+  background-color: var(--sage);
+}
+
 .my-text {
   color: var(--text);
 }

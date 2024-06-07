@@ -13,7 +13,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
           index
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <>Welcome to Blast Deck!</>
+              <p className="my-text">Welcome to Blast Deck!</p>
             </AuthorizedRoute>
           }
         />
