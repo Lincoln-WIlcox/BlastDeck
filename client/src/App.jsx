@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { tryGetLoggedInUser } from "./managers/authManager";
 import { Spinner } from "reactstrap";
 import NavBar from "./components/Navbar";
-import ApplicationViews from "./components/ApplicationViews";
+import ApplicationViews from "./ApplicationViews";
 
 function App()
 {
