@@ -1,6 +1,6 @@
 import MiniCard from "./MiniCard"
 
-const CardList = () =>
+const CardList = ({ cards }) =>
 {
     return <MiniCard />
 }
