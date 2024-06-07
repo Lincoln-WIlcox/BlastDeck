@@ -18,6 +18,6 @@ public class Card
 
     // Navigation properties
     public UserProfile Creator { get; set; }
-    public ICollection<Answer> Answers { get; set; }
-    public ICollection<UserCard> UserCards { get; set; }
+    public List<Answer> Answers { get; set; }
+    public List<UserCard> UserCards { get; set; }
 }

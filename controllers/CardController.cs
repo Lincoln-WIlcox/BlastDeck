@@ -3,11 +3,13 @@ using System.Text;
 using BlastDeck.Data;
 using BlastDeck.Models;
 using BlastDeck.Models.DTOs;
+using BlastDeck.Models.DTOs;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlastDeck.Controllers;
 
@@ -25,6 +27,8 @@ public class CardController : ControllerBase
     [HttpGet]
     public IActionResult GetCards()
     {
-        return _dbContext.Cards.Select(c => new GetCardsDTO(c)).ToList();
+        return Ok(
+            _dbContext.Cards.Include(c => c.Answers).Select(c => new GetCardsDTO(c)).ToList()
+        );
     }
 }

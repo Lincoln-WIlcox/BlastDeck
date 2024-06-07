@@ -17,6 +17,6 @@ public class UserCard
     // Navigation properties
     public UserProfile User { get; set; }
     public Card Card { get; set; }
-    public ICollection<UserCardSet> UserCardSets { get; set; }
-    public ICollection<UserAnswer> UserAnswers { get; set; }
+    public List<UserCardSet> UserCardSets { get; set; }
+    public List<UserAnswer> UserAnswers { get; set; }
 }
