@@ -3,7 +3,6 @@ using System.Text;
 using BlastDeck.Data;
 using BlastDeck.Models;
 using BlastDeck.Models.DTOs;
-using BlastDeck.Models.DTOs;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -25,6 +24,7 @@ public class CardController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public IActionResult GetCards()
     {
         return Ok(
