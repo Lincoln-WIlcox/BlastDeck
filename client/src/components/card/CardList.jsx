@@ -2,7 +2,14 @@ import MiniCard from "./MiniCard"
 
 const CardList = ({ cards }) =>
 {
-    return <MiniCard />
+    return (
+        <>
+            {
+                cards.map(c =>
+                    <MiniCard card={c} />)
+            }
+        </>
+    )
 }
 
 export default CardList
