@@ -1,0 +1,6 @@
+@BlastDeck_HostAddress = http://localhost:5222
+
+GET {{BlastDeck_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
