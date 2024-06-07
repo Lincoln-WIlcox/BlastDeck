@@ -1,7 +1,8 @@
+import MiniCard from "../components/card/MiniCard"
 
 const AllPosts = () =>
 {
-    return <>all posts</>
+    return <MiniCard />
 }
 
 export default AllPosts
