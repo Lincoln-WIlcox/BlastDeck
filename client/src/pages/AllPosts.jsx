@@ -1,8 +1,8 @@
-import MiniCard from "../components/card/MiniCard"
+import CardList from "../components/card/CardList"
 
 const AllPosts = () =>
 {
-    return <MiniCard />
+    return <CardList />
 }
 
 export default AllPosts
