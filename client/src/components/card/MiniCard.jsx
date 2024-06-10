@@ -15,8 +15,13 @@ const MiniCard = ({ card }) =>
                     <Row>
                         <div className="d-flex gap-4">
                             <p className="my-text">{card.englishWord}</p>
-                            <p className="my-text ">{card.correctAnswer.word}</p>
-                            <Button><i className="fa fa-star" aria-hidden="true"></i></Button>
+                            <p className="my-text">{card.correctAnswer.word}</p>
+                            {
+                                card.starred
+                                    ? <Button><i className="fa fa-star-o" aria-hidden="true"></i></Button>
+                                    : <Button><i className="fa fa-star" aria-hidden="true"></i></Button>
+                            }
+
                         </div>
 
                     </Row>
