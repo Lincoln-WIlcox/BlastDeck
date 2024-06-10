@@ -53,13 +53,22 @@ public class CardController : ControllerBase
 
         if (card == null)
         {
-            return BadRequest();
+            return BadRequest($"There is no card with Id {id}");
         }
 
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
             up.IdentityUserId == identityUserId
         );
+
+        UserCard? existingUserCard = _dbContext.UserCards.SingleOrDefault(uc =>
+            uc.CardId == card.Id && uc.UserId == profile.Id
+        );
+
+        if (existingUserCard != null)
+        {
+            return BadRequest("This card is already starred.");
+        }
 
         UserCard userCard = new UserCard { CardId = card.Id, UserId = profile.Id };
 
