@@ -1,6 +1,6 @@
 import { Badge, Button, Card, CardBody, CardImg, CardImgOverlay, CardSubtitle, CardText, CardTitle, Col, Row, Spinner } from "reactstrap";
 import "./MiniCard.css"
-import { starCard } from "../../managers/cardManager";
+import { starCard, unStarCard } from "../../managers/cardManager";
 
 const MiniCard = ({ card, cardsUpdated }) =>
 {
@@ -8,6 +8,11 @@ const MiniCard = ({ card, cardsUpdated }) =>
     const handleStarButtonPress = () =>
     {
         starCard(card.id).then(cardsUpdated)
+    }
+
+    const handleUnstarButtonPress = () =>
+    {
+        unStarCard(card.id).then(cardsUpdated)
     }
 
     return <Card className="bg-black-olive shadow-sm">
@@ -26,7 +31,7 @@ const MiniCard = ({ card, cardsUpdated }) =>
                             {
                                 card.starred
                                     ? <Button onClick={handleStarButtonPress}><i className="fa fa-star-o" aria-hidden="true"></i></Button>
-                                    : <Button><i className="fa fa-star" aria-hidden="true"></i></Button>
+                                    : <Button onClick={handleUnstarButtonPress}><i className="fa fa-star" aria-hidden="true"></i></Button>
                             }
 
                         </div>
