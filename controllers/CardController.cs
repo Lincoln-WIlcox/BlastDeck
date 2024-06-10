@@ -21,8 +21,6 @@ public class CardController : ControllerBase
     [Authorize]
     public IActionResult GetCards()
     {
-        //var answer = _dbContext.Answers.Include(a => a.Card).ToList();
-
         return Ok(
             _dbContext.Cards.Include(c => c.Answers).Select(c => new GetCardsDTO(c)).ToList()
         );
