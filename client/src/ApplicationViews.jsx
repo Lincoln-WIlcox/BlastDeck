@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { AuthorizedRoute } from "./components/auth/AuthorizedRoute";
 import Login from "./components/auth/Login"
 import Register from "./components/auth/Register"
-import AllPosts from "./pages/AllPosts";
+import AllCards from "./pages/AllCards";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser })
 {
@@ -26,7 +26,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
           element={<Register setLoggedInUser={setLoggedInUser} />}
         />
         <Route path="card">
-          <Route index element={<AllPosts />} />
+          <Route index element={<AllCards />} />
         </Route>
         <Route path="*" element={<p>Whoops, nothing here...</p>} />
       </Route >
