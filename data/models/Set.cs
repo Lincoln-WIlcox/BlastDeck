@@ -16,5 +16,5 @@ public class Set
 
     // Navigation properties
     public UserProfile Creator { get; set; }
-    public ICollection<UserCardSet> UserCardSets { get; set; }
+    public List<UserCardSet> UserCardSets { get; set; }
 }

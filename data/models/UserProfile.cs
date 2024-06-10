@@ -9,7 +9,7 @@ public class UserProfile
     public string IdentityUserId { get; set; }
 
     // Navigation properties
-    public ICollection<UserCard> UserCards { get; set; }
-    public ICollection<Set> Sets { get; set; }
-    public ICollection<Card> CreatedCards { get; set; }
+    public List<UserCard> UserCards { get; set; }
+    public List<Set> Sets { get; set; }
+    public List<Card> CreatedCards { get; set; }
 }
