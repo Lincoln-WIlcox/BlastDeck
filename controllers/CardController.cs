@@ -23,8 +23,25 @@ public class CardController : ControllerBase
     [Authorize]
     public IActionResult GetCards()
     {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
         return Ok(
-            _dbContext.Cards.Include(c => c.Answers).Select(c => new GetCardsDTO(c)).ToList()
+            _dbContext
+                .Cards.Include(c => c.Answers)
+                .Select(c => new GetCardsDTO(c))
+                .ToList()
+                .Select(c =>
+                {
+                    //this checked if this card is starred by this user.
+                    UserCard? userCard = _dbContext.UserCards.SingleOrDefault(uc =>
+                        uc.UserId == profile.Id && uc.CardId == c.Id
+                    );
+                    c.Starred = userCard == null;
+                    return c;
+                })
         );
     }
 

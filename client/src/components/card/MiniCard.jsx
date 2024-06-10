@@ -16,7 +16,7 @@ const MiniCard = ({ card }) =>
                         <div className="d-flex gap-4">
                             <p className="my-text">{card.englishWord}</p>
                             <p className="my-text ">{card.correctAnswer.word}</p>
-                            <Button><i class="fa fa-star" aria-hidden="true"></i></Button>
+                            <Button><i className="fa fa-star" aria-hidden="true"></i></Button>
                         </div>
 
                     </Row>
@@ -25,7 +25,7 @@ const MiniCard = ({ card }) =>
                             {
                                 card.answers.map(a =>
                                     a.word != card.correctAnswer.word &&
-                                    <p className="my-text smaller-text">
+                                    <p key={a.id + "a"} className="my-text smaller-text">
                                         {a.word}
                                     </p>
                                 )
