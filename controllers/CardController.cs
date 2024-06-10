@@ -51,4 +51,35 @@ public class CardController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpDelete("{id}/unstar")]
+    [Authorize]
+    public IActionResult UnStarCard(int id)
+    {
+        Card? card = _dbContext.Cards.SingleOrDefault(c => c.Id == id);
+
+        if (card == null)
+        {
+            return BadRequest($"Card does not exist with Id {id}");
+        }
+
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        UserCard? userCard = _dbContext.UserCards.SingleOrDefault(uc =>
+            uc.CardId == card.Id && uc.UserId == profile.Id
+        );
+
+        if (userCard == null)
+        {
+            return BadRequest("This card is not starred by the current user.");
+        }
+
+        _dbContext.Remove(userCard);
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
 }
