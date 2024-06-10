@@ -18,8 +18,15 @@ body {
   background-color: var(--sage);
 }
 
+.my-text-color{
+  color: var(--text);
+}
+
 .my-text {
   color: var(--text);
+  text-align: left;
+  font-size: 21px;
+  font-weight: 200;
 }
 
 .my-text:hover {
@@ -30,12 +37,16 @@ body {
   color: var(--text-hover);
 }
 
+.smaller-text {
+  font-size: 17px;
+}
+
 :root {
   --black-olive: #434a42;
   --ebony: #626c66;
   --battleship-gray: #918b76;
   --sage: #aca885;
-  --text: #f5f3e7;
+  --text: #f8f6f0;
   --text-hover: #ffd9f2;
   --peach-yellow: #e1ca96;
 

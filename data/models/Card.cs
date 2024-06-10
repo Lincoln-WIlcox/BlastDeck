@@ -10,11 +10,16 @@ public class Card
 
     public string ImageURL { get; set; }
 
+    [Required]
     [ForeignKey("CorrectAnswer")]
     public int CorrectAnswerId { get; set; }
 
+    [Required]
     [ForeignKey("Creator")]
     public int CreatorId { get; set; }
+
+    [Required]
+    public string EnglishWord { get; set; }
 
     // Navigation properties
     public UserProfile? Creator { get; set; }

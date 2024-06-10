@@ -8,6 +8,7 @@ public class GetCardsDTO
     public int CreatorId { get; set; }
     public List<GetCardsAnswerDTO> Answers { get; set; }
     public GetCardsAnswerDTO CorrectAnswer { get; set; }
+    public string EnglishWord { get; set; }
 
     public GetCardsDTO(Card card)
     {
@@ -22,5 +23,6 @@ public class GetCardsDTO
         CreatorId = card.CreatorId;
         Answers = card.Answers.Select(a => new GetCardsAnswerDTO(a)).ToList();
         CorrectAnswer = new GetCardsAnswerDTO(card.CorrectAnswer);
+        EnglishWord = card.EnglishWord;
     }
 }

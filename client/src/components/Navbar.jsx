@@ -26,7 +26,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser })
     return (
         <div>
             <Navbar className="bg-black-olive border-bottom border-black border-2" light fixed="top" expand="lg">
-                <NavbarBrand className="mr-auto my-text " tag={RRNavLink} to="/">
+                <NavbarBrand className="mr-auto my-text" tag={RRNavLink} to="/">
                     🃏Blast Deck🃏
                 </NavbarBrand>
                 {loggedInUser ? (

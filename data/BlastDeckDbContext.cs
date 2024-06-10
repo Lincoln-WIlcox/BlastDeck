@@ -27,7 +27,11 @@ public class BlastDeckDbContext : IdentityDbContext<IdentityUser>
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Answer>().HasOne(a => a.Card).WithMany(c => c.Answers).HasForeignKey(a => a.CardId);
+        modelBuilder
+            .Entity<Answer>()
+            .HasOne(a => a.Card)
+            .WithMany(c => c.Answers)
+            .HasForeignKey(a => a.CardId);
 
         modelBuilder
             .Entity<IdentityRole>()
@@ -79,14 +83,16 @@ public class BlastDeckDbContext : IdentityDbContext<IdentityUser>
                     Id = 1,
                     ImageURL = "https://example.com/image1.jpg",
                     CorrectAnswerId = 1,
-                    CreatorId = 1
+                    CreatorId = 1,
+                    EnglishWord = "Man"
                 },
                 new Card
                 {
                     Id = 2,
                     ImageURL = "https://example.com/image2.jpg",
                     CorrectAnswerId = 3,
-                    CreatorId = 1
+                    CreatorId = 1,
+                    EnglishWord = "Woman"
                 }
             );
 

@@ -1,0 +1,10 @@
+.mini-card {
+  object-fit: cover;
+  height: 100%;
+}
+
+.mini-card-container {
+  height: 50vw;
+  max-width: 15rem;
+  max-height: 15rem;
+}
