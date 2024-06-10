@@ -10,3 +10,11 @@ export const starCard = (cardId) =>
             method: "POST"
         })
 }
+
+export const unStarCard = (cardId) =>
+{
+    return fetch(`/api/card/${cardId}/unstar`,
+        {
+            method: "DELETE"
+        })
+}
