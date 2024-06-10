@@ -1,5 +1,5 @@
 
-const MiniCard = () =>
+const MiniCard = ({ card }) =>
 {
     return <>mini card</>
 }
