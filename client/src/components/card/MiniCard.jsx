@@ -1,12 +1,13 @@
 import { Badge, Button, Card, CardBody, CardImg, CardImgOverlay, CardSubtitle, CardText, CardTitle, Col, Row, Spinner } from "reactstrap";
 import "./MiniCard.css"
+import { starCard } from "../../managers/cardManager";
 
 const MiniCard = ({ card }) =>
 {
 
-    const handleStar = () =>
+    const handleStarButtonPress = () =>
     {
-
+        starCard(card.id)
     }
 
     return <Card className="bg-black-olive shadow-sm">
@@ -24,12 +25,11 @@ const MiniCard = ({ card }) =>
                             <p className="my-text">{card.correctAnswer.word}</p>
                             {
                                 card.starred
-                                    ? <Button onClick={handleStar}><i className="fa fa-star-o" aria-hidden="true"></i></Button>
+                                    ? <Button onClick={handleStarButtonPress}><i className="fa fa-star-o" aria-hidden="true"></i></Button>
                                     : <Button><i className="fa fa-star" aria-hidden="true"></i></Button>
                             }
 
                         </div>
-
                     </Row>
                     <Row>
                         <div className="d-flex gap-3">
