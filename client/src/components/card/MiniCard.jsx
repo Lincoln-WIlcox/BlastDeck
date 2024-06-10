@@ -3,6 +3,12 @@ import "./MiniCard.css"
 
 const MiniCard = ({ card }) =>
 {
+
+    const handleStar = () =>
+    {
+
+    }
+
     return <Card className="bg-black-olive shadow-sm">
         <CardBody>
             <Row>
@@ -18,7 +24,7 @@ const MiniCard = ({ card }) =>
                             <p className="my-text">{card.correctAnswer.word}</p>
                             {
                                 card.starred
-                                    ? <Button><i className="fa fa-star-o" aria-hidden="true"></i></Button>
+                                    ? <Button onClick={handleStar}><i className="fa fa-star-o" aria-hidden="true"></i></Button>
                                     : <Button><i className="fa fa-star" aria-hidden="true"></i></Button>
                             }
 
