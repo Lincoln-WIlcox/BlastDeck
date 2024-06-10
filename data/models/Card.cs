@@ -10,14 +10,15 @@ public class Card
 
     public string ImageURL { get; set; }
 
-    [ForeignKey("Answer")]
+    [ForeignKey("CorrectAnswer")]
     public int CorrectAnswerId { get; set; }
 
-    [ForeignKey("UserProfile")]
+    [ForeignKey("Creator")]
     public int CreatorId { get; set; }
 
     // Navigation properties
-    public UserProfile Creator { get; set; }
-    public List<Answer> Answers { get; set; }
-    public List<UserCard> UserCards { get; set; }
+    public UserProfile? Creator { get; set; }
+    public List<Answer>? Answers { get; set; }
+    public Answer? CorrectAnswer { get; set; }
+    public List<UserCard>? UserCards { get; set; }
 }

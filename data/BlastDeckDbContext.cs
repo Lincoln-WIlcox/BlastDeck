@@ -27,6 +27,8 @@ public class BlastDeckDbContext : IdentityDbContext<IdentityUser>
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Answer>().HasOne(a => a.Card).WithMany(c => c.Answers).HasForeignKey(a => a.CardId);
+
         modelBuilder
             .Entity<IdentityRole>()
             .HasData(

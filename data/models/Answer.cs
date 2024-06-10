@@ -1,4 +1,3 @@
-
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,9 +11,10 @@ public class Answer
     [Required]
     public string Word { get; set; }
 
+    [Required]
     [ForeignKey("Card")]
     public int CardId { get; set; }
 
     // Navigation properties
-    public Card Card { get; set; }
+    public Card? Card { get; set; }
 }
