@@ -1,8 +1,20 @@
 import { Badge, Button, Card, CardBody, CardImg, CardImgOverlay, CardSubtitle, CardText, CardTitle, Col, Row, Spinner } from "reactstrap";
 import "./MiniCard.css"
+import { starCard, unStarCard } from "../../managers/cardManager";
 
-const MiniCard = ({ card }) =>
+const MiniCard = ({ card, cardsUpdated }) =>
 {
+
+    const handleStarButtonPress = () =>
+    {
+        starCard(card.id).then(cardsUpdated)
+    }
+
+    const handleUnstarButtonPress = () =>
+    {
+        unStarCard(card.id).then(cardsUpdated)
+    }
+
     return <Card className="bg-black-olive shadow-sm">
         <CardBody>
             <Row>
@@ -15,17 +27,21 @@ const MiniCard = ({ card }) =>
                     <Row>
                         <div className="d-flex gap-4">
                             <p className="my-text">{card.englishWord}</p>
-                            <p className="my-text ">{card.correctAnswer.word}</p>
-                            <Button><i class="fa fa-star" aria-hidden="true"></i></Button>
-                        </div>
+                            <p className="my-text">{card.correctAnswer.word}</p>
+                            {
+                                card.starred
+                                    ? <Button onClick={handleStarButtonPress}><i className="fa fa-star-o" aria-hidden="true"></i></Button>
+                                    : <Button onClick={handleUnstarButtonPress}><i className="fa fa-star" aria-hidden="true"></i></Button>
+                            }
 
+                        </div>
                     </Row>
                     <Row>
                         <div className="d-flex gap-3">
                             {
                                 card.answers.map(a =>
                                     a.word != card.correctAnswer.word &&
-                                    <p className="my-text smaller-text">
+                                    <p key={a.id + "a"} className="my-text smaller-text">
                                         {a.word}
                                     </p>
                                 )

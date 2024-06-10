@@ -9,6 +9,7 @@ public class GetCardsDTO
     public List<GetCardsAnswerDTO> Answers { get; set; }
     public GetCardsAnswerDTO CorrectAnswer { get; set; }
     public string EnglishWord { get; set; }
+    public bool? Starred { get; set; }
 
     public GetCardsDTO(Card card)
     {

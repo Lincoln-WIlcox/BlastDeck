@@ -2,18 +2,23 @@ import { useEffect, useState } from "react"
 import CardList from "../components/card/CardList"
 import { getCards } from "../managers/cardManager"
 
-const AllPosts = () =>
+const AllCards = () =>
 {
     const [allCards, setAllCards] = useState([])
+
+    const fetchAndSetAllCards = () =>
+    {
+        getCards().then(setAllCards);
+    }
 
     useEffect(
         () =>
         {
-            getCards().then(setAllCards);
+            fetchAndSetAllCards()
         }, []
     )
 
-    return <CardList cards={allCards} />
+    return <CardList cards={allCards} cardsUpdated={fetchAndSetAllCards} />
 }
 
-export default AllPosts
+export default AllCards
