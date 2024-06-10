@@ -2,12 +2,12 @@ import { Badge, Button, Card, CardBody, CardImg, CardImgOverlay, CardSubtitle, C
 import "./MiniCard.css"
 import { starCard } from "../../managers/cardManager";
 
-const MiniCard = ({ card }) =>
+const MiniCard = ({ card, cardsUpdated }) =>
 {
 
     const handleStarButtonPress = () =>
     {
-        starCard(card.id)
+        starCard(card.id).then(cardsUpdated)
     }
 
     return <Card className="bg-black-olive shadow-sm">

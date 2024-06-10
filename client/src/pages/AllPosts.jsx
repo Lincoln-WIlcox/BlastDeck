@@ -6,14 +6,19 @@ const AllPosts = () =>
 {
     const [allCards, setAllCards] = useState([])
 
+    const fetchAndSetAllCards = () =>
+    {
+        getCards().then(setAllCards);
+    }
+
     useEffect(
         () =>
         {
-            getCards().then(setAllCards);
+            fetchAndSetAllCards()
         }, []
     )
 
-    return <CardList cards={allCards} />
+    return <CardList cards={allCards} cardsUpdated={fetchAndSetAllCards} />
 }
 
 export default AllPosts
