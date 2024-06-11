@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import CardList from "../components/card/CardList"
-import { getCards } from "../managers/cardManager"
+import { getCards, getCardsByMe } from "../managers/cardManager"
 
 const MyCards = () =>
 {
@@ -8,7 +8,7 @@ const MyCards = () =>
 
     const fetchAndSetMyCards = () =>
     {
-        getCards().then(setMyCards);
+        getCardsByMe().then(setMyCards);
     }
 
     useEffect(
