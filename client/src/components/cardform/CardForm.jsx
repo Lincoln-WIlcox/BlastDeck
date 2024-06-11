@@ -50,14 +50,15 @@ const CardForm = ({ onCardSubmitted }) =>
 
     const handleSubmitPressed = () =>
     {
-        const Card =
+        const card =
         {
             imageURL,
             englishWord,
             answers,
-            correctAnswerIndex,
-
+            correctAnswerIndex
         }
+
+        onCardSubmitted(card)
     }
 
     return <div className="d-flex flex-column gap-3 align-items-center">
