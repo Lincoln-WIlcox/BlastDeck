@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import CardForm from "../components/cardform/CardForm"
-import { createCardByMe } from "../managers/cardManager"
+import { createCardByMe, getCardById } from "../managers/cardManager"
 import { useNavigate, useParams } from "react-router-dom"
 
 const EditCard = () =>
@@ -12,7 +12,7 @@ const EditCard = () =>
     useEffect(
         () =>
         {
-            
+            getCardById(cardId).then(setExistingCard)
         }, [cardId]
     )
 
@@ -26,7 +26,7 @@ const EditCard = () =>
         )
     }
 
-    return <CardForm onCardSubmitted={handleCardSubmitted} />
+    return <CardForm onCardSubmitted={handleCardSubmitted} existingCard={existingCard} />
 }
 
 export default EditCard

@@ -177,7 +177,10 @@ public class CardController : ControllerBase
     [Authorize]
     public IActionResult GetCardById(int id)
     {
-        Card? card = _dbContext.Cards.SingleOrDefault(c => c.Id == id);
+        Card? card = _dbContext
+            .Cards.Include(c => c.Answers)
+            .Include(c => c.CorrectAnswer)
+            .SingleOrDefault(c => c.Id == id);
 
         if (card == null)
         {
