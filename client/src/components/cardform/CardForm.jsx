@@ -38,7 +38,7 @@ const CardForm = () =>
                     <InputGroupText>
                         Image
                     </InputGroupText>
-                    <Input placeholder="URL" value={imageURL} onChange={setImageURL} />
+                    <Input placeholder="URL" value={imageURL} onChange={(e) => setImageURL(e.target.value)} />
                 </InputGroup>
             </Row>
             <Row className="mx-5">
