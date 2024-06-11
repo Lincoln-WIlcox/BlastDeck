@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Button, Input, InputGroup, InputGroupText, Row } from "reactstrap"
 import AnswerForm from "./AnswerForm"
 import "./CardForm.css"
+import { UserContext } from "../../App"
 
 const CardForm = ({ onCardSubmitted, existingCard }) =>
 {
@@ -10,6 +11,8 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
     const [englishWord, setEnglishWord] = useState("")
     const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1)
     const [imageIsValid, setImageIsValid] = useState(false)
+
+    const user = useContext(UserContext)
 
     useEffect(
         () =>

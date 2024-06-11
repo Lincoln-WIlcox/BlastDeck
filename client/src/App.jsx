@@ -3,7 +3,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { tryGetLoggedInUser } from "./managers/authManager";
 import { Spinner } from "reactstrap";
-import NavBar from "./components/Navbar";
+import NavBar from "./components/navbar/Navbar";
 import ApplicationViews from "./ApplicationViews";
 
 export const UserContext = createContext()

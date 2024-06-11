@@ -15,7 +15,8 @@ import
     DropdownMenu,
     DropdownItem,
 } from "reactstrap";
-import { logout } from "../managers/authManager";
+import { logout } from "../../managers/authManager";
+import "./Navbar.css"
 
 export default function NavBar({ loggedInUser, setLoggedInUser })
 {
@@ -24,7 +25,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser })
     const toggleNavbar = () => setOpen(!open);
 
     return (
-        <div>
+        <div className="take-space ">
             <Navbar className="bg-black-olive border-bottom border-black border-2" light fixed="top" expand="lg">
                 <NavbarBrand className="mr-auto my-text" tag={RRNavLink} to="/">
                     🃏Blast Deck🃏
