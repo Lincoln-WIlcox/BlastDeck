@@ -108,4 +108,11 @@ public class CardController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPost]
+    [Authorize]
+    public IActionResult CreateCardByMe(PostCardDTO postedCard)
+    {
+
+    }
 }
