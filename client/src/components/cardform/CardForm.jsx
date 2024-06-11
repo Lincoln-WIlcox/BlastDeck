@@ -24,9 +24,9 @@ const CardForm = () =>
             <Button onClick={handleAddAnswerPress}>Add Answer</Button>
         </Row>
         {
-            answers.map(a =>
-                <Row>
-                    <AnswerForm />
+            answers.map((a, i) =>
+                <Row key={i + "a"}>
+                    <AnswerForm answer={a} />
                 </Row>
             )
         }

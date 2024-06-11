@@ -1,7 +1,15 @@
+import { Input } from "reactstrap"
 
-const AnswerForm = () =>
+const AnswerForm = ({ answer, answerChanged }) =>
 {
-    return <p>answer</p>
+    const handleAnswerChange = (e) =>
+    {
+        answerChanged(e.target.value)
+    }
+
+    return <div>
+        <Input type="text" value={answer} onChange={handleAnswerChange}/>
+    </div>
 }
 
 export default AnswerForm
