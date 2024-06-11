@@ -144,4 +144,17 @@ public class CardController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpGet("/mine")]
+    public IActionResult GetCardsByMe()
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        return Ok(
+            _dbContext.Cards.Where(c => c.CreatorId == profile.Id).Select(c => new GetCardsDTO(c))
+        );
+    }
 }
