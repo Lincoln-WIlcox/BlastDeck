@@ -28,3 +28,8 @@ export const createCardByMe = (card) =>
             body: JSON.stringify(card)
         })
 }
+
+export const getCardsByMe = () =>
+{
+    return fetch(`/api/card/mine`).then(res => res.json())
+}

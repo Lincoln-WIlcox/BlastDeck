@@ -144,4 +144,31 @@ public class CardController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpGet("mine")]
+    public IActionResult GetCardsByMe()
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        return Ok(
+            _dbContext
+                .Cards.Include(c => c.Answers)
+                .Include(c => c.CorrectAnswer)
+                .Where(c => c.CreatorId == profile.Id)
+                .Select(c => new GetCardsDTO(c))
+                .ToList()
+                .Select(c =>
+                {
+                    //this checked if this card is starred by this user.
+                    UserCard? userCard = _dbContext.UserCards.SingleOrDefault(uc =>
+                        uc.UserId == profile.Id && uc.CardId == c.Id
+                    );
+                    c.Starred = userCard == null;
+                    return c;
+                })
+        );
+    }
 }
