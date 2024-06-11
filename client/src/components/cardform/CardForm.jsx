@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Button, Input, InputGroup, InputGroupText, Row } from "reactstrap"
+import AnswerForm from "./AnswerForm"
 
 const CardForm = () =>
 {
@@ -22,6 +23,13 @@ const CardForm = () =>
         <Row className="mx-5">
             <Button onClick={handleAddAnswerPress}>Add Answer</Button>
         </Row>
+        {
+            answers.map(a =>
+                <Row>
+                    <AnswerForm />
+                </Row>
+            )
+        }
     </div>
 }
 
