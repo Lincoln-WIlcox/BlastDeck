@@ -113,6 +113,33 @@ public class CardController : ControllerBase
     [Authorize]
     public IActionResult CreateCardByMe(PostCardDTO postedCard)
     {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
 
+        Card card = new Card
+        {
+            ImageURL = postedCard.ImageURL,
+            CreatorId = profile.Id,
+            EnglishWord = postedCard.EnglishWord
+        };
+
+        _dbContext.Cards.Add(card);
+
+        for (int i = 0; i < postedCard.Answers.Count; i++)
+        {
+            Answer answer = new Answer { Word = postedCard.Answers[i], CardId = card.Id };
+            _dbContext.Answers.Add(answer);
+            _dbContext.SaveChanges();
+            if (i == postedCard.CorrectAnswerIndex)
+            {
+                card.CorrectAnswerId = answer.Id;
+            }
+        }
+
+        _dbContext.SaveChanges();
+
+        return NoContent();
     }
 }
