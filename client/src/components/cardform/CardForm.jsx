@@ -11,6 +11,18 @@ const CardForm = () =>
         setAnswers([...answers, ""])
     }
 
+    const handleAnswerChange = (newAnswer, index) =>
+    {
+        const answersCopy = [...answers]
+        answersCopy[index] = newAnswer
+        setAnswers(answersCopy)
+    }
+
+    const handleAnswerRemove = (index) =>
+    {
+        setAnswers(answers.filter((a, i) => i != index))
+    }
+
     return <div className="d-flex flex-column gap-3">
         <Row>
             <InputGroup>
@@ -26,7 +38,7 @@ const CardForm = () =>
         {
             answers.map((a, i) =>
                 <Row key={i + "a"}>
-                    <AnswerForm answer={a} />
+                    <AnswerForm answer={a} answerChanged={(newAnswer) => handleAnswerChange(newAnswer, i)} onRemovePressed={() => handleAnswerRemove(i)} />
                 </Row>
             )
         }

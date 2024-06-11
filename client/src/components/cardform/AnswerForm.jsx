@@ -1,14 +1,18 @@
-import { Input } from "reactstrap"
+import { Button, Input, InputGroup } from "reactstrap"
 
-const AnswerForm = ({ answer, answerChanged }) =>
+const AnswerForm = ({ answer, answerChanged, onRemovePressed }) =>
 {
     const handleAnswerChange = (e) =>
     {
         answerChanged(e.target.value)
     }
 
-    return <div>
-        <Input type="text" value={answer} onChange={handleAnswerChange}/>
+    return <div className="d-flex">
+        <InputGroup>
+            <Button onClick={onRemovePressed}>Remove</Button>
+            <Input type="text" value={answer} onChange={handleAnswerChange} />
+        </InputGroup>
+
     </div>
 }
 
