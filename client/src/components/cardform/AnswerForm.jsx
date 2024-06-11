@@ -24,8 +24,8 @@ const AnswerForm = ({ answer, answerChanged, onRemovePressed, isCorrectAnswer, o
         </div>
 
         <InputGroup>
-            <Button onClick={onRemovePressed}>Remove</Button>
             <Input type="text" value={answer} onChange={handleAnswerChange} />
+            <Button onClick={onRemovePressed}>Remove</Button>
         </InputGroup>
 
     </div>

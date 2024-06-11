@@ -5,6 +5,7 @@ import AnswerForm from "./AnswerForm"
 const CardForm = () =>
 {
     const [answers, setAnswers] = useState([])
+    const [imageURL, setImageURL] = useState("")
     const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1)
 
     const handleAddAnswerPress = () =>
@@ -21,22 +22,23 @@ const CardForm = () =>
 
     const handleAnswerRemove = (index) =>
     {
-        if (index == correctAnswerIndex)
+        if(index == correctAnswerIndex)
         {
             setCorrectAnswerIndex(-1)
         }
-            
+
         setAnswers(answers.filter((a, i) => i != index))
     }
 
     return <div className="d-flex flex-column gap-3">
         <div className="d-flex flex-column gap-3 m-2">
+
             <Row>
                 <InputGroup>
                     <InputGroupText>
                         Image
                     </InputGroupText>
-                    <Input placeholder="URL" />
+                    <Input placeholder="URL" value={imageURL} onChange={setImageURL} />
                 </InputGroup>
             </Row>
             <Row className="mx-5">
