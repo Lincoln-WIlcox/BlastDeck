@@ -3,6 +3,7 @@ import { AuthorizedRoute } from "./components/auth/AuthorizedRoute";
 import Login from "./components/auth/Login"
 import Register from "./components/auth/Register"
 import AllCards from "./pages/AllCards";
+import CreateCard from "./pages/CreateCard";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser })
 {
@@ -27,6 +28,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
         />
         <Route path="card">
           <Route index element={<AllCards />} />
+          <Route path="create" element={<CreateCard />} />
         </Route>
         <Route path="*" element={<p>Whoops, nothing here...</p>} />
       </Route >
