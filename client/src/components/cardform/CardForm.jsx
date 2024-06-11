@@ -3,10 +3,11 @@ import { Button, Input, InputGroup, InputGroupText, Row } from "reactstrap"
 import AnswerForm from "./AnswerForm"
 import "./CardForm.css"
 
-const CardForm = ({onCardSubmitted}) =>
+const CardForm = ({ onCardSubmitted }) =>
 {
     const [answers, setAnswers] = useState([])
     const [imageURL, setImageURL] = useState("")
+    const [englishWord, setEnglishWord] = useState("")
     const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1)
     const [imageIsValid, setImageIsValid] = useState(false)
 
@@ -44,14 +45,18 @@ const CardForm = ({onCardSubmitted}) =>
 
     const formIsValid = () =>
     {
-        return answers.length > 0 && correctAnswerIndex != -1 && imageURL && imageIsValid
+        return answers.length > 0 && correctAnswerIndex != -1 && imageURL && englishWord && imageIsValid
     }
 
     const handleSubmitPressed = () =>
     {
-        const Card = 
+        const Card =
         {
-            
+            imageURL,
+            englishWord,
+            answers,
+            correctAnswerIndex,
+
         }
     }
 
@@ -61,12 +66,18 @@ const CardForm = ({onCardSubmitted}) =>
                 imageIsValid
                 && <img src={imageURL} className="limit-image" />
             }
-            <Row>
+            <Row className="d-flex flex-column gap-3">
                 <InputGroup>
                     <InputGroupText>
                         Image
                     </InputGroupText>
                     <Input placeholder="URL" value={imageURL} onChange={(e) => setImageURL(e.target.value)} />
+                </InputGroup>
+                <InputGroup>
+                    <InputGroupText>
+                        English Word
+                    </InputGroupText>
+                    <Input placeholder="URL" value={englishWord} onChange={(e) => setEnglishWord(e.target.value)} />
                 </InputGroup>
             </Row>
             <Row className="mx-5">
