@@ -18,3 +18,13 @@ export const unStarCard = (cardId) =>
             method: "DELETE"
         })
 }
+
+export const createCardByMe = (card) =>
+{
+    return fetch(`/api/card`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(card)
+        })
+}

@@ -122,10 +122,12 @@ public class CardController : ControllerBase
         {
             ImageURL = postedCard.ImageURL,
             CreatorId = profile.Id,
-            EnglishWord = postedCard.EnglishWord
+            EnglishWord = postedCard.EnglishWord,
+            CorrectAnswerId = 1
         };
 
         _dbContext.Cards.Add(card);
+        _dbContext.SaveChanges();
 
         for (int i = 0; i < postedCard.Answers.Count; i++)
         {
