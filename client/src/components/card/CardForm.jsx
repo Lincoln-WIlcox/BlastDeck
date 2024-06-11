@@ -1,7 +1,15 @@
+import { useState } from "react"
 import { Button, Input, InputGroup, InputGroupText, Row } from "reactstrap"
 
 const CardForm = () =>
 {
+    const [answers, setAnswers] = useState([])
+
+    const handleAddAnswerPress = () =>
+    {
+        setAnswers([...answers, ""])
+    }
+
     return <div className="d-flex flex-column gap-3">
         <Row>
             <InputGroup>
@@ -12,7 +20,7 @@ const CardForm = () =>
             </InputGroup>
         </Row>
         <Row className="mx-5">
-            <Button>Add Answer</Button>
+            <Button onClick={handleAddAnswerPress}>Add Answer</Button>
         </Row>
     </div>
 }
