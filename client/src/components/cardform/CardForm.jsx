@@ -1,12 +1,24 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button, Input, InputGroup, InputGroupText, Row } from "reactstrap"
 import AnswerForm from "./AnswerForm"
+import "./CardForm.css"
 
-const CardForm = () =>
+const CardForm = ({onCardSubmitted}) =>
 {
     const [answers, setAnswers] = useState([])
     const [imageURL, setImageURL] = useState("")
     const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1)
+    const [imageIsValid, setImageIsValid] = useState(false)
+
+    useEffect(
+        () =>
+        {
+            const img = new Image();
+            img.src = imageURL;
+            img.onload = () => setImageIsValid(true);
+            img.onerror = () => setImageIsValid(false);
+        }, [imageURL]
+    )
 
     const handleAddAnswerPress = () =>
     {
@@ -30,9 +42,25 @@ const CardForm = () =>
         setAnswers(answers.filter((a, i) => i != index))
     }
 
-    return <div className="d-flex flex-column gap-3">
-        <div className="d-flex flex-column gap-3 m-2">
+    const formIsValid = () =>
+    {
+        return answers.length > 0 && correctAnswerIndex != -1 && imageURL && imageIsValid
+    }
 
+    const handleSubmitPressed = () =>
+    {
+        const Card = 
+        {
+            
+        }
+    }
+
+    return <div className="d-flex flex-column gap-3 align-items-center">
+        <div className="d-flex flex-column gap-3 m-2 align-items-center">
+            {
+                imageIsValid
+                && <img src={imageURL} className="limit-image" />
+            }
             <Row>
                 <InputGroup>
                     <InputGroupText>
@@ -59,6 +87,9 @@ const CardForm = () =>
                 )
             }
         </div>
+        <Button className="w-50" disabled={!formIsValid()} onClick={handleSubmitPressed}>Submit</Button>
+
+
     </div>
 }
 

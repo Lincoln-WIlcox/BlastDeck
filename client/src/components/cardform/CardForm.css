@@ -1,0 +1,5 @@
+.limit-image {
+    height: 30vh;
+    width: 30vh;
+    object-fit: cover;
+}
