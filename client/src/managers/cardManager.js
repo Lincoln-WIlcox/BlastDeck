@@ -33,3 +33,8 @@ export const getCardsByMe = () =>
 {
     return fetch(`/api/card/mine`).then(res => res.json())
 }
+
+export const getCardById = (id) =>
+{
+    return fetch(`/api/card/${id}`).then(res => res.json())
+}
