@@ -146,6 +146,7 @@ public class CardController : ControllerBase
     }
 
     [HttpGet("mine")]
+    [Authorize]
     public IActionResult GetCardsByMe()
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -170,5 +171,19 @@ public class CardController : ControllerBase
                     return c;
                 })
         );
+    }
+
+    [HttpGet("{id}")]
+    [Authorize]
+    public IActionResult GetCardById(int id)
+    {
+        Card? card = _dbContext.Cards.SingleOrDefault(c => c.Id == id);
+
+        if (card == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(new GetCardsDTO(card));
     }
 }
