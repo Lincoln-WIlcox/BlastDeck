@@ -3,7 +3,7 @@ import { Button, Input, InputGroup, InputGroupText, Row } from "reactstrap"
 import AnswerForm from "./AnswerForm"
 import "./CardForm.css"
 
-const CardForm = ({ onCardSubmitted }) =>
+const CardForm = ({ onCardSubmitted, existingCard }) =>
 {
     const [answers, setAnswers] = useState([])
     const [imageURL, setImageURL] = useState("")
@@ -19,6 +19,29 @@ const CardForm = ({ onCardSubmitted }) =>
             img.onload = () => setImageIsValid(true);
             img.onerror = () => setImageIsValid(false);
         }, [imageURL]
+    )
+
+    useEffect(
+        () =>
+        {
+            if(existingCard)
+            {
+                setAnswers(existingCard.answers ? existingCard.answers.map(a => a.word) : [])
+                existingCard.answers?.forEach(
+                    (a, i) =>
+                    {
+                        if(a.id == existingCard.correctAnswerId)
+                        {
+                            setCorrectAnswerIndex(i)
+                        }
+                    }
+                );
+                setImageURL(existingCard.imageURL ? existingCard.imageURL : "")
+                setEnglishWord(existingCard.englishWord ? existingCard.englishWord : "")
+            }
+
+
+        }, [existingCard]
     )
 
     const handleAddAnswerPress = () =>
