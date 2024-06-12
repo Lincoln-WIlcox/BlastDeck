@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Button, Input, InputGroup, InputGroupText, Row } from "reactstrap"
 import AnswerForm from "./AnswerForm"
 import "./CardForm.css"
+import { UserContext } from "../../App"
 
-const CardForm = ({ onCardSubmitted }) =>
+const CardForm = ({ onCardSubmitted, existingCard }) =>
 {
     const [answers, setAnswers] = useState([])
     const [imageURL, setImageURL] = useState("")
     const [englishWord, setEnglishWord] = useState("")
     const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1)
     const [imageIsValid, setImageIsValid] = useState(false)
+
+    const user = useContext(UserContext)
 
     useEffect(
         () =>
@@ -19,6 +22,29 @@ const CardForm = ({ onCardSubmitted }) =>
             img.onload = () => setImageIsValid(true);
             img.onerror = () => setImageIsValid(false);
         }, [imageURL]
+    )
+
+    useEffect(
+        () =>
+        {
+            if(existingCard)
+            {
+                setAnswers(existingCard.answers ? existingCard.answers.map(a => a.word) : [])
+                existingCard.answers?.forEach(
+                    (a, i) =>
+                    {
+                        if(a.id == existingCard.correctAnswerId)
+                        {
+                            setCorrectAnswerIndex(i)
+                        }
+                    }
+                );
+                setImageURL(existingCard.imageURL ? existingCard.imageURL : "")
+                setEnglishWord(existingCard.englishWord ? existingCard.englishWord : "")
+            }
+
+
+        }, [existingCard]
     )
 
     const handleAddAnswerPress = () =>

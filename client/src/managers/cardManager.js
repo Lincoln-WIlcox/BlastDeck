@@ -33,3 +33,18 @@ export const getCardsByMe = () =>
 {
     return fetch(`/api/card/mine`).then(res => res.json())
 }
+
+export const getCardById = (id) =>
+{
+    return fetch(`/api/card/${id}`).then(res => res.json())
+}
+
+export const editCard = (card, id) =>
+{
+    return fetch(`/api/card/${id}`,
+        {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(card)
+        })
+}

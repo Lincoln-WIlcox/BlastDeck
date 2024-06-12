@@ -1,8 +1,11 @@
 import { Badge, Button, Card, CardBody, CardImg, CardImgOverlay, CardSubtitle, CardText, CardTitle, Col, Row, Spinner } from "reactstrap";
 import "./MiniCard.css"
 import { starCard, unStarCard } from "../../managers/cardManager";
+import { createContext, useContext } from "react";
 
-const MiniCard = ({ card, cardsUpdated }) =>
+export const CardContext = createContext()
+
+const MiniCard = ({ card, cardsUpdated, children }) =>
 {
 
     const handleStarButtonPress = () =>
@@ -48,6 +51,13 @@ const MiniCard = ({ card, cardsUpdated }) =>
                             }
                         </div>
                     </Row>
+                    <CardContext.Provider value={card}>
+                        <Row>
+                            {
+                                children && children
+                            }
+                        </Row>
+                    </CardContext.Provider>
                 </Col>
             </Row>
         </CardBody>

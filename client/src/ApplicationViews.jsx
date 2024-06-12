@@ -4,7 +4,9 @@ import Login from "./components/auth/Login"
 import Register from "./components/auth/Register"
 import AllCards from "./pages/AllCards";
 import CreateCard from "./pages/CreateCard";
+import EditCard from "./pages/EditCard";
 import MyCards from "./pages/MyCards";
+import UserIsCreatorOfCard from "./components/cardform/UserIsAuthor";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser })
 {
@@ -31,6 +33,11 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
           <Route index element={<AllCards />} />
           <Route path="mine" element={<MyCards />} />
           <Route path="create" element={<CreateCard />} />
+          <Route path=":cardId/edit" element={
+            <UserIsCreatorOfCard>
+              <EditCard />
+            </UserIsCreatorOfCard>
+          } />
         </Route>
         <Route path="*" element={<p>Whoops, nothing here...</p>} />
       </Route >

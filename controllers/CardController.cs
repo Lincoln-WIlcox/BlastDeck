@@ -113,39 +113,13 @@ public class CardController : ControllerBase
     [Authorize]
     public IActionResult CreateCardByMe(PostCardDTO postedCard)
     {
-        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
-            up.IdentityUserId == identityUserId
-        );
-
-        Card card = new Card
-        {
-            ImageURL = postedCard.ImageURL,
-            CreatorId = profile.Id,
-            EnglishWord = postedCard.EnglishWord,
-            CorrectAnswerId = 1
-        };
-
-        _dbContext.Cards.Add(card);
-        _dbContext.SaveChanges();
-
-        for (int i = 0; i < postedCard.Answers.Count; i++)
-        {
-            Answer answer = new Answer { Word = postedCard.Answers[i], CardId = card.Id };
-            _dbContext.Answers.Add(answer);
-            _dbContext.SaveChanges();
-            if (i == postedCard.CorrectAnswerIndex)
-            {
-                card.CorrectAnswerId = answer.Id;
-            }
-        }
-
-        _dbContext.SaveChanges();
+        createCard(postedCard);
 
         return NoContent();
     }
 
     [HttpGet("mine")]
+    [Authorize]
     public IActionResult GetCardsByMe()
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -170,5 +144,93 @@ public class CardController : ControllerBase
                     return c;
                 })
         );
+    }
+
+    [HttpGet("{id}")]
+    [Authorize]
+    public IActionResult GetCardById(int id)
+    {
+        Card? card = _dbContext
+            .Cards.Include(c => c.Answers)
+            .Include(c => c.CorrectAnswer)
+            .SingleOrDefault(c => c.Id == id);
+
+        if (card == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(new GetCardsDTO(card));
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateCard(PostCardDTO puttingCard, int id)
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        Card existingCard = _dbContext.Cards.SingleOrDefault(c => c.Id == id);
+
+        if (existingCard == null || profile.Id != existingCard.CreatorId)
+        {
+            return BadRequest();
+        }
+
+        _dbContext.Cards.Remove(existingCard);
+
+        _dbContext.SaveChanges();
+
+        foreach (Answer answer in _dbContext.Answers)
+        {
+            if (answer.CardId == existingCard.Id)
+            {
+                _dbContext.Answers.Remove(answer);
+            }
+        }
+
+        _dbContext.SaveChanges();
+
+        createCard(puttingCard, id);
+
+        return NoContent();
+    }
+
+    void createCard(PostCardDTO createCard, int withId = 0)
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        Card card = new Card
+        {
+            ImageURL = createCard.ImageURL,
+            CreatorId = profile.Id,
+            EnglishWord = createCard.EnglishWord,
+            CorrectAnswerId = 1
+        };
+
+        if (withId != 0)
+        {
+            card.Id = withId;
+        }
+
+        _dbContext.Cards.Add(card);
+        _dbContext.SaveChanges();
+
+        for (int i = 0; i < createCard.Answers.Count; i++)
+        {
+            Answer answer = new Answer { Word = createCard.Answers[i], CardId = card.Id };
+            _dbContext.Answers.Add(answer);
+            _dbContext.SaveChanges();
+            if (i == createCard.CorrectAnswerIndex)
+            {
+                card.CorrectAnswerId = answer.Id;
+            }
+        }
+
+        _dbContext.SaveChanges();
     }
 }
