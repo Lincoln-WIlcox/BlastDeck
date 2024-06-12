@@ -164,6 +164,7 @@ public class CardController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize]
     public IActionResult UpdateCard(PostCardDTO puttingCard, int id)
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -193,6 +194,23 @@ public class CardController : ControllerBase
         _dbContext.SaveChanges();
 
         createCard(puttingCard, id);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    [Authorize]
+    public IActionResult DeleteCard(int id)
+    {
+        Card? card = _dbContext.Cards.SingleOrDefault(c => c.Id == id);
+
+        if (card == null)
+        {
+            return BadRequest();
+        }
+
+        _dbContext.Cards.Remove(card);
+        _dbContext.SaveChanges();
 
         return NoContent();
     }
