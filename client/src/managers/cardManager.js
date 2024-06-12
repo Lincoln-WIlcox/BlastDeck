@@ -49,7 +49,7 @@ export const editCard = (card, id) =>
         })
 }
 
-export const deleteCard = (cardId) =>
+export const deleteCard = (id) =>
 {
     return fetch(`/api/card/${id}`,
         {

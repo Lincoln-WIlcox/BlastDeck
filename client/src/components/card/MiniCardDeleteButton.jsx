@@ -10,7 +10,7 @@ const MiniCardDeleteButton = ({ cardDeleted }) =>
 
     const handleDeletePress = () =>
     {
-        deleteCard(cardContext).then(cardDeleted)
+        deleteCard(cardContext.id).then(cardDeleted)
     }
 
     return <div className="d-flex">
