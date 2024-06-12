@@ -202,9 +202,14 @@ public class CardController : ControllerBase
     [Authorize]
     public IActionResult DeleteCard(int id)
     {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
         Card? card = _dbContext.Cards.SingleOrDefault(c => c.Id == id);
 
-        if (card == null)
+        if (card == null || card.CreatorId != profile.Id)
         {
             return BadRequest();
         }
