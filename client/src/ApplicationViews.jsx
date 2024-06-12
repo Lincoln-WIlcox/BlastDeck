@@ -33,7 +33,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
           <Route index element={<AllCards />} />
           <Route path="mine" element={<MyCards />} />
           <Route path="create" element={<CreateCard />} />
-          <Route path="edit/:cardId" element={
+          <Route path=":cardId/edit" element={
             <UserIsCreatorOfCard>
               <EditCard />
             </UserIsCreatorOfCard>
