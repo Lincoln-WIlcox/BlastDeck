@@ -24,8 +24,10 @@ const MyCards = () =>
     )
 
     return <CardList cards={myCards} cardsUpdated={fetchAndSetMyCards}>
-        <MiniCardEditButton />
-        <MiniCardDeleteButton cardDeleted={fetchAndSetMyCards} />
+        <div className="d-flex gap-2">
+            <MiniCardEditButton />
+            <MiniCardDeleteButton cardDeleted={fetchAndSetMyCards} />
+        </div>
     </CardList>
 }
 
