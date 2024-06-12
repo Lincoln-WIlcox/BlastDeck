@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import CardForm from "../components/cardform/CardForm"
-import { createCardByMe, getCardById } from "../managers/cardManager"
+import { createCardByMe, editCard, getCardById } from "../managers/cardManager"
 import { useNavigate, useParams } from "react-router-dom"
 
 const EditCard = () =>
@@ -18,7 +18,7 @@ const EditCard = () =>
 
     const handleCardSubmitted = (card) =>
     {
-        createCardByMe(card).then(
+        editCard(card, cardId).then(
             () =>
             {
                 navigate("/card")

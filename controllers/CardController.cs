@@ -163,7 +163,7 @@ public class CardController : ControllerBase
         return Ok(new GetCardsDTO(card));
     }
 
-    [HttpPut("id")]
+    [HttpPut("{id}")]
     public IActionResult UpdateCard(PostCardDTO puttingCard, int id)
     {
         Card existingCard = _dbContext.Cards.SingleOrDefault(c => c.Id == id);
@@ -175,6 +175,8 @@ public class CardController : ControllerBase
 
         _dbContext.Cards.Remove(existingCard);
 
+        _dbContext.SaveChanges();
+
         foreach (Answer answer in _dbContext.Answers)
         {
             if (answer.CardId == existingCard.Id)
@@ -182,6 +184,8 @@ public class CardController : ControllerBase
                 _dbContext.Answers.Remove(answer);
             }
         }
+
+        _dbContext.SaveChanges();
 
         createCard(puttingCard);
 
