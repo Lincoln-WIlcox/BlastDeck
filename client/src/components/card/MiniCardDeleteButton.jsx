@@ -4,7 +4,7 @@ import { Button } from "reactstrap"
 import { Link } from "react-router-dom"
 import { deleteCard } from "../../managers/cardManager"
 
-const MiniCardEditButton = ({ cardDeleted }) =>
+const MiniCardDeleteButton = ({ cardDeleted }) =>
 {
     const cardContext = useContext(CardContext)
 
@@ -18,4 +18,4 @@ const MiniCardEditButton = ({ cardDeleted }) =>
     </div>
 }
 
-export default MiniCardEditButton
+export default MiniCardDeleteButton

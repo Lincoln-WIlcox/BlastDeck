@@ -5,6 +5,7 @@ import { Button } from "reactstrap"
 import { CardContext } from "../components/card/MiniCard"
 import CardContextProvider from "../components/card/MiniCardEditButton"
 import MiniCardEditButton from "../components/card/MiniCardEditButton"
+import MiniCardDeleteButton from "../components/card/MiniCardDeleteButton"
 
 const MyCards = () =>
 {
@@ -12,7 +13,7 @@ const MyCards = () =>
 
     const fetchAndSetMyCards = () =>
     {
-        getCardsByMe().then(setMyCards);    
+        getCardsByMe().then(setMyCards);
     }
 
     useEffect(
@@ -22,13 +23,9 @@ const MyCards = () =>
         }, []
     )
 
-    const handleEdit = (card) =>
-    {
-        console.log(card.id)
-    }
-
     return <CardList cards={myCards} cardsUpdated={fetchAndSetMyCards}>
         <MiniCardEditButton />
+        <MiniCardDeleteButton cardDeleted={fetchAndSetMyCards} />
     </CardList>
 }
 
