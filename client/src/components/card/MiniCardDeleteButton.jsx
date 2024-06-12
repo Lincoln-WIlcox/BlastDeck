@@ -2,15 +2,19 @@ import { useContext } from "react"
 import { CardContext } from "./MiniCard"
 import { Button } from "reactstrap"
 import { Link } from "react-router-dom"
+import { deleteCard } from "../../managers/cardManager"
 
-const MiniCardEditButton = () =>
+const MiniCardEditButton = ({ cardDeleted }) =>
 {
     const cardContext = useContext(CardContext)
 
+    const handleDeletePress = () =>
+    {
+        deleteCard(cardContext).then(cardDeleted)
+    }
+
     return <div className="d-flex">
-        <Link className="my-button" to={`/card/${cardContext.id}/edit`}>
-            <Button>Delete</Button>
-        </Link>
+        <Button onClick={handleDeletePress}>Delete</Button>
     </div>
 }
 

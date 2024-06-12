@@ -48,3 +48,11 @@ export const editCard = (card, id) =>
             body: JSON.stringify(card)
         })
 }
+
+export const deleteCard = (cardId) =>
+{
+    return fetch(`/api/card/${id}`,
+        {
+            method: "DELETE",
+        })
+}
