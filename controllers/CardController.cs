@@ -166,9 +166,14 @@ public class CardController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult UpdateCard(PostCardDTO puttingCard, int id)
     {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
         Card existingCard = _dbContext.Cards.SingleOrDefault(c => c.Id == id);
 
-        if (existingCard == null)
+        if (existingCard == null || profile.Id != existingCard.CreatorId)
         {
             return BadRequest();
         }
@@ -187,12 +192,12 @@ public class CardController : ControllerBase
 
         _dbContext.SaveChanges();
 
-        createCard(puttingCard);
+        createCard(puttingCard, id);
 
         return NoContent();
     }
 
-    void createCard(PostCardDTO createCard)
+    void createCard(PostCardDTO createCard, int withId = 0)
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
@@ -206,6 +211,11 @@ public class CardController : ControllerBase
             EnglishWord = createCard.EnglishWord,
             CorrectAnswerId = 1
         };
+
+        if (withId != 0)
+        {
+            card.Id = withId;
+        }
 
         _dbContext.Cards.Add(card);
         _dbContext.SaveChanges();
