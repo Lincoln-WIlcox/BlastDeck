@@ -30,13 +30,27 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
           element={<Register setLoggedInUser={setLoggedInUser} />}
         />
         <Route path="card">
-          <Route index element={<AllCards />} />
-          <Route path="mine" element={<MyCards />} />
-          <Route path="create" element={<CreateCard />} />
+          <Route index element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <AllCards />
+            </AuthorizedRoute>
+          } />
+          <Route path="mine" element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <MyCards />
+            </AuthorizedRoute>}
+          />
+          <Route path="create" element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <CreateCard />
+            </AuthorizedRoute>
+          } />
           <Route path=":cardId/edit" element={
-            <UserIsCreatorOfCard>
-              <EditCard />
-            </UserIsCreatorOfCard>
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <UserIsCreatorOfCard>
+                <EditCard />
+              </UserIsCreatorOfCard>
+            </AuthorizedRoute>
           } />
         </Route>
         <Route path="*" element={<p>Whoops, nothing here...</p>} />
