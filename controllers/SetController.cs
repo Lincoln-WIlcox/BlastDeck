@@ -1,7 +1,9 @@
 using BlastDeck.Data;
+using BlastDeck.Models;
 using BlastDeck.Models.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 [ApiController]
 [Route("/api/[controller]")]
@@ -22,9 +24,24 @@ public class SetController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize]
     public IActionResult GetSet(int id)
     {
-        
+        Set? set = _dbContext
+            .Sets.Include(s => s.UserCardSets)
+            .ThenInclude(ucs => ucs.UserCard)
+            .ThenInclude(uc => uc.Card)
+            .ThenInclude(c => c.Answers)
+            .Include(s => s.UserCardSets)
+            .ThenInclude(ucs => ucs.UserCard)
+            .ThenInclude(uc => uc.Card)
+            .ThenInclude(c => c.CorrectAnswer)
+            .SingleOrDefault(s => s.Id == id);
+
+        if (set == null)
+        {
+            return BadRequest($"No set with id {id}");
+        }
+
+        return Ok(new GetSetDTO(set));
     }
 }
