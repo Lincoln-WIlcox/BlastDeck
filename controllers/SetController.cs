@@ -50,14 +50,11 @@ public class SetController : ControllerBase
     [Authorize]
     public IActionResult RemoveCardFromSet(int id, int userCardId)
     {
-        Set? set = _dbContext.Sets.SingleOrDefault(s => s.Id == id);
-        UserCard? userCard = _dbContext.UserCards.SingleOrDefault(uc => uc.Id == userCardId);
+        UserCardSet? userCardSet = _dbContext.UserCardSets.SingleOrDefault(ucs => ucs.UserCardId == userCardId && ucs.SetId == id);
 
-        if (set == null || userCard == null)
+        if(userCardSet == null)
         {
             return BadRequest();
         }
-
-    
     }
 }
