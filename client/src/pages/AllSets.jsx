@@ -13,7 +13,7 @@ const AllSets = () =>
         }, []
     )
 
-    return <SetList />
+    return <SetList sets={allSets} />
 }
 
 export default AllSets

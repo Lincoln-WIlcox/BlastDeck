@@ -1,5 +1,5 @@
 
-const SetList = () =>
+const SetList = ({ sets }) =>
 {
     return <> set list </>
 }
