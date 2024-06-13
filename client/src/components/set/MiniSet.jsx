@@ -2,7 +2,7 @@
 
 const MiniSet = ({ set }) =>
 {
-    return <div>mini set</div>
+    return <p className="my-text">{set.setName}</p>
 }
 
 export default MiniSet
