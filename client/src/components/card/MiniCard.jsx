@@ -5,7 +5,7 @@ import { createContext, useContext } from "react";
 
 export const CardContext = createContext()
 
-const MiniCard = ({ card, cardsUpdated, children }) =>
+const MiniCard = ({ addStarButton, card, cardsUpdated, children }) =>
 {
 
     const handleStarButtonPress = () =>
@@ -30,9 +30,9 @@ const MiniCard = ({ card, cardsUpdated, children }) =>
                             <p className="my-text">{card.englishWord}</p>
                             <p className="my-text">{card.correctAnswer.word}</p>
                             {
-                                card.starred
+                                addStarButton && (card.starred
                                     ? <Button onClick={handleStarButtonPress}><i className="fa fa-star-o" aria-hidden="true"></i></Button>
-                                    : <Button onClick={handleUnstarButtonPress}><i className="fa fa-star" aria-hidden="true"></i></Button>
+                                    : <Button onClick={handleUnstarButtonPress}><i className="fa fa-star" aria-hidden="true"></i></Button>)
                             }
 
                         </div>
