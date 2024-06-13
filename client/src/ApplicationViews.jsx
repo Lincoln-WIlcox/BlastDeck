@@ -7,6 +7,7 @@ import CreateCard from "./pages/CreateCard";
 import EditCard from "./pages/EditCard";
 import MyCards from "./pages/MyCards";
 import UserIsCreatorOfCard from "./components/cardform/UserIsAuthor";
+import AllSets from "./pages/AllSets";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser })
 {
@@ -50,6 +51,13 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
               <UserIsCreatorOfCard>
                 <EditCard />
               </UserIsCreatorOfCard>
+            </AuthorizedRoute>
+          } />
+        </Route>
+        <Route path="set">
+          <Route index element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <AllSets />
             </AuthorizedRoute>
           } />
         </Route>

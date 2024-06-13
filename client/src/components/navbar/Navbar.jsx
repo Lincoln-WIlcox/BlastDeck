@@ -58,6 +58,18 @@ export default function NavBar({ loggedInUser, setLoggedInUser })
                                         </DropdownItem>
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle className="my-text" nav caret>
+                                        Set
+                                    </DropdownToggle>
+                                    <DropdownMenu className="bg-battleship-gray" end>
+                                        <DropdownItem>
+                                            <NavLink className="my-text" href="/set">
+                                                All Sets
+                                            </NavLink>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
                             </Nav>
                         </Collapse>
                         <Button
