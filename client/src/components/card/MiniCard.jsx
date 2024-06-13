@@ -21,12 +21,10 @@ const MiniCard = ({ addStarButton, card, cardsUpdated, children }) =>
     return <Card className="bg-black-olive shadow-sm">
         <CardBody>
             <Row>
-                <Col xs={4}>
                     <div className="mini-card-container">
                         <CardImg src={card.imageURL} className="mini-card border-black border-2 shadow-sm" />
                     </div>
-                </Col>
-                <Col lg>
+                <Col>
                     <Row>
                         <div className="d-flex gap-4">
                             <p className="my-text">{card.englishWord}</p>
