@@ -24,6 +24,7 @@ public class SetController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public IActionResult GetSet(int id)
     {
         Set? set = _dbContext
@@ -43,5 +44,20 @@ public class SetController : ControllerBase
         }
 
         return Ok(new GetSetDTO(set));
+    }
+
+    [HttpDelete("{id}/remove-card")]
+    [Authorize]
+    public IActionResult RemoveCardFromSet(int id, int userCardId)
+    {
+        Set? set = _dbContext.Sets.SingleOrDefault(s => s.Id == id);
+        UserCard? userCard = _dbContext.UserCards.SingleOrDefault(uc => uc.Id == userCardId);
+
+        if (set == null || userCard == null)
+        {
+            return BadRequest();
+        }
+
+    
     }
 }
