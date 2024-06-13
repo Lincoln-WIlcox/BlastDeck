@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { getSetById } from "../../managers/setManager"
 import CardList from "../../components/card/CardList"
 import "./SetDetails.css"
+import RemoveCardFromSetButton from "../../components/set/RemoveCardFromSetButton"
 
 const SetDetails = () =>
 {
@@ -24,10 +25,17 @@ const SetDetails = () =>
         }, [setId]
     )
 
+    const handleRemoveFromSetPressed = (cardId) =>
+    {
+
+    }
+
     return <div>
         <p className="my-text set-header">{set.setName}</p>
         {
-            set.userCardSets && <CardList cards={set.userCardSets.map(ucs => ucs.userCard.card)} cardsUpdated={fetchAndSetSet} />
+            set.userCardSets && <CardList cards={set.userCardSets.map(ucs => ucs.userCard.card)} cardsUpdated={fetchAndSetSet} >
+                <RemoveCardFromSetButton onRemoveFromSetPressed={handleRemoveFromSetPressed} />
+            </CardList>
         }
     </div>
 }
