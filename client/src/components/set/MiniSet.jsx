@@ -1,6 +1,6 @@
 
 
-const MiniSet = () =>
+const MiniSet = ({ set }) =>
 {
     return <>mini set</>
 }
