@@ -1,4 +1,6 @@
 using BlastDeck.Data;
+using BlastDeck.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -13,8 +15,9 @@ public class SetController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public IActionResult GetSets()
     {
-        
+        return Ok(_dbContext.Sets.Select(s => new GetSetsDTO(s)));
     }
 }
