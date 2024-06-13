@@ -20,4 +20,11 @@ public class SetController : ControllerBase
     {
         return Ok(_dbContext.Sets.Select(s => new GetSetsDTO(s)));
     }
+
+    [HttpGet("{id}")]
+    [Authorize]
+    public IActionResult GetSet(int id)
+    {
+        
+    }
 }
