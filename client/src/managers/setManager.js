@@ -15,3 +15,13 @@ export const removeCardFromSet = (setId, cardId) =>
             method: "DELETE",
         })
 }
+
+export const createSetByMe = (setName) =>
+{
+    return fetch(`/api/set`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ setName })
+        })
+}

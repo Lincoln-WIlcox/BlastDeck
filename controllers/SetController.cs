@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using BlastDeck.Data;
 using BlastDeck.Models;
 using BlastDeck.Models.DTOs;
@@ -60,6 +61,23 @@ public class SetController : ControllerBase
         }
 
         _dbContext.UserCardSets.Remove(userCardSet);
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
+
+    [HttpPost]
+    [Authorize]
+    public IActionResult CreateSetByMe(PostSetDTO postSet)
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        Set set = new Set { SetName = postSet.SetName, CreatorId = profile.Id, };
+
+        _dbContext.Sets.Add(set);
         _dbContext.SaveChanges();
 
         return NoContent();

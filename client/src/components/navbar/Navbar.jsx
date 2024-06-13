@@ -65,7 +65,12 @@ export default function NavBar({ loggedInUser, setLoggedInUser })
                                     <DropdownMenu className="bg-battleship-gray" end>
                                         <DropdownItem>
                                             <NavLink className="my-text" href="/set">
-                                                All Sets
+                                                My Sets
+                                            </NavLink>
+                                        </DropdownItem>
+                                        <DropdownItem>
+                                            <NavLink className="my-text" href="/set/create">
+                                                Create Set
                                             </NavLink>
                                         </DropdownItem>
                                     </DropdownMenu>
