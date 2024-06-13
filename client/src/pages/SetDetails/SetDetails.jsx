@@ -9,12 +9,17 @@ const SetDetails = () =>
     const { setId } = useParams()
     const [set, setSet] = useState({})
 
+    const fetchAndSetSet = () =>
+    {
+        getSetById(setId).then(setSet)
+    }
+
     useEffect(
         () =>
         {
             if(setId)
             {
-                getSetById(setId).then(setSet)
+                fetchAndSetSet()
             }
         }, [setId]
     )
@@ -22,7 +27,7 @@ const SetDetails = () =>
     return <div>
         <p className="my-text set-header">{set.setName}</p>
         {
-            set.userCardSets && <CardList cards={set.userCardSets.map(ucs => ucs.userCard.card)} />
+            set.userCardSets && <CardList cards={set.userCardSets.map(ucs => ucs.userCard.card)} cardsUpdated={fetchAndSetSet} />
         }
     </div>
 }
