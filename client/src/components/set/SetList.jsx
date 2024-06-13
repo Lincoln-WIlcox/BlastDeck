@@ -1,7 +1,9 @@
+import MiniSet from "./MiniSet"
 
 const SetList = ({ sets }) =>
 {
-    return <> set list </>
+    return sets.map(s =>
+        <MiniSet />)
 }
 
 export default SetList
