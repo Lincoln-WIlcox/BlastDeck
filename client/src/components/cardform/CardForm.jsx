@@ -108,7 +108,7 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
                 </InputGroup>
             </Row>
             <Row className="mx-5">
-                <Button onClick={handleAddAnswerPress}>Add Answer</Button>
+                <Button onClick={handleAddAnswerPress} className="my-text smaller-text">Add Answer</Button>
             </Row>
         </div>
         <div className="d-flex flex-column gap-3">
@@ -125,9 +125,9 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
                 )
             }
         </div>
-        <Button className="w-50" disabled={!formIsValid()} onClick={handleSubmitPressed}>Submit</Button>
-
-
+        <div>
+            <Button className="my-text" disabled={!formIsValid()} onClick={handleSubmitPressed}>Submit</Button>
+        </div>
     </div>
 }
 
