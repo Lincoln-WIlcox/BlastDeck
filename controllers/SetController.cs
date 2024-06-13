@@ -48,11 +48,11 @@ public class SetController : ControllerBase
 
     [HttpDelete("{id}/remove-card")]
     [Authorize]
-    public IActionResult RemoveCardFromSet(int id, int userCardId)
+    public IActionResult RemoveCardFromSet(int id, int cardId)
     {
-        UserCardSet? userCardSet = _dbContext.UserCardSets.SingleOrDefault(ucs =>
-            ucs.UserCardId == userCardId && ucs.SetId == id
-        );
+        UserCardSet? userCardSet = _dbContext
+            .UserCardSets.Include(ucs => ucs.UserCard)
+            .SingleOrDefault(ucs => ucs.UserCard.CardId == cardId && ucs.SetId == id);
 
         if (userCardSet == null)
         {

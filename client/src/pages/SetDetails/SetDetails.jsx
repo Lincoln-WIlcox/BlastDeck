@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { getSetById } from "../../managers/setManager"
+import { getSetById, removeCardFromSet } from "../../managers/setManager"
 import CardList from "../../components/card/CardList"
 import "./SetDetails.css"
 import RemoveCardFromSetButton from "../../components/set/RemoveCardFromSetButton"
@@ -27,7 +27,7 @@ const SetDetails = () =>
 
     const handleRemoveFromSetPressed = (cardId) =>
     {
-
+        removeCardFromSet(setId, cardId).then(fetchAndSetSet)
     }
 
     return <div>
