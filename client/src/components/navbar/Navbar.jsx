@@ -69,7 +69,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser })
                                             </NavLink>
                                         </DropdownItem>
                                         <DropdownItem>
-                                            <NavLink className="my-text" href="/set">
+                                            <NavLink className="my-text" href="/set/create">
                                                 Create Set
                                             </NavLink>
                                         </DropdownItem>
