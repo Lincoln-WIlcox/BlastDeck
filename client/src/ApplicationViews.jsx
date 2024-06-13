@@ -9,6 +9,7 @@ import MyCards from "./pages/MyCards";
 import UserIsCreatorOfCard from "./components/cardform/UserIsAuthor";
 import AllSets from "./pages/AllSets";
 import SetDetails from "./pages/SetDetails/SetDetails";
+import CreateSet from "./pages/CreateSet";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser })
 {
@@ -64,6 +65,11 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
           <Route path=":setId" element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <SetDetails />
+            </AuthorizedRoute>
+          } />
+          <Route path="create" element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <CreateSet />
             </AuthorizedRoute>
           } />
         </Route>
