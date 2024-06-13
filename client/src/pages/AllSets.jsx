@@ -1,7 +1,8 @@
+import SetList from "../components/set/SetList"
 
 const AllSets = () =>
 {
-    return <> all sets </>
+    return <SetList />
 }
 
 export default AllSets
