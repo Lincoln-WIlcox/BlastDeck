@@ -23,7 +23,7 @@ const MyCards = () =>
         }, []
     )
 
-    return <CardList cards={myCards} cardsUpdated={fetchAndSetMyCards}>
+    return <CardList cards={myCards} cardsUpdated={fetchAndSetMyCards} addStarButton>
         <div className="d-flex gap-2">
             <MiniCardEditButton />
             <MiniCardDeleteButton cardDeleted={fetchAndSetMyCards} />
