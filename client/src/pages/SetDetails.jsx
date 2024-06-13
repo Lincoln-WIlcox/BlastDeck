@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { getSetById } from "../managers/setManager"
+import CardList from "../components/card/CardList"
 
 const SetDetails = () =>
 {
@@ -17,7 +18,11 @@ const SetDetails = () =>
         }, [setId]
     )
 
-    return <> set details </>
+    return <div>
+        {
+            set.userCardSets && <CardList cards={set.userCardSets.map(ucs => ucs.userCard.card)} />
+        }
+    </div>
 }
 
 export default SetDetails
