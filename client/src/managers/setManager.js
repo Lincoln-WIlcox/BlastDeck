@@ -16,7 +16,7 @@ export const removeCardFromSet = (setId, cardId) =>
         })
 }
 
-export const createSet = (setName) =>
+export const createSetByMe = (setName) =>
 {
     return fetch(`/api/set`,
         {
