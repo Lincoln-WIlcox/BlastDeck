@@ -8,7 +8,7 @@ import EditCard from "./pages/EditCard";
 import MyCards from "./pages/MyCards";
 import UserIsCreatorOfCard from "./components/cardform/UserIsAuthor";
 import AllSets from "./pages/AllSets";
-import SetDetails from "./pages/SetDetails";
+import SetDetails from "./pages/SetDetails/SetDetails";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser })
 {
