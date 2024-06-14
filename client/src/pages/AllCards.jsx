@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import CardList from "../components/card/CardList"
 import { getCards } from "../managers/cardManager"
+import AllCardsList from "../components/card/AllCardList"
 
 const AllCards = () =>
 {
@@ -36,7 +37,7 @@ const AllCards = () =>
 
     return <>
         <input type="search" placeholder="filter by english word" className="text-black rounded my-shadow-light p-1" onChange={(e) => setSearchQuery(e.target.value)} value={searchQuery} />
-        <CardList cards={showCards} cardsUpdated={fetchAndSetAllCards} addStarButton />
+        <AllCardsList cards={showCards} cardsUpdated={fetchAndSetAllCards} />
     </>
 }
 

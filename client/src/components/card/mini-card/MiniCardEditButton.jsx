@@ -8,7 +8,7 @@ const MiniCardEditButton = () =>
     const cardContext = useContext(CardContext)
 
     return <div className="d-flex">
-        <Link className="my-button" to={`/card/${cardContext.id}/edit`}>
+        <Link className="my-button" to={`/card/${cardContext?.id}/edit`}>
             <Button>Edit</Button>
         </Link>
     </div>

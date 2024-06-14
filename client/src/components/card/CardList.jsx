@@ -1,5 +1,5 @@
 import { Row } from "reactstrap"
-import MiniCard from "./MiniCard"
+import MiniCard from "./mini-card/MiniCard"
 
 const CardList = ({ addStarButton, cards, cardsUpdated, children }) =>
 {

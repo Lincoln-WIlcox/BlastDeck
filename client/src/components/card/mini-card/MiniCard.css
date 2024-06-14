@@ -1,9 +1,13 @@
 .mini-card {
+  width: 60vw;
+}
+
+.mini-card-image {
   object-fit: cover;
   height: 100%;
 }
 
-.mini-card-container {
+.mini-card-image-container {
   height: 50vw;
   max-width: 13rem;
   max-height: 13rem;

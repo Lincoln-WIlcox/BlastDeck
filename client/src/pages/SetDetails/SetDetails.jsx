@@ -5,6 +5,7 @@ import CardList from "../../components/card/CardList"
 import "./SetDetails.css"
 import RemoveCardFromSetButton from "../../components/set/RemoveCardFromSetButton"
 import { Row } from "reactstrap"
+import SetCardList from "../../components/card/SetCardsList"
 
 const SetDetails = () =>
 {
@@ -35,9 +36,7 @@ const SetDetails = () =>
         <p className="my-text set-header">{set.setName}</p>
         {
             set.userCardSets &&
-            <CardList cards={set.userCardSets.map(ucs => ucs.userCard.card)} cardsUpdated={fetchAndSetSet} >
-                <RemoveCardFromSetButton onRemoveFromSetPressed={handleRemoveFromSetPressed} />
-            </CardList>
+            <SetCardList cards={set.userCardSets.map(ucs => ucs.userCard.card)} cardsUpdated={fetchAndSetSet} onRemoveFromSetPressed={handleRemoveFromSetPressed} />
         }
     </div>
 }
