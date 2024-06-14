@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react"
 import CardList from "../components/card/CardList"
 import { getCards, getCardsByMe } from "../managers/cardManager"
 import { Button } from "reactstrap"
-import { CardContext } from "../components/card/MiniCard"
-import CardContextProvider from "../components/card/MiniCardEditButton"
-import MiniCardEditButton from "../components/card/MiniCardEditButton"
-import MiniCardDeleteButton from "../components/card/MiniCardDeleteButton"
+import { CardContext } from "../components/card/mini-card/MiniCard"
+
+import EditableMiniCard from "../components/card/mini-card/MyMiniCard"
+import MyMiniCard from "../components/card/mini-card/MyMiniCard"
+import MyCardsList from "../components/card/MyCardsList"
 
 const MyCards = () =>
 {
@@ -23,12 +24,9 @@ const MyCards = () =>
         }, []
     )
 
-    return <CardList cards={myCards} cardsUpdated={fetchAndSetMyCards} addStarButton>
-        <div className="d-flex gap-2">
-            <MiniCardEditButton />
-            <MiniCardDeleteButton cardDeleted={fetchAndSetMyCards} />
-        </div>
-    </CardList>
+    return <MyCardsList cards={myCards} cardsUpdated={fetchAndSetMyCards} addStarButton>
+        <MyMiniCard />
+    </MyCardsList>
 }
 
 export default MyCards

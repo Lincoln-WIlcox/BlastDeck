@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { CardContext } from "../card/MiniCard"
+import { CardContext } from "../card/mini-card/MiniCard"
 import { Button } from "reactstrap"
 
 const RemoveCardFromSetButton = ({ onRemoveFromSetPressed }) =>
