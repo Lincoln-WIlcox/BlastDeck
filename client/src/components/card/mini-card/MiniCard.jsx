@@ -18,11 +18,11 @@ export const CardContext = createContext()
 const MiniCard = ({ card, children }) =>
 {
 
-    return <Row className="d-flex mt-5">
+    return <Row className="d-flex mt-5 mini-card">
         <Card className="bg-black-olive shadow-sm">
             <CardBody>
                 <CardContext.Provider value={card}>
-                    <Row className="d-flex flex-nowrap">
+                    <Row>
                         {children}
                         {/* <MiniCardSidebar>
                         <MiniCardImage src={card.imageURL} />
