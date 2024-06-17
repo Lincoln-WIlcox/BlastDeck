@@ -104,6 +104,8 @@ public class SetController : ControllerBase
             _dbContext.UserCardSets.Add(userCardSet);
         }
 
+        _dbContext.SaveChanges();
+
         return NoContent();
     }
 }

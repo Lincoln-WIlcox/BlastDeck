@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { getSetById } from "../managers/setManager"
+import { useNavigate, useParams } from "react-router-dom"
+import { addCardsToSet, getSetById } from "../managers/setManager"
 import PickMiniCardList from "../components/card/PickMiniCardList"
 import { getStarred } from "../managers/cardManager"
 import { Button } from "reactstrap"
@@ -11,6 +11,8 @@ const AddCardToSet = () =>
     const [cards, setCards] = useState([])
     const [selectedCards, setSelectedCards] = useState([])
     const { setId } = useParams()
+
+    const navigate = useNavigate()
 
     const fetchAndSetStarredCards = () =>
     {
@@ -43,7 +45,12 @@ const AddCardToSet = () =>
 
     const handleAddCardsButtonPressed = () =>
     {
-        
+        addCardsToSet(selectedCards, setId).then(
+            () =>
+            {
+                navigate(`/set/${setId}`)
+            }
+        )
     }
 
     return <div>
