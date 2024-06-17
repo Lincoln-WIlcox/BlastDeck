@@ -12,6 +12,7 @@ import SetDetails from "./pages/SetDetails/SetDetails";
 import CreateSet from "./pages/CreateSet";
 import AddCardToSet from "./pages/AddCardToSet";
 import PracticePage from "./pages/PracticePage";
+import ViewStarredCards from "./pages/ViewStarredCards";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser })
 {
@@ -55,6 +56,11 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
               <UserIsCreatorOfCard>
                 <EditCard />
               </UserIsCreatorOfCard>
+            </AuthorizedRoute>
+          } />
+          <Route path="starred" element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <ViewStarredCards />
             </AuthorizedRoute>
           } />
         </Route>

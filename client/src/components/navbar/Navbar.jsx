@@ -50,6 +50,11 @@ export default function NavBar({ loggedInUser, setLoggedInUser })
                                                 My Cards
                                             </NavLink>
                                         </DropdownItem>
+                                        <DropdownItem>
+                                            <NavLink className="my-text" href="/card/starred">
+                                                Starred Cards
+                                            </NavLink>
+                                        </DropdownItem>
                                         <DropdownItem divider />
                                         <DropdownItem>
                                             <NavLink className="my-text" href="/card/create">
