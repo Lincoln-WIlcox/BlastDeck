@@ -220,6 +220,27 @@ public class CardController : ControllerBase
         return NoContent();
     }
 
+    [HttpGet]
+    [Authorize]
+    public IActionResult GetStarredCards()
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        List<Card> cards = _dbContext
+            .UserCards.Include(uc => uc.Card)
+            .ThenInclude(c => c.Answers)
+            .Include(uc => uc.Card)
+            .ThenInclude(c => c.CorrectAnswer)
+            .Where(uc => uc.UserId == profile.Id)
+            .Select(uc => uc.Card)
+            .ToList();
+
+        return Ok(cards.Select(c => new GetCardsDTO(c)));
+    }
+
     void createCard(PostCardDTO createCard, int withId = 0)
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
