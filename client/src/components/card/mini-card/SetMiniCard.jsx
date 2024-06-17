@@ -11,7 +11,7 @@ import MiniCardSubheader from "./MiniCardSubheader"
 import MiniCardContent from "./MiniCardContent"
 import RemoveCardFromSetButton from "../../set/RemoveCardFromSetButton"
 
-const SetMiniCard = ({ card, onStarButtonPress, onUnstarButtonPress, onRemoveFromSetPressed }) =>
+const SetMiniCard = ({ card, onRemoveFromSetPressed }) =>
 {
     return <MiniCard card={card}>
         <MiniCardSidebar>
@@ -22,7 +22,6 @@ const SetMiniCard = ({ card, onStarButtonPress, onUnstarButtonPress, onRemoveFro
             <MiniCardHeader>
                 <MiniCardHeaderText>{card?.englishWord}</MiniCardHeaderText>
                 <MiniCardHeaderText>{card?.correctAnswer.word}</MiniCardHeaderText>
-                <MiniCardStarButton starred={card?.starred} onStarButtonPress={onStarButtonPress} onUnstarButtonPress={onUnstarButtonPress} />
             </MiniCardHeader>
             <MiniCardSubheader>
                 {

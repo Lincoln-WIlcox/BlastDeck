@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import SetList from "../components/set/SetList"
-import { getSets } from "../managers/setManager"
+import { getSets, getSetsByUser } from "../managers/setManager"
 
 const AllSets = () =>
 {
@@ -9,7 +9,7 @@ const AllSets = () =>
     useEffect(
         () =>
         {
-            getSets().then(setAllSets)
+            getSetsByUser().then(setAllSets)
         }, []
     )
 
