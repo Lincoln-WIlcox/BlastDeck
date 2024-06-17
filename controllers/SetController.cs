@@ -26,6 +26,20 @@ public class SetController : ControllerBase
 
     [HttpGet("{id}")]
     [Authorize]
+    public IActionResult GetSetsForUser()
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        return Ok(
+            _dbContext.Sets.Where(s => s.CreatorId == profile.Id).Select(s => new GetSetsDTO(s))
+        );
+    }
+
+    [HttpGet("{id}")]
+    [Authorize]
     public IActionResult GetSet(int id)
     {
         Set? set = _dbContext
