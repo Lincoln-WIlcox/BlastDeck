@@ -5,7 +5,7 @@ import { UserContext } from "../App"
 import { getSetsByUser } from "../managers/setManager"
 import PracticeSetList from "../components/set/PracticeSetList"
 
-const PracticePage = () =>
+const Practice = () =>
 {
     const [sets, setSets] = useState([])
     const user = useContext(UserContext)
@@ -25,4 +25,4 @@ const PracticePage = () =>
     </div>
 }
 
-export default PracticePage
+export default Practice

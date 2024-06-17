@@ -11,8 +11,10 @@ import AllSets from "./pages/AllSets";
 import SetDetails from "./pages/SetDetails/SetDetails";
 import CreateSet from "./pages/CreateSet";
 import AddCardToSet from "./pages/AddCardToSet";
-import PracticePage from "./pages/PracticePage";
+import PracticePage from "./pages/Practice";
 import ViewStarredCards from "./pages/ViewStarredCards";
+import PracticeAll from "./pages/PracticeAll";
+import Practice from "./pages/Practice";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser })
 {
@@ -89,7 +91,8 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
           } />
         </Route>
         <Route path="practice">
-          <Route index element={<PracticePage />} />
+          <Route index element={<Practice />} />
+          <Route path="all" element={<PracticeAll />} />
         </Route>
         <Route path="*" element={<p>Whoops, nothing here...</p>} />
       </Route >
