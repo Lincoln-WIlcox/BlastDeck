@@ -16,7 +16,7 @@ const AddCardToSet = () =>
 
     const fetchAndSetStarredCards = () =>
     {
-        getStarred().then(setCards)
+        getStarred(setId).then(setCards)
     }
 
     const fetchAndSetSet = () =>

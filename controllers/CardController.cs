@@ -222,7 +222,7 @@ public class CardController : ControllerBase
 
     [HttpGet("starred")]
     [Authorize]
-    public IActionResult GetStarredCards()
+    public IActionResult GetStarredCards(int? notInSet)
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
@@ -234,7 +234,11 @@ public class CardController : ControllerBase
             .ThenInclude(c => c.Answers)
             .Include(uc => uc.Card)
             .ThenInclude(c => c.CorrectAnswer)
-            .Where(uc => uc.UserId == profile.Id)
+            .Include(uc => uc.UserCardSets)
+            .Where(uc =>
+                uc.UserId == profile.Id
+                && (notInSet == null || uc.UserCardSets.All(ucs => ucs.SetId != notInSet))
+            )
             .Select(uc => uc.Card)
             .ToList();
 

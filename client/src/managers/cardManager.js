@@ -57,7 +57,7 @@ export const deleteCard = (id) =>
         })
 }
 
-export const getStarred = () =>
+export const getStarred = (notInSet = null) =>
 {
-    return fetch(`/api/card/starred`).then(res => res.json())
+    return fetch(`/api/card/starred` + (notInSet ? `?notInSet=${notInSet}` : "")).then(res => res.json())
 }
