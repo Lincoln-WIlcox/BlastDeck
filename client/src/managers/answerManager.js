@@ -4,6 +4,6 @@ export const answerCard = (cardId, answerId) =>
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(cardId, answerId)
+            body: JSON.stringify({ cardId, answerId })
         }).then(res => res.json())
 }

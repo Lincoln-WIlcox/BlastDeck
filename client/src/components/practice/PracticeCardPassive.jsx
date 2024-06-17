@@ -1,11 +1,24 @@
 import { Button } from "reactstrap"
 import "./Practice.css"
+import { answerCard } from "../../managers/answerManager"
 
 const PracticeCardPassive = ({ card, onContinuePressed }) =>
 {
-    const handleAnswerChosen = (correct) =>
+    const handleAnswerChosen = (answerId) =>
     {
-        debugger
+        //the endpoint will return if the answer is correct. The endpoint will also make a userAnswer
+        answerCard(card.id, answerId).then(
+            (correct) =>
+            {
+                if(correct)
+                {
+                    console.log("correct!")
+                } else
+                {
+                    console.log("incorrect")
+                }
+            }
+        )
     }
 
     return <div className="d-flex flex-column justify-content-between practice-container">
@@ -16,7 +29,7 @@ const PracticeCardPassive = ({ card, onContinuePressed }) =>
             {
                 card?.answers.map(a =>
                     <div>
-                        <Button className="my-text" onClick={() => handleAnswerChosen(a.id == card.correctAnswerId)}>{a.word}</Button>
+                        <Button className="my-text" onClick={() => handleAnswerChosen(a.id)}>{a.word}</Button>
                     </div>)
             }
         </div>
