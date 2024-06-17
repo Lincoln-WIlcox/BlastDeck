@@ -1,7 +1,8 @@
+import PracticeManager from "../components/practice/PracticeManager"
 
 const PracticeAll = () =>
 {
-    return <> practice all </>
+    return <PracticeManager />
 }
 
 export default PracticeAll
