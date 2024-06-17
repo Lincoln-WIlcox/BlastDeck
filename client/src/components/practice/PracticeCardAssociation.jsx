@@ -7,6 +7,7 @@ const PracticeCardAssociation = ({ card, onContinuePressed }) =>
         <div className="d-flex flex-column gap-3">
             <img className="practice-image" src={card?.imageURL} />
             <p className="my-text text-center">{card?.correctAnswer.word}</p>
+            <p className="my-text text-center">{card?.englishWord}</p>
         </div>
         <div>
             <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
