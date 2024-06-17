@@ -1,5 +1,5 @@
 import { useState } from "react"
-import PracticeCardAssociation from "./PracticeCard"
+import PracticeCardAssociation from "./PracticeCardAssociation"
 
 const PracticeManager = ({ cards }) =>
 {
