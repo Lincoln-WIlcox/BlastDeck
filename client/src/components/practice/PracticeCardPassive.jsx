@@ -3,15 +3,22 @@ import "./Practice.css"
 
 const PracticeCardPassive = ({ card, onContinuePressed }) =>
 {
+    const handleAnswerChosen = (correct) =>
+    {
+        debugger
+    }
+
     return <div className="d-flex flex-column justify-content-between practice-container">
         <div className="d-flex flex-column gap-3">
             <img className="practice-image" src={card?.imageURL} />
-            <p className="my-text text-center">{card?.correctAnswer.word}</p>
-            <p className="my-text text-center">{card?.englishWord}</p>
-            PracticeCardPassive
         </div>
-        <div>
-            <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
+        <div className="d-flex flex-column">
+            {
+                card?.answers.map(a =>
+                    <div>
+                        <Button className="my-text" onClick={() => handleAnswerChosen(a.id == card.correctAnswerId)}>{a.word}</Button>
+                    </div>)
+            }
         </div>
     </div>
 }
