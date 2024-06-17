@@ -220,7 +220,7 @@ public class CardController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet]
+    [HttpGet("starred")]
     [Authorize]
     public IActionResult GetStarredCards()
     {
