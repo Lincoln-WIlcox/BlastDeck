@@ -75,6 +75,11 @@ export default function NavBar({ loggedInUser, setLoggedInUser })
                                         </DropdownItem>
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
+                                <NavItem>
+                                    <NavLink className="my-text" tag={RRNavLink} to="/practice">
+                                        Practice
+                                    </NavLink>
+                                </NavItem>
                             </Nav>
                         </Collapse>
                         <Button
