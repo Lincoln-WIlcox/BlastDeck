@@ -10,11 +10,11 @@ import MiniCardStarButton from "./MiniCardStarButton"
 import MiniCardSubheader from "./MiniCardSubheader"
 import MiniCardContent from "./MiniCardContent"
 
-const PickMiniCard = ({ card, onStarButtonPress, onUnstarButtonPress }) =>
+const PickMiniCard = ({ card, onStarButtonPress, onUnstarButtonPress, onCheckboxChanged }) =>
 {
     return <MiniCard card={card}>
         <MiniCardSidebar>
-            <Input type="radio" />
+            <Input type="checkbox" onChange={onCheckboxChanged} />
             <MiniCardImage src={card?.imageURL} />
         </MiniCardSidebar>
 
