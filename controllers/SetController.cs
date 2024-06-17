@@ -106,6 +106,12 @@ public class SetController : ControllerBase
             up.IdentityUserId == identityUserId
         );
 
+        Set set = _dbContext.Sets.SingleOrDefault(s => s.Id == id);
+        if (profile.Id != set.CreatorId)
+        {
+            return BadRequest("you are not the creator of this set");
+        }
+
         List<UserCardSet> userCardSets = _dbContext
             .UserCards.Where(uc =>
                 uc.UserId == profile.Id && cardsToAdd.cardIds.Any(cId => cId == uc.CardId)
