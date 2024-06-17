@@ -37,7 +37,7 @@ const AllCards = () =>
 
     return <>
         <input type="search" placeholder="filter by english word" className="text-black rounded my-shadow-light p-1" onChange={(e) => setSearchQuery(e.target.value)} value={searchQuery} />
-        <AllCardsList cards={showCards} cardsUpdated={fetchAndSetAllCards} />
+        <AllCardsList cards={showCards} onCardsChanged={fetchAndSetAllCards} />
     </>
 }
 

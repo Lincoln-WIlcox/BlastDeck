@@ -25,3 +25,13 @@ export const createSetByMe = (setName) =>
             body: JSON.stringify({ setName })
         })
 }
+
+export const addCardsToSet = (cardIds, setId) =>
+{
+    return fetch(`/api/set/${setId}/add-cards`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cardIds })
+        })
+}

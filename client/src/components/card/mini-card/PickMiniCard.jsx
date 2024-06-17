@@ -9,11 +9,14 @@ import MiniCardHeaderText from "./MiniCardHeaderText"
 import MiniCardStarButton from "./MiniCardStarButton"
 import MiniCardSubheader from "./MiniCardSubheader"
 import MiniCardContent from "./MiniCardContent"
+import { Input } from "reactstrap"
 
-const AllMiniCard = ({ card, onCardChanged }) =>
+const PickMiniCard = ({ card, onCardsChanged, onCheckboxChanged }) =>
 {
     return <MiniCard card={card}>
         <MiniCardSidebar>
+            <Input type="checkbox"
+                onChange={(e) => onCheckboxChanged(e.target.checked, card.id)} />
             <MiniCardImage src={card?.imageURL} />
         </MiniCardSidebar>
 
@@ -21,7 +24,6 @@ const AllMiniCard = ({ card, onCardChanged }) =>
             <MiniCardHeader>
                 <MiniCardHeaderText>{card?.englishWord}</MiniCardHeaderText>
                 <MiniCardHeaderText>{card?.correctAnswer.word}</MiniCardHeaderText>
-                <MiniCardStarButton starred={card?.starred} onStarChanged={onCardChanged} />
             </MiniCardHeader>
             <MiniCardSubheader>
                 {
@@ -44,4 +46,4 @@ const AllMiniCard = ({ card, onCardChanged }) =>
     </MiniCard>
 }
 
-export default AllMiniCard
+export default PickMiniCard

@@ -10,6 +10,7 @@ import UserIsCreatorOfCard from "./components/cardform/UserIsAuthor";
 import AllSets from "./pages/AllSets";
 import SetDetails from "./pages/SetDetails/SetDetails";
 import CreateSet from "./pages/CreateSet";
+import AddCardToSet from "./pages/AddCardToSet";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser })
 {
@@ -62,11 +63,19 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
               <AllSets />
             </AuthorizedRoute>
           } />
-          <Route path=":setId" element={
+          <Route path=":setId">
+            <Route index element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <SetDetails />
             </AuthorizedRoute>
           } />
+            <Route path="add-card" element={
+              <AuthorizedRoute loggedInUser={loggedInUser}>
+                <AddCardToSet />
+              </AuthorizedRoute>
+            } />
+          </Route>
+          
           <Route path="create" element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <CreateSet />

@@ -82,4 +82,30 @@ public class SetController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPost("{id}/add-cards")]
+    [Authorize]
+    public IActionResult AddCardsToSet(AddCardsToSetDTO cardsToAdd, int id)
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        List<UserCardSet> userCardSets = _dbContext
+            .UserCards.Where(uc =>
+                uc.UserId == profile.Id && cardsToAdd.cardIds.Any(cId => cId == uc.CardId)
+            )
+            .Select(uc => new UserCardSet { UserCardId = uc.Id, SetId = id })
+            .ToList();
+
+        foreach (UserCardSet userCardSet in userCardSets)
+        {
+            _dbContext.UserCardSets.Add(userCardSet);
+        }
+
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
 }
