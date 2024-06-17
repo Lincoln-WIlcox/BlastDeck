@@ -7,6 +7,7 @@ import { getStarred } from "../managers/cardManager"
 const AddCardToSet = () =>
 {
     const [cards, setCards] = useState([])
+    const [selectedCards, setSelectedCards] = useState([])
     const { setId } = useParams()
 
     const fetchAndSetSet = () =>
@@ -21,14 +22,14 @@ const AddCardToSet = () =>
         }, [setId]
     )
 
-    const handleCheckboxChanged = (e) =>
+    const handleCheckboxChanged = (checked, cardId) =>
     {
-        if(e.target.checked)
+        if(checked)
         {
-            debugger
+            setSelectedCards([...selectedCards, cardId])
         } else
         {
-            debugger
+            setSelectedCards(selectedCards.map(c => c != cardId))
         }
     }
 

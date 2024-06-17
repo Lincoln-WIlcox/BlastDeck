@@ -15,7 +15,8 @@ const PickMiniCard = ({ card, onCardsChanged, onCheckboxChanged }) =>
 {
     return <MiniCard card={card}>
         <MiniCardSidebar>
-            <Input type="checkbox" onChange={onCheckboxChanged} />
+            <Input type="checkbox"
+                onChange={(e) => onCheckboxChanged(e.target.checked, card.id)} />
             <MiniCardImage src={card?.imageURL} />
         </MiniCardSidebar>
 
