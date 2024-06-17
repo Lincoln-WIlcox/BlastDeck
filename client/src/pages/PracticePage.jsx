@@ -6,7 +6,7 @@ const PracticePage = () =>
 {
     return <div>
         <Link to="/practice/all">
-            <Button>Practice All</Button>
+            <Button className="my-text">Practice All</Button>
         </Link>
     </div>
 }
