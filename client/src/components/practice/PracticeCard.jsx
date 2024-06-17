@@ -1,7 +1,7 @@
 
-const PracticeCard = ({ card }) =>
+const PracticeCardStageOne = ({ card }) =>
 {
     return <>practice card</>
 }
 
-export default PracticeCard
+export default PracticeCardStageOne
