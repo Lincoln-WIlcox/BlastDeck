@@ -24,7 +24,7 @@ public class SetController : ControllerBase
         return Ok(_dbContext.Sets.Select(s => new GetSetsDTO(s)));
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("by-user")]
     [Authorize]
     public IActionResult GetSetsForUser()
     {
