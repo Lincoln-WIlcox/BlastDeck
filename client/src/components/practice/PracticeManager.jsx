@@ -1,5 +1,5 @@
 
-const PracticeManager = () =>
+const PracticeManager = ({ cards }) =>
 {
     return <>practice manager</>
 }
