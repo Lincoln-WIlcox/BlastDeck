@@ -23,7 +23,13 @@ const AddCardToSet = () =>
 
     const handleCheckboxChanged = (e) =>
     {
-
+        if(e.target.checked)
+        {
+            debugger
+        } else
+        {
+            debugger
+        }
     }
 
     return <PickMiniCardList cards={cards} cardsUpdated={fetchAndSetSet} onCheckboxChanged={handleCheckboxChanged} />

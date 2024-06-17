@@ -9,6 +9,6 @@
 
 .mini-card-image-container {
   height: 50vw;
-  max-width: 13rem;
-  max-height: 13rem;
+  width: 13rem;
+  height: 13rem;
 }

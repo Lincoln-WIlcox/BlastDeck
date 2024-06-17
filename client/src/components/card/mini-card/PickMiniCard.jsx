@@ -11,7 +11,7 @@ import MiniCardSubheader from "./MiniCardSubheader"
 import MiniCardContent from "./MiniCardContent"
 import { Input } from "reactstrap"
 
-const PickMiniCard = ({ card, onStarButtonPress, onUnstarButtonPress, onCheckboxChanged }) =>
+const PickMiniCard = ({ card, onCardsChanged, onCheckboxChanged }) =>
 {
     return <MiniCard card={card}>
         <MiniCardSidebar>
@@ -23,7 +23,6 @@ const PickMiniCard = ({ card, onStarButtonPress, onUnstarButtonPress, onCheckbox
             <MiniCardHeader>
                 <MiniCardHeaderText>{card?.englishWord}</MiniCardHeaderText>
                 <MiniCardHeaderText>{card?.correctAnswer.word}</MiniCardHeaderText>
-                <MiniCardStarButton starred={card?.starred} onStarButtonPress={onStarButtonPress} onUnstarButtonPress={onUnstarButtonPress} />
             </MiniCardHeader>
             <MiniCardSubheader>
                 {

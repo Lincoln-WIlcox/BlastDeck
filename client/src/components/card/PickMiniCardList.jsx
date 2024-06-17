@@ -1,10 +1,10 @@
 import PickMiniCard from "./mini-card/PickMiniCard"
 
-const PickMiniCardList = ({ addStarButton, cards, cardsUpdated, onCheckboxChanged }) =>
+const PickMiniCardList = ({ cards, cardsUpdated, onCheckboxChanged }) =>
 {
     return (
         cards?.map(c =>
-            <PickMiniCard key={c.id + "c"} card={c} cardsUpdated={cardsUpdated} addStarButton={addStarButton} onCheckboxChanged={onCheckboxChanged} />)
+            <PickMiniCard key={c.id + "c"} card={c} onCardsChanged={cardsUpdated} onCheckboxChanged={onCheckboxChanged} />)
     )
 }
 
