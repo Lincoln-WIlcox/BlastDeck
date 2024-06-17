@@ -65,6 +65,17 @@ public class SetController : ControllerBase
     [Authorize]
     public IActionResult RemoveCardFromSet(int id, int cardId)
     {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        Set set = _dbContext.Sets.SingleOrDefault(s => s.Id == id);
+        if (profile.Id != set.CreatorId)
+        {
+            return BadRequest("you are not the creator of this set");
+        }
+
         UserCardSet? userCardSet = _dbContext
             .UserCardSets.Include(ucs => ucs.UserCard)
             .SingleOrDefault(ucs => ucs.UserCard.CardId == cardId && ucs.SetId == id);
@@ -105,6 +116,12 @@ public class SetController : ControllerBase
         var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
             up.IdentityUserId == identityUserId
         );
+
+        Set set = _dbContext.Sets.SingleOrDefault(s => s.Id == id);
+        if (profile.Id != set.CreatorId)
+        {
+            return BadRequest("you are not the creator of this set");
+        }
 
         List<UserCardSet> userCardSets = _dbContext
             .UserCards.Where(uc =>
