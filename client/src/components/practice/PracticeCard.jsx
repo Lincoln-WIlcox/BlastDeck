@@ -1,5 +1,5 @@
 
-const PracticeCard = () =>
+const PracticeCard = ({ card }) =>
 {
     return <>practice card</>
 }
