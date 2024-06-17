@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { getSetById } from "../managers/setManager"
 import PickMiniCardList from "../components/card/PickMiniCardList"
+import { getStarred } from "../managers/cardManager"
 
 const AddCardToSet = () =>
 {
@@ -10,7 +11,7 @@ const AddCardToSet = () =>
 
     const fetchAndSetSet = () =>
     {
-        getSetById(setId).then(setSet)
+        getStarred().then(setCards)
     }
 
     useEffect(
@@ -25,7 +26,7 @@ const AddCardToSet = () =>
 
     }
 
-    return <PickMiniCardList cards={cards.userCardSets?.map(ucs => ucs.userCard.card)} cardsUpdated={fetchAndSetSet} onCheckboxChanged={handleCheckboxChanged} />
+    return <PickMiniCardList cards={cards} cardsUpdated={fetchAndSetSet} onCheckboxChanged={handleCheckboxChanged} />
 }
 
 export default AddCardToSet

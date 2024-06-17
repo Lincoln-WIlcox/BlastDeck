@@ -56,3 +56,8 @@ export const deleteCard = (id) =>
             method: "DELETE",
         })
 }
+
+export const getStarred = () =>
+{
+    return fetch(`/api/card/starred`).then(res => res.json())
+}

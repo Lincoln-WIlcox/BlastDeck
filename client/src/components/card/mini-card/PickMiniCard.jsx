@@ -9,6 +9,7 @@ import MiniCardHeaderText from "./MiniCardHeaderText"
 import MiniCardStarButton from "./MiniCardStarButton"
 import MiniCardSubheader from "./MiniCardSubheader"
 import MiniCardContent from "./MiniCardContent"
+import { Input } from "reactstrap"
 
 const PickMiniCard = ({ card, onStarButtonPress, onUnstarButtonPress, onCheckboxChanged }) =>
 {
