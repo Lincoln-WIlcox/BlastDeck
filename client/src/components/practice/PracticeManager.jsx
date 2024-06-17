@@ -1,7 +1,8 @@
+import PracticeCard from "./PracticeCard"
 
 const PracticeManager = ({ cards }) =>
 {
-    return <>practice manager</>
+    return <PracticeCard />
 }
 
 export default PracticeManager
