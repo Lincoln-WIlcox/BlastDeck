@@ -6,8 +6,7 @@ const MyCardsList = ({ addStarButton, cards, cardsUpdated }) =>
 {
     return (
         cards.map(c =>
-            <MyMiniCard key={c.id + "c"} card={c} cardsUpdated={cardsUpdated} addStarButton={addStarButton}>
-            </MyMiniCard>)
+            <MyMiniCard key={c.id + "c"} card={c} onCardsChanged={cardsUpdated} addStarButton={addStarButton} />)
     )
 }
 

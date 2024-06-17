@@ -4,13 +4,13 @@ import { Button } from "reactstrap"
 import { Link } from "react-router-dom"
 import { deleteCard } from "../../../managers/cardManager"
 
-const MiniCardDeleteButton = ({ cardDeleted }) =>
+const MiniCardDeleteButton = ({ onCardDeleted }) =>
 {
     const cardContext = useContext(CardContext)
 
     const handleDeletePress = () =>
     {
-        deleteCard(cardContext.id).then(cardDeleted)
+        deleteCard(cardContext.id).then(onCardDeleted)
     }
 
     return <div className="d-flex">

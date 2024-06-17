@@ -10,7 +10,7 @@ import MiniCardStarButton from "./MiniCardStarButton"
 import MiniCardSubheader from "./MiniCardSubheader"
 import MiniCardContent from "./MiniCardContent"
 
-const MyMiniCard = ({ card, onStarButtonPress, onUnstarButtonPress }) =>
+const MyMiniCard = ({ card, onCardsChanged }) =>
 {
     return <MiniCard card={card}>
         <MiniCardSidebar>
@@ -21,7 +21,7 @@ const MyMiniCard = ({ card, onStarButtonPress, onUnstarButtonPress }) =>
             <MiniCardHeader>
                 <MiniCardHeaderText>{card?.englishWord}</MiniCardHeaderText>
                 <MiniCardHeaderText>{card?.correctAnswer.word}</MiniCardHeaderText>
-                <MiniCardStarButton starred={card?.starred} onStarButtonPress={onStarButtonPress} onUnstarButtonPress={onUnstarButtonPress} />
+                <MiniCardStarButton starred={card?.starred} onStarChanged={onCardsChanged} />
             </MiniCardHeader>
             <MiniCardSubheader>
                 {
@@ -35,7 +35,7 @@ const MyMiniCard = ({ card, onStarButtonPress, onUnstarButtonPress }) =>
             </MiniCardSubheader>
             <MiniCardContent>
                 <MiniCardEditButton />
-                <MiniCardDeleteButton />
+                <MiniCardDeleteButton onCardDeleted={onCardsChanged} />
             </MiniCardContent>
             {/* <CardContext.Provider value={card}>
                         <Row>
