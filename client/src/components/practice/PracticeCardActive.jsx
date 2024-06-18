@@ -1,19 +1,18 @@
-import { Button, Input, InputGroup, Label } from "reactstrap"
+import { Button, Input, InputGroup } from "reactstrap"
 import "./Practice.css"
-import { answerCard } from "../../managers/answerManager"
+import { answerActive, answerCard } from "../../managers/answerManager"
 import { useEffect, useState } from "react"
 import { getCardWithoutCorrectAnswer } from "../../managers/cardManager"
 
-const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
+const PracticeCardActive = ({ cardId, onContinuePressed }) =>
 {
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
     const [card, setCard] = useState({})
-    const [selectedAnswer, setSelectedAnswer] = useState(0)
+    const [typedAnswer, setTypedAnswer] = useState("")
 
-    const handleAnswerChosen = () =>
+    const handleAnswerSubmitted = () =>
     {
-        //the endpoint will return if the answer is correct. The endpoint will also make a userAnswer
-        answerCard(cardId, selectedAnswer).then(setAnsweredCorrectly)
+        answerActive(cardId, typedAnswer).then(setAnsweredCorrectly)
     }
 
     const fetchAndSetCard = () =>
@@ -25,6 +24,7 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
         () =>
         {
             setAnsweredCorrectly(undefined)
+            setTypedAnswer("")
             fetchAndSetCard()
         }, [cardId]
     )
@@ -34,22 +34,12 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
     switch(answeredCorrectly)
     {
         case undefined:
-            content = <div className="d-flex flex-shrink-1 flex-column align-items-center gap-3">
-                <InputGroup className="d-flex flex-column w-25">
-                    {
-                        card.answers?.map(a =>
-                        {
-                            const id = "a" + a.id
-                            return <div className="d-flex justify-content-end flex-shrink-1 gap-3" key={"a" + a.id}>
-                                <Label className="my-text" htmlFor={id}>{a.word}</Label>
-                                <Input id={id} name="answer" type="radio" onClick={() => setSelectedAnswer(a.id)} />
-                            </div>
-                        }
-                        )
-                    }
+            content = <div className="d-flex justify-content-center input-width">
+                <InputGroup>
+                    <Input className=" fs-5" type="text" onChange={(e) => setTypedAnswer(e.target.value)} value={typedAnswer} />
+                    <Button className="my-text" onClick={handleAnswerSubmitted}>Submit</Button>
                 </InputGroup>
             </div>
-
             break
         case true:
             content = <div>
@@ -68,15 +58,11 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
             <img className="practice-image" src={card.imageURL} />
         </div>
         <div className="d-flex flex-column align-items-center justify-content-end h-50">
+
             {
                 content
             }
             <div className="h-25">
-                {
-                    selectedAnswer != 0 && answeredCorrectly == undefined &&
-                    <Button className="my-text" onClick={handleAnswerChosen}>Submit</Button>
-
-                }
                 {
                     answeredCorrectly != undefined &&
                     <div>
@@ -84,9 +70,8 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
                     </div>
                 }
             </div>
-
         </div>
     </div>
 }
 
-export default PracticeCardPassive
+export default PracticeCardActive
