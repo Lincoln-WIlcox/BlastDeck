@@ -15,6 +15,7 @@ import PracticePage from "./pages/Practice";
 import ViewStarredCards from "./pages/ViewStarredCards";
 import PracticeAll from "./pages/PracticeAll";
 import Practice from "./pages/Practice";
+import PracticeSet from "./pages/PracticeSet";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser })
 {
@@ -47,9 +48,9 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
           <Route path="practice">
             <Route index element={<Practice />} />
             <Route path="all" element={<PracticeAll />} />
+            <Route path=":setId" element={<PracticeSet />} />
           </Route>
         </Route>
-
         <Route
           path="login"
           element={<Login setLoggedInUser={setLoggedInUser} />}

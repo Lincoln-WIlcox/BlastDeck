@@ -261,7 +261,7 @@ public class CardController : ControllerBase
 
     [HttpGet("cards-to-practice")]
     [Authorize]
-    public IActionResult GetStarredCardsIds()
+    public IActionResult GetStarredCardsIds(int? setId)
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
@@ -269,7 +269,15 @@ public class CardController : ControllerBase
         );
 
         List<Card> cards = _dbContext
-            .UserCards.Where(uc => uc.UserId == profile.Id)
+            .UserCards.Where(uc =>
+                uc.UserId == profile.Id
+                && (
+                    setId == null
+                    || _dbContext.UserCardSets.SingleOrDefault(ucs =>
+                        ucs.UserCardId == uc.Id && ucs.SetId == setId
+                    ) != null
+                )
+            )
             .Include(uc => uc.Card)
             .ThenInclude(c => c.Answers)
             .Include(uc => uc.Card)
