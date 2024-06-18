@@ -1,12 +1,26 @@
 import { Button } from "reactstrap"
 import "./Practice.css"
+import { useEffect, useState } from "react"
+import { getCardById } from "../../managers/cardManager"
 
-const PracticeCardAssociation = ({ card, onContinuePressed }) =>
+const PracticeCardAssociation = ({ cardId, onContinuePressed }) =>
 {
+    const [card, setCard] = useState({})
+
+    useEffect(
+        () =>
+        {
+            if(cardId)
+            {
+                getCardById(cardId).then(setCard)
+            }
+        }, [cardId]
+    )
+
     return <div className="d-flex flex-column justify-content-between practice-container">
         <div className="d-flex flex-column gap-3">
             <img className="practice-image" src={card?.imageURL} />
-            <p className="my-text text-center">{card?.correctAnswer.word}</p>
+            <p className="my-text text-center">{card.correctAnswer?.word}</p>
             <p className="my-text text-center">{card?.englishWord}</p>
         </div>
         <div>

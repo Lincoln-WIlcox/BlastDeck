@@ -163,6 +163,20 @@ public class CardController : ControllerBase
         return Ok(new GetCardsDTO(card));
     }
 
+    [HttpGet("{id}/no-correct-answer")]
+    [Authorize]
+    public IActionResult GetCardByIdWithoutCorrectAnswer(int id)
+    {
+        Card? card = _dbContext.Cards.Include(c => c.Answers).SingleOrDefault(c => c.Id == id);
+
+        if (card == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(new GetCardWithoutCorrectAnswerDTO(card));
+    }
+
     [HttpPut("{id}")]
     [Authorize]
     public IActionResult UpdateCard(PostCardDTO puttingCard, int id)
@@ -255,7 +269,8 @@ public class CardController : ControllerBase
         );
 
         List<Card> cards = _dbContext
-            .UserCards.Include(uc => uc.Card)
+            .UserCards.Where(uc => uc.UserId == profile.Id)
+            .Include(uc => uc.Card)
             .ThenInclude(c => c.Answers)
             .Include(uc => uc.Card)
             .ThenInclude(c => c.CorrectAnswer)

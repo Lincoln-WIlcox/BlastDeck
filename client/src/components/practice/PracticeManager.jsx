@@ -10,7 +10,7 @@ const stages = Object.freeze({
     active: 3
 });
 
-const PracticeManager = ({ cards }) =>
+const PracticeManager = ({ cardIds }) =>
 {
     const [currentCardIndex, setCurrentCardIndex] = useState(0)
     const [stage, setStage] = useState(stages.association)
@@ -19,7 +19,7 @@ const PracticeManager = ({ cards }) =>
 
     const handleContinuePressedAssociation = () =>
     {
-        if(currentCardIndex == cards.length - 1)
+        if(currentCardIndex == cardIds.length - 1)
         {
             setStage(stages.passive)
             setCurrentCardIndex(0)
@@ -31,7 +31,7 @@ const PracticeManager = ({ cards }) =>
 
     const handleContinuePressedPassive = () =>
     {
-        if(currentCardIndex == cards.length - 1)
+        if(currentCardIndex == cardIds.length - 1)
         {
             navigate("/practice")
         } else
@@ -44,10 +44,10 @@ const PracticeManager = ({ cards }) =>
     switch(stage)
     {
         case stages.association:
-            returnComponent = <PracticeCardAssociation card={cards[currentCardIndex]} onContinuePressed={handleContinuePressedAssociation} />
+            returnComponent = <PracticeCardAssociation cardId={cardIds[currentCardIndex]} onContinuePressed={handleContinuePressedAssociation} />
             break
         case stages.passive:
-            returnComponent = <PracticeCardPassive card={cards[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} />
+            returnComponent = <PracticeCardPassive cardId={cardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} />
             break
     }
     return returnComponent
