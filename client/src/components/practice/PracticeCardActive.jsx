@@ -1,6 +1,6 @@
 import { Button, Input } from "reactstrap"
 import "./Practice.css"
-import { answerCard } from "../../managers/answerManager"
+import { answerActive, answerCard } from "../../managers/answerManager"
 import { useEffect, useState } from "react"
 import { getCardWithoutCorrectAnswer } from "../../managers/cardManager"
 
@@ -12,8 +12,7 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
 
     const handleAnswerSubmitted = () =>
     {
-        //the endpoint will return if the answer is correct. The endpoint will also make a userAnswer
-        //answerCard(cardId, answerId).then(setAnsweredCorrectly)
+        answerActive(typedAnswer).then(setAnsweredCorrectly)
     }
 
     const fetchAndSetCard = () =>

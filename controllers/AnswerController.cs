@@ -58,4 +58,45 @@ public class AnswerController : ControllerBase
         }
         return Ok(false);
     }
+
+    [HttpPost("active")]
+    [Authorize]
+    public IActionResult AnswerActive(ActiveAnswerDTO activeAnswer)
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        Card? card = _dbContext.Cards.SingleOrDefault(c => c.Id == activeAnswer.CardId);
+
+        UserCard? userCard = _dbContext.UserCards.SingleOrDefault(uc =>
+            uc.CardId == activeAnswer.CardId && uc.UserId == profile.Id
+        );
+
+        if (userCard == null || card == null)
+        {
+            return BadRequest();
+        }
+
+        bool AnsweredCorrectly =
+            card.CorrectAnswer.Word.ToLower().Trim() == activeAnswer.Answer.ToLower().Trim();
+
+        UserAnswer userAnswer = new UserAnswer
+        {
+            UserCardId = userCard.Id,
+            AnsweredCorrectly = AnsweredCorrectly,
+            Stage = 2,
+            DateAnswered = DateTime.Now
+        };
+
+        _dbContext.UserAnswers.Add(userAnswer);
+        _dbContext.SaveChanges();
+
+        if (AnsweredCorrectly)
+        {
+            return Ok(true);
+        }
+        return Ok(false);
+    }
 }
