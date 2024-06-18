@@ -57,16 +57,19 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
         <div>
             <img className="practice-image" src={card.imageURL} />
         </div>
-        <div className="d-flex flex-column align-items-center">
+        <div className="d-flex flex-column align-items-center justify-content-end h-50">
+
             {
                 content
             }
-            {
-                answeredCorrectly != undefined &&
-                <div>
-                    <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
-                </div>
-            }
+            <div className="h-25">
+                {
+                    answeredCorrectly != undefined &&
+                    <div>
+                        <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 }

@@ -67,22 +67,24 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
         <div>
             <img className="practice-image" src={card.imageURL} />
         </div>
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column align-items-center justify-content-end h-50">
             {
                 content
             }
-            {
-                selectedAnswer != 0 && answeredCorrectly == undefined &&
-                <div>
+            <div className="h-25">
+                {
+                    selectedAnswer != 0 && answeredCorrectly == undefined &&
                     <Button className="my-text" onClick={handleAnswerChosen}>Submit</Button>
-                </div>
-            }
-            {
-                answeredCorrectly != undefined &&
-                <div>
-                    <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
-                </div>
-            }
+
+                }
+                {
+                    answeredCorrectly != undefined &&
+                    <div>
+                        <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
+                    </div>
+                }
+            </div>
+
         </div>
     </div>
 }

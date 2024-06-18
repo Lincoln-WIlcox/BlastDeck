@@ -23,8 +23,10 @@ const PracticeCardAssociation = ({ cardId, onContinuePressed }) =>
             <p className="my-text text-center">{card.correctAnswer?.word}</p>
             <p className="my-text text-center">{card?.englishWord}</p>
         </div>
-        <div>
-            <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
+        <div className="d-flex flex-column align-items-center justify-content-end h-50">
+            <div className="h-25">
+                <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
+            </div>
         </div>
     </div>
 }
