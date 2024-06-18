@@ -66,3 +66,8 @@ export const getCardIdsToPractice = () =>
 {
     return fetch(`/api/card/cards-to-practice`).then(res => res.json())
 }
+
+export const getCardWithoutCorrectAnswer = (id) =>
+{
+    return fetch(`/api/card/${id}/no-correct-answer`).then(res => res.json())
+}
