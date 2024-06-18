@@ -1,4 +1,4 @@
-import { Button, Input } from "reactstrap"
+import { Button, Input, InputGroup } from "reactstrap"
 import "./Practice.css"
 import { answerActive, answerCard } from "../../managers/answerManager"
 import { useEffect, useState } from "react"
@@ -12,7 +12,7 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
 
     const handleAnswerSubmitted = () =>
     {
-        answerActive(typedAnswer).then(setAnsweredCorrectly)
+        answerActive(cardId, typedAnswer).then(setAnsweredCorrectly)
     }
 
     const fetchAndSetCard = () =>
@@ -24,6 +24,7 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
         () =>
         {
             setAnsweredCorrectly(undefined)
+            setTypedAnswer("")
             fetchAndSetCard()
         }, [cardId]
     )
@@ -33,9 +34,11 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
     switch(answeredCorrectly)
     {
         case undefined:
-            content = <div>
-                <Input type="text" onChange={(e) => setTypedAnswer(e.target.value)} value={typedAnswer} />
-                <Button onClick={handleAnswerSubmitted}>Submit</Button>
+            content = <div className="d-flex justify-content-center input-width">
+                <InputGroup>
+                    <Input className=" fs-5" type="text" onChange={(e) => setTypedAnswer(e.target.value)} value={typedAnswer} />
+                    <Button className="my-text" onClick={handleAnswerSubmitted}>Submit</Button>
+                </InputGroup>
             </div>
             break
         case true:
@@ -54,7 +57,7 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
         <div>
             <img className="practice-image" src={card.imageURL} />
         </div>
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column align-items-center">
             {
                 content
             }

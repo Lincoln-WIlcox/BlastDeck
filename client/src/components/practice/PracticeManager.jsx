@@ -42,6 +42,17 @@ const PracticeManager = ({ cardIds }) =>
         }
     }
 
+    const handleContinuePressedActive = () =>
+    {
+        if(currentCardIndex == cardIds.length - 1)
+        {
+            navigate("/practice")
+        } else
+        {
+            setCurrentCardIndex(currentCardIndex + 1)
+        }
+    }
+
     let returnComponent
     switch(stage)
     {
@@ -52,7 +63,7 @@ const PracticeManager = ({ cardIds }) =>
             returnComponent = <PracticeCardPassive cardId={cardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} />
             break
         case stages.active:
-            returnComponent = <PracticeCardActive cardId={cardIds[currentCardIndex]} />
+            returnComponent = <PracticeCardActive cardId={cardIds[currentCardIndex]} onContinuePressed={handleContinuePressedActive} />
             break
     }
     return returnComponent
