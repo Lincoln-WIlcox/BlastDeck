@@ -2,6 +2,7 @@ import { useState } from "react"
 import PracticeCardAssociation from "./PracticeCardAssociation"
 import { useNavigate } from "react-router-dom"
 import PracticeCardPassive from "./PracticeCardPassive";
+import PracticeCardActive from "./PracticeCardActive";
 
 //this emulates enums since javascript doesn't have them
 const stages = Object.freeze({
@@ -33,7 +34,8 @@ const PracticeManager = ({ cardIds }) =>
     {
         if(currentCardIndex == cardIds.length - 1)
         {
-            navigate("/practice")
+            setStage(stages.active)
+            setCurrentCardIndex(0)
         } else
         {
             setCurrentCardIndex(currentCardIndex + 1)
@@ -48,6 +50,9 @@ const PracticeManager = ({ cardIds }) =>
             break
         case stages.passive:
             returnComponent = <PracticeCardPassive cardId={cardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} />
+            break
+        case stages.active:
+            returnComponent = <PracticeCardActive cardId={cardIds[currentCardIndex]} />
             break
     }
     return returnComponent

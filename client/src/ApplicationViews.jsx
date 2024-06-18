@@ -21,14 +21,35 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
   return (
     <Routes>
       <Route path="/">
-        <Route
-          index
-          element={
-            <AuthorizedRoute loggedInUser={loggedInUser}>
-              <p className="my-text">Welcome to Blast Deck!</p>
-            </AuthorizedRoute>
-          }
-        />
+        <Route path="/" element={<AuthorizedRoute />}>
+          <Route
+            index
+            element={<p className="my-text">Welcome to Blast Deck!</p>} />
+          <Route path="card">
+            <Route index element={<AllCards />} />
+            <Route path="mine" element={<MyCards />} />
+            <Route path="create" element={<CreateCard />} />
+            <Route path=":cardId/edit" element={
+              <UserIsCreatorOfCard>
+                <EditCard />
+              </UserIsCreatorOfCard>
+            } />
+            <Route path="starred" element={<ViewStarredCards />} />
+          </Route>
+          <Route path="set">
+            <Route index element={<AllSets />} />
+            <Route path=":setId">
+              <Route index element={<SetDetails />} />
+              <Route path="add-card" element={<AddCardToSet />} />
+            </Route>
+            <Route path="create" element={<CreateSet />} />
+          </Route>
+          <Route path="practice">
+            <Route index element={<Practice />} />
+            <Route path="all" element={<PracticeAll />} />
+          </Route>
+        </Route>
+
         <Route
           path="login"
           element={<Login setLoggedInUser={setLoggedInUser} />}
@@ -37,63 +58,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser })
           path="register"
           element={<Register setLoggedInUser={setLoggedInUser} />}
         />
-        <Route path="card">
-          <Route index element={
-            <AuthorizedRoute loggedInUser={loggedInUser}>
-              <AllCards />
-            </AuthorizedRoute>
-          } />
-          <Route path="mine" element={
-            <AuthorizedRoute loggedInUser={loggedInUser}>
-              <MyCards />
-            </AuthorizedRoute>}
-          />
-          <Route path="create" element={
-            <AuthorizedRoute loggedInUser={loggedInUser}>
-              <CreateCard />
-            </AuthorizedRoute>
-          } />
-          <Route path=":cardId/edit" element={
-            <AuthorizedRoute loggedInUser={loggedInUser}>
-              <UserIsCreatorOfCard>
-                <EditCard />
-              </UserIsCreatorOfCard>
-            </AuthorizedRoute>
-          } />
-          <Route path="starred" element={
-            <AuthorizedRoute loggedInUser={loggedInUser}>
-              <ViewStarredCards />
-            </AuthorizedRoute>
-          } />
-        </Route>
-        <Route path="set">
-          <Route index element={
-            <AuthorizedRoute loggedInUser={loggedInUser}>
-              <AllSets />
-            </AuthorizedRoute>
-          } />
-          <Route path=":setId">
-            <Route index element={
-              <AuthorizedRoute loggedInUser={loggedInUser}>
-                <SetDetails />
-              </AuthorizedRoute>
-            } />
-            <Route path="add-card" element={
-              <AuthorizedRoute loggedInUser={loggedInUser}>
-                <AddCardToSet />
-              </AuthorizedRoute>
-            } />
-          </Route>
-          <Route path="create" element={
-            <AuthorizedRoute loggedInUser={loggedInUser}>
-              <CreateSet />
-            </AuthorizedRoute>
-          } />
-        </Route>
-        <Route path="practice">
-          <Route index element={<Practice />} />
-          <Route path="all" element={<PracticeAll />} />
-        </Route>
+
         <Route path="*" element={<p>Whoops, nothing here...</p>} />
       </Route >
     </Routes>

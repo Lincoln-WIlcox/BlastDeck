@@ -8,8 +8,9 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
 {
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
     const [card, setCard] = useState({})
+    const [typedAnswer, setTypedAnswer] = useState("")
 
-    const handleAnswerChosen = (answerId) =>
+    const handleAnswerSubmitted = () =>
     {
         //the endpoint will return if the answer is correct. The endpoint will also make a userAnswer
         //answerCard(cardId, answerId).then(setAnsweredCorrectly)
@@ -33,10 +34,10 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
     switch(answeredCorrectly)
     {
         case undefined:
-            content = card.answers?.map(a =>
-                <div>
-                    <Input type="text" />
-                </div>)
+            content = <div>
+                <Input type="text" onChange={(e) => setTypedAnswer(e.target.value)} value={typedAnswer} />
+                <Button onClick={handleAnswerSubmitted}>Submit</Button>
+            </div>
             break
         case true:
             content = <div>
@@ -68,4 +69,4 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
     </div>
 }
 
-export default PracticeCardPassive
+export default PracticeCardActive
