@@ -245,6 +245,27 @@ public class CardController : ControllerBase
         return Ok(cards.Select(c => new GetCardsDTO(c)));
     }
 
+    [HttpGet("cards-to-practice")]
+    [Authorize]
+    public IActionResult GetStarredCardsIds()
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        List<Card> cards = _dbContext
+            .UserCards.Include(uc => uc.Card)
+            .ThenInclude(c => c.Answers)
+            .Include(uc => uc.Card)
+            .ThenInclude(c => c.CorrectAnswer)
+            .Include(uc => uc.UserCardSets)
+            .Select(uc => uc.Card)
+            .ToList();
+
+        return Ok(cards.Select(c => c.Id));
+    }
+
     void createCard(PostCardDTO createCard, int withId = 0)
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
