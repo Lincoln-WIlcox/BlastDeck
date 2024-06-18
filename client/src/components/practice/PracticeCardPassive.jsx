@@ -2,22 +2,30 @@ import { Button } from "reactstrap"
 import "./Practice.css"
 import { answerCard } from "../../managers/answerManager"
 import { useEffect, useState } from "react"
+import { getCardWithoutCorrectAnswer } from "../../managers/cardManager"
 
-const PracticeCardPassive = ({ card, onContinuePressed }) =>
+const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
 {
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
+    const [card, setCard] = useState({})
 
     const handleAnswerChosen = (answerId) =>
     {
         //the endpoint will return if the answer is correct. The endpoint will also make a userAnswer
-        answerCard(card.id, answerId).then(setAnsweredCorrectly)
+        answerCard(cardId, answerId).then(setAnsweredCorrectly)
+    }
+
+    const fetchAndSetCard = () =>
+    {
+        getCardWithoutCorrectAnswer(cardId).then(setCard)
     }
 
     useEffect(
         () =>
         {
             setAnsweredCorrectly(undefined)
-        }, [card]
+            fetchAndSetCard()
+        }, [cardId]
     )
 
     let content
@@ -25,7 +33,7 @@ const PracticeCardPassive = ({ card, onContinuePressed }) =>
     switch(answeredCorrectly)
     {
         case undefined:
-            content = card?.answers.map(a =>
+            content = card.answers?.map(a =>
                 <div>
                     <Button className="my-text" onClick={() => handleAnswerChosen(a.id)}>{a.word}</Button>
                 </div>)
@@ -44,7 +52,7 @@ const PracticeCardPassive = ({ card, onContinuePressed }) =>
 
     return <div className="d-flex flex-column justify-content-between practice-container">
         <div>
-            <img className="practice-image" src={card?.imageURL} />
+            <img className="practice-image" src={card.imageURL} />
         </div>
         <div className="d-flex flex-column">
             {

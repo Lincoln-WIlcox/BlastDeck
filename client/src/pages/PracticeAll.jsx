@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react"
 import PracticeManager from "../components/practice/PracticeManager"
-import { getStarred } from "../managers/cardManager"
+import { getCardIdsToPractice } from "../managers/cardManager"
 
 const PracticeAll = () =>
 {
-    const [cards, setCards] = useState([])
+    const [cardIds, setCardIds] = useState([])
 
     useEffect(
         () =>
         {
-            getStarred().then(setCards)
+            getCardIdsToPractice().then(setCardIds)
         }, []
     )
 
-    return <PracticeManager cards={cards} />
+    return <PracticeManager cardIds={cardIds} />
 }
 
 export default PracticeAll

@@ -163,6 +163,20 @@ public class CardController : ControllerBase
         return Ok(new GetCardsDTO(card));
     }
 
+    [HttpGet("{id}/no-correct-answer")]
+    [Authorize]
+    public IActionResult GetCardByIdWithoutCorrectAnswer(int id)
+    {
+        Card? card = _dbContext.Cards.Include(c => c.Answers).SingleOrDefault(c => c.Id == id);
+
+        if (card == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(new GetCardWithoutCorrectAnswerDTO(card));
+    }
+
     [HttpPut("{id}")]
     [Authorize]
     public IActionResult UpdateCard(PostCardDTO puttingCard, int id)
@@ -243,6 +257,28 @@ public class CardController : ControllerBase
             .ToList();
 
         return Ok(cards.Select(c => new GetCardsDTO(c)));
+    }
+
+    [HttpGet("cards-to-practice")]
+    [Authorize]
+    public IActionResult GetStarredCardsIds()
+    {
+        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
+            up.IdentityUserId == identityUserId
+        );
+
+        List<Card> cards = _dbContext
+            .UserCards.Where(uc => uc.UserId == profile.Id)
+            .Include(uc => uc.Card)
+            .ThenInclude(c => c.Answers)
+            .Include(uc => uc.Card)
+            .ThenInclude(c => c.CorrectAnswer)
+            .Include(uc => uc.UserCardSets)
+            .Select(uc => uc.Card)
+            .ToList();
+
+        return Ok(cards.Select(c => c.Id));
     }
 
     void createCard(PostCardDTO createCard, int withId = 0)
