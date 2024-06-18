@@ -3,7 +3,7 @@ import PracticeManager from "../components/practice/PracticeManager"
 import { getCardIdsToPractice } from "../managers/cardManager"
 import { useParams } from "react-router-dom"
 
-const PracticeAll = () =>
+const PracticeSet = () =>
 {
     const [cardIds, setCardIds] = useState([])
 
@@ -19,4 +19,4 @@ const PracticeAll = () =>
     return <PracticeManager cardIds={cardIds} />
 }
 
-export default PracticeAll
+export default PracticeSet
