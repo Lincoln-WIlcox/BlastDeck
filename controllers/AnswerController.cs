@@ -19,16 +19,18 @@ public class AnswerController : ControllerBase
         _dbContext = context;
     }
 
-    [HttpPost]
+    [HttpPost("passive")]
     [Authorize]
-    public IActionResult AnswerCard(PostAnswerPassiveDTO postUserAnswer)
+    public IActionResult AnswerPassive(PostAnswerPassiveDTO postUserAnswer)
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
             up.IdentityUserId == identityUserId
         );
 
-        Card card = _dbContext.Cards.SingleOrDefault(c => c.Id == postUserAnswer.CardId);
+        Card? card = _dbContext
+            .Cards.Include(card => card.CorrectAnswer)
+            .SingleOrDefault(c => c.Id == postUserAnswer.CardId);
 
         UserCard? userCard = _dbContext.UserCards.SingleOrDefault(uc =>
             uc.CardId == postUserAnswer.CardId && uc.UserId == profile.Id
@@ -52,11 +54,13 @@ public class AnswerController : ControllerBase
         _dbContext.UserAnswers.Add(userAnswer);
         _dbContext.SaveChanges();
 
-        if (AnsweredCorrectly)
-        {
-            return Ok(true);
-        }
-        return Ok(false);
+        return Ok(
+            new WasAnswerCorrectDTO
+            {
+                AnsweredCorrectly = AnsweredCorrectly,
+                CorrectAnswer = card.CorrectAnswer.Word
+            }
+        );
     }
 
     [HttpPost("active")]
@@ -95,10 +99,12 @@ public class AnswerController : ControllerBase
         _dbContext.UserAnswers.Add(userAnswer);
         _dbContext.SaveChanges();
 
-        if (AnsweredCorrectly)
-        {
-            return Ok(true);
-        }
-        return Ok(false);
+        return Ok(
+            new WasAnswerCorrectDTO
+            {
+                AnsweredCorrectly = AnsweredCorrectly,
+                CorrectAnswer = card.CorrectAnswer.Word
+            }
+        );
     }
 }
