@@ -256,12 +256,12 @@ public class CardController : ControllerBase
             .Select(uc => uc.Card)
             .ToList();
 
-        return Ok(cards.Select(c => new GetCardsDTO(c)));
+        return Ok(cards.Select(c => new GetStarredCardsDTO(c)));
     }
 
     [HttpGet("cards-to-practice")]
     [Authorize]
-    public IActionResult GetStarredCardsIds(int? setId)
+    public IActionResult GetCardsToPracticeIds(int? setId)
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
@@ -269,20 +269,104 @@ public class CardController : ControllerBase
         );
 
         List<Card> cards = _dbContext
-            .UserCards.Where(uc =>
-                uc.UserId == profile.Id
-                && (
-                    setId == null
-                    || _dbContext.UserCardSets.SingleOrDefault(ucs =>
-                        ucs.UserCardId == uc.Id && ucs.SetId == setId
-                    ) != null
-                )
-            )
-            .Include(uc => uc.Card)
+            .UserCards.Include(uc => uc.Card)
             .ThenInclude(c => c.Answers)
             .Include(uc => uc.Card)
             .ThenInclude(c => c.CorrectAnswer)
             .Include(uc => uc.UserCardSets)
+            .ToList()
+            .Where(uc =>
+            {
+                if (
+                    uc.UserId == profile.Id
+                    && (
+                        setId == null
+                        || _dbContext.UserCardSets.SingleOrDefault(ucs =>
+                            ucs.UserCardId == uc.Id && ucs.SetId == setId
+                        ) != null
+                    )
+                )
+                {
+                    int masteryLevel = _dbContext
+                        .UserAnswers.Where(ua => ua.UserCardId == uc.Id)
+                        .GroupBy(ua => ua.DateAnswered.Date)
+                        .ToList()
+                        .Aggregate(
+                            0,
+                            (int masteryLevel, IGrouping<DateTime, UserAnswer> userAnswers) =>
+                            {
+                                bool answeredStage2Correctly = false;
+                                bool answeredStage3Correctly = false;
+                                foreach (UserAnswer userAnswer in userAnswers)
+                                {
+                                    if (!userAnswer.AnsweredCorrectly)
+                                    {
+                                        return Math.Max(masteryLevel - 1, 0);
+                                    }
+                                    else if (userAnswer.Stage == 2)
+                                    {
+                                        answeredStage2Correctly = true;
+                                    }
+                                    else if (userAnswer.Stage == 3)
+                                    {
+                                        answeredStage3Correctly = true;
+                                    }
+                                }
+                                if (answeredStage2Correctly && answeredStage3Correctly)
+                                {
+                                    return Math.Min(masteryLevel + 1, 7);
+                                }
+                                return masteryLevel;
+                            }
+                        );
+
+                    TimeSpan timeBeforePractice;
+
+                    switch (masteryLevel)
+                    {
+                        case 1:
+                        case 2:
+                        case 3:
+                            timeBeforePractice = new TimeSpan(1, 0, 0, 0);
+                            break;
+                        case 4:
+                            timeBeforePractice = new TimeSpan(2, 0, 0, 0);
+                            break;
+                        case 5:
+                            timeBeforePractice = new TimeSpan(3, 0, 0, 0);
+                            break;
+                        case 6:
+                            timeBeforePractice = new TimeSpan(7, 0, 0, 0);
+                            break;
+                        case 7:
+                            timeBeforePractice = new TimeSpan(14, 0, 0, 0);
+                            break;
+                        default:
+                            timeBeforePractice = new TimeSpan(0);
+                            break;
+                    }
+
+                    List<UserAnswer> userAnswers = _dbContext
+                        .UserAnswers.Where(ua => ua.UserCardId == uc.Id)
+                        .ToList();
+
+                    DateTime lastDatePracticed;
+                    if (userAnswers.Count > 0)
+                    {
+                        lastDatePracticed = userAnswers.Max(ua => ua.DateAnswered);
+                    }
+                    else
+                    {
+                        return true;
+                    }
+
+                    if (DateTime.Today - lastDatePracticed.Date >= timeBeforePractice)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            })
             .Select(uc => uc.Card)
             .ToList();
 
