@@ -88,7 +88,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser })
                             </Nav>
                         </Collapse>
                         <Button
-                            color="primary"
+                            className="bg-ebony"
                             onClick={(e) =>
                             {
                                 e.preventDefault();
@@ -107,7 +107,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser })
                     <Nav navbar>
                         <NavItem>
                             <NavLink tag={RRNavLink} to="/login">
-                                <Button color="primary">Login</Button>
+                                <Button className="bg-ebony">Login</Button>
                             </NavLink>
                         </NavItem>
                     </Nav>

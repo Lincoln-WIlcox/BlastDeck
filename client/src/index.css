@@ -18,6 +18,10 @@ body {
   background-color: var(--sage);
 }
 
+.bg-peach-yellow {
+  background-color: var(--peach-yellow);
+}
+
 .my-text-color{
   color: var(--text);
 }

@@ -14,7 +14,7 @@ const MiniCardDeleteButton = ({ onCardDeleted }) =>
     }
 
     return <div className="d-flex">
-        <Button onClick={handleDeletePress}>Delete</Button>
+        <Button color="danger" onClick={handleDeletePress}>Delete</Button>
     </div>
 }
 

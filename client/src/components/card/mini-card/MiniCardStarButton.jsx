@@ -18,8 +18,8 @@ const MiniCardStarButton = ({ starred, onStarChanged }) =>
     }
 
     return starred
-        ? <Button onClick={handleStarButtonPress}><i className="fa fa-star-o" aria-hidden="true"></i></Button>
-        : <Button onClick={handleUnstarButtonPress}><i className="fa fa-star" aria-hidden="true"></i></Button>
+        ? <Button className="bg-ebony" onClick={handleStarButtonPress}><i className="fa fa-star-o" aria-hidden="true"></i></Button>
+        : <Button className="bg-sage" onClick={handleUnstarButtonPress}><i className="fa fa-star" aria-hidden="true"></i></Button>
 }
 
 export default MiniCardStarButton

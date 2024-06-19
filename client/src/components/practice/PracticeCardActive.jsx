@@ -1,4 +1,4 @@
-import { Button, Input, InputGroup } from "reactstrap"
+import { Button, Card, Input, InputGroup } from "reactstrap"
 import "./Practice.css"
 import { answerActive, answerCard } from "../../managers/answerManager"
 import { useEffect, useState } from "react"
@@ -37,7 +37,7 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
             content = <div className="d-flex justify-content-center input-width">
                 <InputGroup>
                     <Input className=" fs-5" type="text" onChange={(e) => setTypedAnswer(e.target.value)} value={typedAnswer} />
-                    <Button className="my-text" onClick={handleAnswerSubmitted}>Submit</Button>
+                    <Button className="my-text bg-battleship-gray" onClick={handleAnswerSubmitted}>Submit</Button>
                 </InputGroup>
             </div>
             break
@@ -53,7 +53,7 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
             break
     }
 
-    return <div className="d-flex flex-column justify-content-between practice-container">
+    return <Card className="d-flex flex-column justify-content-between practice-container bg-black-olive">
         <div>
             <img className="practice-image" src={card.imageURL} />
         </div>
@@ -66,12 +66,12 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
                 {
                     answeredCorrectly != undefined &&
                     <div>
-                        <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
+                        <Button className="my-text bg-battleship-gray" onClick={onContinuePressed}>Continue</Button>
                     </div>
                 }
             </div>
         </div>
-    </div>
+    </Card>
 }
 
 export default PracticeCardActive

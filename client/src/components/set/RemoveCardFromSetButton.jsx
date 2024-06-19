@@ -7,7 +7,7 @@ const RemoveCardFromSetButton = ({ onRemoveFromSetPressed }) =>
     const cardContext = useContext(CardContext)
 
     return <div className="d-flex">
-        <Button className="my-text text-nowrap" onClick={() => onRemoveFromSetPressed(cardContext.id)}>Remove From Set</Button>
+        <Button color="danger" className="my-text text-nowrap" onClick={() => onRemoveFromSetPressed(cardContext.id)}>Remove From Set</Button>
     </div>
 
 }

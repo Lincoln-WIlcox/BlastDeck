@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Button } from "reactstrap"
+import { Button, Card, CardBody, CardTitle } from "reactstrap"
 import { UserContext } from "../App"
 import { getSetsByUser } from "../managers/setManager"
 import PracticeSetList from "../components/set/PracticeSetList"
@@ -18,10 +18,17 @@ const Practice = () =>
     )
 
     return <div className="d-flex flex-column gap-4">
-        <Link to="/practice/all">
-            <Button className="my-text">Practice All</Button>
-        </Link>
-        <PracticeSetList sets={sets} />
+        <Card className="bg-black-olive">
+            <CardBody className="d-flex flex-column justify-content-between">
+                <CardTitle className="mb-5">
+                    <Link to="/practice/all">
+                        <Button className="my-text bg-battleship-gray">Practice All</Button>
+                    </Link>
+                </CardTitle>
+
+                <PracticeSetList sets={sets} />
+            </CardBody>
+        </Card>
     </div>
 }
 
