@@ -88,7 +88,7 @@ public class AnswerController : ControllerBase
         {
             UserCardId = userCard.Id,
             AnsweredCorrectly = AnsweredCorrectly,
-            Stage = 2,
+            Stage = 3,
             DateAnswered = DateTime.Now
         };
 
