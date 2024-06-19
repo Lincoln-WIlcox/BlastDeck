@@ -8,10 +8,46 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlastDeck.Controllers;
 
+// switch (masteryLevel)
+// {
+//     case 1:
+//     case 2:
+//     case 3:
+//         timeBeforePractice = new TimeSpan(1, 0, 0, 0);
+//         break;
+//     case 4:
+//         timeBeforePractice = new TimeSpan(2, 0, 0, 0);
+//         break;
+//     case 5:
+//         timeBeforePractice = new TimeSpan(3, 0, 0, 0);
+//         break;
+//     case 6:
+//         timeBeforePractice = new TimeSpan(7, 0, 0, 0);
+//         break;
+//     case 7:
+//         timeBeforePractice = new TimeSpan(14, 0, 0, 0);
+//         break;
+//     default:
+//         timeBeforePractice = new TimeSpan(0);
+//         break;
+// }
+
 [ApiController]
 [Route("api/[controller]")]
 public class CardController : ControllerBase
 {
+    Dictionary<int, TimeSpan> MasteryLevelTimeSpans = new Dictionary<int, TimeSpan>
+    {
+        { 0, new TimeSpan(0) },
+        { 1, new TimeSpan(1, 0, 0, 0) },
+        { 2, new TimeSpan(1, 0, 0, 0) },
+        { 3, new TimeSpan(1, 0, 0, 0) },
+        { 4, new TimeSpan(2, 0, 0, 0) },
+        { 5, new TimeSpan(3, 0, 0, 0) },
+        { 6, new TimeSpan(7, 0, 0, 0) },
+        { 7, new TimeSpan(14, 0, 0, 0) }
+    };
+
     private BlastDeckDbContext _dbContext;
 
     public CardController(BlastDeckDbContext context)
@@ -320,31 +356,7 @@ public class CardController : ControllerBase
                             }
                         );
 
-                    TimeSpan timeBeforePractice;
-
-                    switch (masteryLevel)
-                    {
-                        case 1:
-                        case 2:
-                        case 3:
-                            timeBeforePractice = new TimeSpan(1, 0, 0, 0);
-                            break;
-                        case 4:
-                            timeBeforePractice = new TimeSpan(2, 0, 0, 0);
-                            break;
-                        case 5:
-                            timeBeforePractice = new TimeSpan(3, 0, 0, 0);
-                            break;
-                        case 6:
-                            timeBeforePractice = new TimeSpan(7, 0, 0, 0);
-                            break;
-                        case 7:
-                            timeBeforePractice = new TimeSpan(14, 0, 0, 0);
-                            break;
-                        default:
-                            timeBeforePractice = new TimeSpan(0);
-                            break;
-                    }
+                    TimeSpan timeBeforePractice = MasteryLevelTimeSpans[masteryLevel];
 
                     List<UserAnswer> userAnswers = _dbContext
                         .UserAnswers.Where(ua => ua.UserCardId == uc.Id)
