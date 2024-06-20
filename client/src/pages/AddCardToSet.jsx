@@ -39,7 +39,7 @@ const AddCardToSet = () =>
             setSelectedCards([...selectedCards, cardId])
         } else
         {
-            setSelectedCards(selectedCards.map(c => c != cardId))
+            setSelectedCards(selectedCards.filter(c => c != cardId))
         }
     }
 
