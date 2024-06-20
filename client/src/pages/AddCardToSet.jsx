@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { addCardsToSet, getSetById } from "../managers/setManager"
 import PickMiniCardList from "../components/card/PickMiniCardList"
 import { getStarred } from "../managers/cardManager"
-import { Button } from "reactstrap"
+import { Button, Card } from "reactstrap"
 
 const AddCardToSet = () =>
 {
@@ -53,10 +53,12 @@ const AddCardToSet = () =>
         )
     }
 
-    return <div>
-        <Button onClick={handleAddCardsButtonPressed}>Add Cards To {set.setName}</Button>
+    return <Card className="bg-sage">
+        <div>
+            <Button color="success" className="my-text" onClick={handleAddCardsButtonPressed}>Add Cards To {set.setName}</Button>
+        </div>
         <PickMiniCardList cards={cards} cardsUpdated={fetchAndSetStarredCards} onCheckboxChanged={handleCheckboxChanged} />
-    </div>
+    </Card>
 
 }
 

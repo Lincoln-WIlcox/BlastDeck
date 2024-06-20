@@ -1,4 +1,4 @@
-import { Button, Input, InputGroup, Label } from "reactstrap"
+import { Button, Card, Input, InputGroup, Label } from "reactstrap"
 import "./Practice.css"
 import { answerCard } from "../../managers/answerManager"
 import { useEffect, useState } from "react"
@@ -70,7 +70,7 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
             break
     }
 
-    return <div className="d-flex flex-column justify-content-between practice-container">
+    return <Card className="d-flex flex-column justify-content-between practice-container bg-black-olive">
         <div>
             <img className="practice-image" src={card.imageURL} />
         </div>
@@ -81,7 +81,7 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
             <div className="h-25">
                 {
                     selectedAnswer != 0 && answeredCorrectly == undefined &&
-                    <Button className="my-text" onClick={handleAnswerChosen}>Submit</Button>
+                    <Button className="my-text bg-battleship-gray" onClick={handleAnswerChosen}>Submit</Button>
 
                 }
                 {
@@ -94,7 +94,7 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
             </div>
 
         </div>
-    </div>
+    </Card>
 }
 
 export default PracticeCardPassive

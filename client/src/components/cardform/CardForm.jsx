@@ -104,11 +104,11 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
                     <InputGroupText>
                         English Word
                     </InputGroupText>
-                    <Input placeholder="URL" value={englishWord} onChange={(e) => setEnglishWord(e.target.value)} />
+                    <Input placeholder="Word" value={englishWord} onChange={(e) => setEnglishWord(e.target.value)} />
                 </InputGroup>
             </Row>
             <Row className="mx-5">
-                <Button onClick={handleAddAnswerPress} className="my-text smaller-text">Add Answer</Button>
+                <Button onClick={handleAddAnswerPress} className="my-text smaller-text bg-battleship-gray">Add Answer</Button>
             </Row>
         </div>
         <div className="d-flex flex-column gap-3">
@@ -126,7 +126,7 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
             }
         </div>
         <div>
-            <Button className="my-text" disabled={!formIsValid()} onClick={handleSubmitPressed}>Submit</Button>
+            <Button color="success" className="my-text" disabled={!formIsValid()} onClick={handleSubmitPressed}>Submit</Button>
         </div>
     </div>
 }

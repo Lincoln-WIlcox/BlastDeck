@@ -9,7 +9,7 @@ const MiniCardEditButton = () =>
 
     return <div className="d-flex">
         <Link className="my-button" to={`/card/${cardContext?.id}/edit`}>
-            <Button>Edit</Button>
+            <Button color="secondary">Edit</Button>
         </Link>
     </div>
 }

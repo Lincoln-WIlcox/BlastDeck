@@ -33,6 +33,11 @@ public class SetController : ControllerBase
             up.IdentityUserId == identityUserId
         );
 
+        List<GetSetsDTO> getSetsDTOs = _dbContext
+            .Sets.Where(s => s.CreatorId == profile.Id)
+            .Select(s => new GetSetsDTO(s))
+            .ToList();
+
         return Ok(
             _dbContext.Sets.Where(s => s.CreatorId == profile.Id).Select(s => new GetSetsDTO(s))
         );
