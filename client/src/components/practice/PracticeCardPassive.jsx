@@ -9,11 +9,18 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
     const [card, setCard] = useState({})
     const [selectedAnswer, setSelectedAnswer] = useState(0)
+    const [correctAnswer, setCorrectAnswer] = useState("")
 
     const handleAnswerChosen = () =>
     {
         //the endpoint will return if the answer is correct. The endpoint will also make a userAnswer
-        answerCard(cardId, selectedAnswer).then(setAnsweredCorrectly)
+        answerCard(cardId, selectedAnswer).then(
+            (answer) =>
+            {
+                setAnsweredCorrectly(answer.answeredCorrectly)
+                setCorrectAnswer(answer.correctAnswer)
+            }
+        )
     }
 
     const fetchAndSetCard = () =>
@@ -79,8 +86,9 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
                 }
                 {
                     answeredCorrectly != undefined &&
-                    <div>
-                        <Button className="my-text bg-battleship-gray" onClick={onContinuePressed}>Continue</Button>
+                    <div className="d-flex flex-column align-items-center">
+                        <p className="my-text">{correctAnswer}</p>
+                        <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
                     </div>
                 }
             </div>

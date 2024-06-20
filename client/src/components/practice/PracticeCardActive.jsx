@@ -9,12 +9,20 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
     const [card, setCard] = useState({})
     const [typedAnswer, setTypedAnswer] = useState("")
+    const [correctAnswer, setCorrectAnswer] = useState("")
 
     const handleAnswerSubmitted = () =>
     {
-        answerActive(cardId, typedAnswer).then(setAnsweredCorrectly)
+        answerActive(cardId, typedAnswer).then(
+            (answer) =>
+            {
+                debugger
+                setAnsweredCorrectly(answer.answeredCorrectly)
+                setCorrectAnswer(answer.correctAnswer)
+            }
+        )
     }
-
+    
     const fetchAndSetCard = () =>
     {
         getCardWithoutCorrectAnswer(cardId).then(setCard)
@@ -48,7 +56,7 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
             break
         case false:
             content = <div>
-                <p className="my-text text-center">you answered wrong... bruh...</p>
+                <p className="my-text text-center">Incorrect.</p>
             </div>
             break
     }
@@ -66,7 +74,8 @@ const PracticeCardActive = ({ cardId, onContinuePressed }) =>
                 {
                     answeredCorrectly != undefined &&
                     <div>
-                        <Button className="my-text bg-battleship-gray" onClick={onContinuePressed}>Continue</Button>
+                        <p className="my-text">{correctAnswer}</p>
+                        <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
                     </div>
                 }
             </div>
