@@ -4,7 +4,7 @@ import { answerCard } from "../../managers/answerManager"
 import { useEffect, useState } from "react"
 import { getCardWithoutCorrectAnswer } from "../../managers/cardManager"
 
-const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
+const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard }) =>
 {
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
     const [card, setCard] = useState({})
@@ -19,6 +19,7 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
             {
                 setAnsweredCorrectly(answer.answeredCorrectly)
                 setCorrectAnswer(answer.correctAnswer)
+                answeredCard(answer.answeredCorrectly, card.id)
             }
         )
     }
@@ -35,6 +36,12 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
             fetchAndSetCard()
         }, [cardId]
     )
+
+    const handleContinuePressed = () =>
+    {
+        onContinuePressed()
+        setAnsweredCorrectly(undefined)
+    }
 
     let content
 
@@ -82,17 +89,15 @@ const PracticeCardPassive = ({ cardId, onContinuePressed }) =>
                 {
                     selectedAnswer != 0 && answeredCorrectly == undefined &&
                     <Button className="my-text bg-battleship-gray" onClick={handleAnswerChosen}>Submit</Button>
-
                 }
                 {
                     answeredCorrectly != undefined &&
                     <div className="d-flex flex-column align-items-center">
                         <p className="my-text">{correctAnswer}</p>
-                        <Button className="my-text" onClick={onContinuePressed}>Continue</Button>
+                        <Button className="my-text" onClick={handleContinuePressed}>Continue</Button>
                     </div>
                 }
             </div>
-
         </div>
     </Card>
 }
