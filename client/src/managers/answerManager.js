@@ -1,6 +1,6 @@
 export const answerCard = (cardId, answerId) =>
 {
-    return fetch(`/api/answer`,
+    return fetch(`/api/answer/passive`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
