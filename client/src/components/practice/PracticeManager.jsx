@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import PracticeCardAssociation from "./PracticeCardAssociation"
 import { useNavigate } from "react-router-dom"
 import PracticeCardPassive from "./PracticeCardPassive";
@@ -14,9 +14,31 @@ const stages = Object.freeze({
 const PracticeManager = ({ cardIds }) =>
 {
     const [currentCardIndex, setCurrentCardIndex] = useState(0)
+    const [practiceCardIds, setPracticeCardIds] = useState([])
+    const [cardsAnsweredCorrectly, setCardsAnsweredCorrectly] = useState([])
     const [stage, setStage] = useState(stages.association)
 
     const navigate = useNavigate()
+
+    useEffect(
+        () =>
+        {
+            setPracticeCardIds(shuffleArray(cardIds))
+        }, [cardIds]
+    )
+
+    const shuffleArray = (array) =>
+    {
+        let arrayCopy = [...array]
+        for(var i = arrayCopy.length - 1; i > 0; i--)
+        {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = arrayCopy[i];
+            arrayCopy[i] = arrayCopy[j];
+            arrayCopy[j] = temp;
+        }
+        return arrayCopy
+    }
 
     const handleContinuePressedAssociation = () =>
     {
@@ -32,10 +54,20 @@ const PracticeManager = ({ cardIds }) =>
 
     const handleContinuePressedPassive = () =>
     {
-        if(currentCardIndex == cardIds.length - 1)
+        if(currentCardIndex == practiceCardIds.length - 1)
         {
-            setStage(stages.active)
-            setCurrentCardIndex(0)
+            if(cardsAnsweredCorrectly.length < cardIds.length)
+            {
+                setPracticeCardIds(shuffleArray(cardIds.filter(cId => !cardsAnsweredCorrectly.includes(cId))))
+                setCurrentCardIndex(0)
+            } else
+            {
+                debugger
+                setCardsAnsweredCorrectly([])
+                setStage(stages.active)
+                setCurrentCardIndex(0)
+            }
+
         } else
         {
             setCurrentCardIndex(currentCardIndex + 1)
@@ -44,12 +76,32 @@ const PracticeManager = ({ cardIds }) =>
 
     const handleContinuePressedActive = () =>
     {
-        if(currentCardIndex == cardIds.length - 1)
+        if(currentCardIndex == practiceCardIds.length - 1)
         {
-            navigate("/practice")
+            debugger
+            if(cardsAnsweredCorrectly.length < cardIds.length)
+            {
+                setPracticeCardIds(shuffleArray(cardIds.filter(cId => !cardsAnsweredCorrectly.includes(cId))))
+                setCurrentCardIndex(0)
+            } else
+            {
+                navigate("/practice")
+            }
+
         } else
         {
             setCurrentCardIndex(currentCardIndex + 1)
+        }
+    }
+
+    const handleAnsweredCard = (answeredCorrectly, cardId) =>
+    {
+        if(answeredCorrectly)
+        {
+            setCardsAnsweredCorrectly([...cardsAnsweredCorrectly, cardId])
+        } else
+        {
+            setCardsAnsweredCorrectly(cardsAnsweredCorrectly.filter(c => c.id != cardId))
         }
     }
 
@@ -57,13 +109,13 @@ const PracticeManager = ({ cardIds }) =>
     switch(stage)
     {
         case stages.association:
-            returnComponent = <PracticeCardAssociation cardId={cardIds[currentCardIndex]} onContinuePressed={handleContinuePressedAssociation} />
+            returnComponent = <PracticeCardAssociation cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedAssociation} />
             break
         case stages.passive:
-            returnComponent = <PracticeCardPassive cardId={cardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} />
+            returnComponent = <PracticeCardPassive cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} answeredCard={handleAnsweredCard} />
             break
         case stages.active:
-            returnComponent = <PracticeCardActive cardId={cardIds[currentCardIndex]} onContinuePressed={handleContinuePressedActive} />
+            returnComponent = <PracticeCardActive cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedActive} answeredCard={handleAnsweredCard} />
             break
     }
     return returnComponent
