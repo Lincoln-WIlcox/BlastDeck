@@ -22,7 +22,7 @@ public class GetSetUserCardSetsUserCardCardDTO
 
         Id = card.Id;
         ImageURL = card.ImageURL;
-        CorrectAnswerId = card.CorrectAnswerId;
+        CorrectAnswerId = card.CorrectAnswerId != null ? (int)card.CorrectAnswerId : 0;
         CreatorId = card.CreatorId;
         EnglishWord = card.EnglishWord;
         Answers = card

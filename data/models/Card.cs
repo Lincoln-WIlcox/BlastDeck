@@ -10,9 +10,8 @@ public class Card
 
     public string ImageURL { get; set; }
 
-    [Required]
     [ForeignKey("CorrectAnswer")]
-    public int CorrectAnswerId { get; set; }
+    public int? CorrectAnswerId { get; set; }
 
     [Required]
     [ForeignKey("Creator")]

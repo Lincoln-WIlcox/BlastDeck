@@ -21,7 +21,7 @@ public class GetStarredCardsDTO
 
         Id = card.Id;
         ImageURL = card.ImageURL;
-        CorrectAnswerId = card.CorrectAnswerId;
+        CorrectAnswerId = card.CorrectAnswerId != null ? (int)card.CorrectAnswerId : 0;
         CreatorId = card.CreatorId;
         Answers = card.Answers.Select(a => new GetCardsAnswerDTO(a)).ToList();
         CorrectAnswer = new GetCardsAnswerDTO(card.CorrectAnswer);
