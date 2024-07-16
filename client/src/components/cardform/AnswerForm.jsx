@@ -1,4 +1,4 @@
-import { Button, Input, InputGroup, Label } from "reactstrap"
+import { Button, Input, InputGroup, InputGroupText, Label } from "reactstrap"
 
 const AnswerForm = ({ answer, answerChanged, onRemovePressed, isCorrectAnswer, onCorrectAnswerSelected }) =>
 {
@@ -13,7 +13,7 @@ const AnswerForm = ({ answer, answerChanged, onRemovePressed, isCorrectAnswer, o
     }
 
     return <div className="d-flex">
-        <div className="d-flex gap-2 m-2 align-items-center">
+        {/* <div className="d-flex gap-2 m-2 align-items-center">
             <Label className="my-text smaller-text text-nowrap">Mark Correct</Label>
             <Input
                 type="radio"
@@ -21,11 +21,13 @@ const AnswerForm = ({ answer, answerChanged, onRemovePressed, isCorrectAnswer, o
                 checked={isCorrectAnswer}
                 onChange={handleCorrectAnswerSelect}
             />
-        </div>
+        </div> */}
 
         <InputGroup>
+            <InputGroupText>
+                Answer
+            </InputGroupText>
             <Input type="text" value={answer} onChange={handleAnswerChange} />
-            <Button color="danger" onClick={onRemovePressed} className="my-text smaller-text">Remove</Button>
         </InputGroup>
 
     </div>
