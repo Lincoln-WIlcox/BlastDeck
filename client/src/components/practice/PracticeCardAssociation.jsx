@@ -20,7 +20,7 @@ const PracticeCardAssociation = ({ cardId, onContinuePressed }) =>
     return <Card className="d-flex flex-column justify-content-between practice-container bg-black-olive">
         <div className="d-flex flex-column gap-3">
             <img className="practice-image" src={card?.imageURL} />
-            <p className="my-text text-center">{card.correctAnswer?.word}</p>
+            <p className="my-text text-center">{card.correctAnswer}</p>
             <p className="my-text text-center">{card?.englishWord}</p>
         </div>
         <div className="d-flex flex-column align-items-center justify-content-end h-50">
