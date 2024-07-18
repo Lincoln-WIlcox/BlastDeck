@@ -62,7 +62,6 @@ const PracticeManager = ({ cardIds }) =>
                 setCurrentCardIndex(0)
             } else
             {
-                debugger
                 setCardsAnsweredCorrectly([])
                 setStage(stages.active)
                 setCurrentCardIndex(0)
@@ -78,7 +77,6 @@ const PracticeManager = ({ cardIds }) =>
     {
         if(currentCardIndex == practiceCardIds.length - 1)
         {
-            debugger
             if(cardsAnsweredCorrectly.length < cardIds.length)
             {
                 setPracticeCardIds(shuffleArray(cardIds.filter(cId => !cardsAnsweredCorrectly.includes(cId))))
@@ -112,7 +110,7 @@ const PracticeManager = ({ cardIds }) =>
             returnComponent = <PracticeCardAssociation cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedAssociation} />
             break
         case stages.passive:
-            returnComponent = <PracticeCardPassive cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} answeredCard={handleAnsweredCard} />
+            returnComponent = <PracticeCardPassive cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} answeredCard={handleAnsweredCard} otherCardIds={cardIds.filter(id => id != practiceCardIds[currentCardIndex])} />
             break
         case stages.active:
             returnComponent = <PracticeCardActive cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedActive} answeredCard={handleAnsweredCard} />

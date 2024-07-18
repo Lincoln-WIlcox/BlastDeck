@@ -23,7 +23,7 @@ const SetMiniCard = ({ card, onRemoveFromSetPressed }) =>
                 <MiniCardHeaderText>{card?.englishWord}</MiniCardHeaderText>
                 <MiniCardHeaderText>{card?.correctAnswer.word}</MiniCardHeaderText>
             </MiniCardHeader>
-            <MiniCardSubheader>
+            {/* <MiniCardSubheader>
                 {
                     card?.answers.map(a =>
                         a.word != card?.correctAnswer.word &&
@@ -32,7 +32,7 @@ const SetMiniCard = ({ card, onRemoveFromSetPressed }) =>
                         </p>
                     )
                 }
-            </MiniCardSubheader>
+            </MiniCardSubheader> */}
             <MiniCardContent>
                 <RemoveCardFromSetButton onRemoveFromSetPressed={onRemoveFromSetPressed} />
             </MiniCardContent>

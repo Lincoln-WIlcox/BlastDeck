@@ -67,7 +67,15 @@ export const getCardIdsToPractice = (setId) =>
     return fetch(`/api/card/cards-to-practice` + (setId ? `?setId=${setId}` : "")).then(res => res.json())
 }
 
-export const getCardWithoutCorrectAnswer = (id) =>
+export const getCardWithoutCorrectAnswer = (id, otherCardIds = []) =>
 {
-    return fetch(`/api/card/${id}/no-correct-answer`).then(res => res.json())
+    if(otherCardIds != [])
+    {
+        //const stringData = otherCardIds.map(({ value }) => `${value}`).join(',');
+        return fetch(`/api/card/${id}/no-correct-answer?` + otherCardIds.map(id => `othercardids=${id}&`).join("")).then(res => res.json())
+    } else
+    {
+        return fetch(`/api/card/${id}/no-correct-answer`).then(res => res.json())
+    }
+
 }

@@ -2,6 +2,7 @@ namespace BlastDeck.Models.DTOs;
 
 public class GetCardWithoutCorrectAnswerDTO
 {
+    const int NUMBER_OF_ANSWERS = 3;
     public int Id { get; set; }
     public string ImageURL { get; set; }
     public int CreatorId { get; set; }
@@ -9,17 +10,29 @@ public class GetCardWithoutCorrectAnswerDTO
     public string EnglishWord { get; set; }
     public bool? Starred { get; set; }
 
-    public GetCardWithoutCorrectAnswerDTO(Card card)
+    public GetCardWithoutCorrectAnswerDTO(Card card, List<Card>? otherCards = null)
     {
-        if (card.Answers == null)
+        if (card.CorrectAnswer == null)
         {
-            throw new Exception("must include Answers on Card for GetCardWithoutCorrectAnswerDTO.");
+            throw new Exception(
+                "must include correct answer on all cards for GetCardWithoutCorrectAnswerDTO."
+            );
         }
 
         Id = card.Id;
         ImageURL = card.ImageURL;
         CreatorId = card.CreatorId;
-        Answers = card.Answers.Select(a => new GetCardsAnswerDTO(a)).ToList();
+        Answers = [new GetCardsAnswerDTO(card.CorrectAnswer)];
+        if (otherCards != null)
+        {
+            Random random = new Random();
+            for (int i = 0; i < Math.Min(NUMBER_OF_ANSWERS, otherCards.Count); i++)
+            {
+                int randomNumber = random.Next(0, otherCards.Count);
+                Answers.Add(new GetCardsAnswerDTO(otherCards[randomNumber].CorrectAnswer));
+                otherCards.RemoveAt(randomNumber);
+            }
+        }
         EnglishWord = card.EnglishWord;
     }
 }

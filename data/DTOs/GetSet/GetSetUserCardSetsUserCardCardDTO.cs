@@ -7,9 +7,7 @@ public class GetSetUserCardSetsUserCardCardDTO
     public int CorrectAnswerId { get; set; }
     public int CreatorId { get; set; }
     public string EnglishWord { get; set; }
-
-    public List<GetSetUserCardSetsUserCardCardAnswersDTO>? Answers { get; set; }
-    public GetSetUserCardSetsUserCardCardAnswersDTO? CorrectAnswer { get; set; }
+    public string? CorrectAnswer { get; set; }
 
     public GetSetUserCardSetsUserCardCardDTO(Card card)
     {
@@ -25,9 +23,6 @@ public class GetSetUserCardSetsUserCardCardDTO
         CorrectAnswerId = card.CorrectAnswerId != null ? (int)card.CorrectAnswerId : 0;
         CreatorId = card.CreatorId;
         EnglishWord = card.EnglishWord;
-        Answers = card
-            .Answers.Select(a => new GetSetUserCardSetsUserCardCardAnswersDTO(a))
-            .ToList();
-        CorrectAnswer = new GetSetUserCardSetsUserCardCardAnswersDTO(card.CorrectAnswer);
+        CorrectAnswer = card.CorrectAnswer.Word;
     }
 }

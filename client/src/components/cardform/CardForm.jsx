@@ -9,7 +9,7 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
     const [answers, setAnswers] = useState([])
     const [imageURL, setImageURL] = useState("")
     const [englishWord, setEnglishWord] = useState("")
-    const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1)
+    const [correctAnswer, setCorrectAnswer] = useState("")
     const [imageIsValid, setImageIsValid] = useState(false)
 
     const user = useContext(UserContext)
@@ -71,7 +71,7 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
 
     const formIsValid = () =>
     {
-        return answers.length > 0 && correctAnswerIndex != -1 && imageURL && englishWord && imageIsValid
+        return correctAnswer != "" && imageURL && englishWord && imageIsValid
     }
 
     const handleSubmitPressed = () =>
@@ -80,8 +80,7 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
         {
             imageURL,
             englishWord,
-            answers,
-            correctAnswerIndex
+            correctAnswer
         }
 
         onCardSubmitted(card)
@@ -107,23 +106,13 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
                     <Input placeholder="Word" value={englishWord} onChange={(e) => setEnglishWord(e.target.value)} />
                 </InputGroup>
             </Row>
-            <Row className="mx-5">
-                <Button onClick={handleAddAnswerPress} className="my-text smaller-text bg-battleship-gray">Add Answer</Button>
+            <Row>
+                <AnswerForm
+                    answer={correctAnswer}
+                    answerChanged={setCorrectAnswer}
+                    isCorrectAnswer={true}
+                    onCorrectAnswerSelected={() => setCorrectAnswerIndex(i)} />
             </Row>
-        </div>
-        <div className="d-flex flex-column gap-3">
-            {
-                answers.map((a, i) =>
-                    <Row key={i + "a"}>
-                        <AnswerForm
-                            answer={a}
-                            answerChanged={(newAnswer) => handleAnswerChange(newAnswer, i)}
-                            onRemovePressed={() => handleAnswerRemove(i)}
-                            isCorrectAnswer={correctAnswerIndex == i}
-                            onCorrectAnswerSelected={() => setCorrectAnswerIndex(i)} />
-                    </Row>
-                )
-            }
         </div>
         <div>
             <Button color="success" className="my-text" disabled={!formIsValid()} onClick={handleSubmitPressed}>Submit</Button>
