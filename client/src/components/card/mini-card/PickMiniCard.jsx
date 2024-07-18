@@ -25,7 +25,7 @@ const PickMiniCard = ({ card, onCardsChanged, onCheckboxChanged }) =>
                 <MiniCardHeaderText>{card?.englishWord}</MiniCardHeaderText>
                 <MiniCardHeaderText>{card?.correctAnswer.word}</MiniCardHeaderText>
             </MiniCardHeader>
-            <MiniCardSubheader>
+            {/* <MiniCardSubheader>
                 {
                     card?.answers.map(a =>
                         a.word != card?.correctAnswer.word &&
@@ -34,7 +34,7 @@ const PickMiniCard = ({ card, onCardsChanged, onCheckboxChanged }) =>
                         </p>
                     )
                 }
-            </MiniCardSubheader>
+            </MiniCardSubheader> */}
             {/* <CardContext.Provider value={card}>
                         <Row>
                             {

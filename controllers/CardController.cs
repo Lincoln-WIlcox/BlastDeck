@@ -281,7 +281,6 @@ public class CardController : ControllerBase
 
         List<Card> cards = _dbContext
             .UserCards.Include(uc => uc.Card)
-            .ThenInclude(c => c.Answers)
             .Include(uc => uc.Card)
             .ThenInclude(c => c.CorrectAnswer)
             .Include(uc => uc.UserCardSets)
@@ -409,6 +408,9 @@ public class CardController : ControllerBase
 
         Answer answer = new Answer { Word = createCard.CorrectAnswer, CardId = card.Id };
         _dbContext.Answers.Add(answer);
+        _dbContext.SaveChanges();
+
+        card.CorrectAnswerId = answer.Id;
         _dbContext.SaveChanges();
     }
 }

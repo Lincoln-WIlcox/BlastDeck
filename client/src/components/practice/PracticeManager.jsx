@@ -62,7 +62,6 @@ const PracticeManager = ({ cardIds }) =>
                 setCurrentCardIndex(0)
             } else
             {
-                debugger
                 setCardsAnsweredCorrectly([])
                 setStage(stages.active)
                 setCurrentCardIndex(0)
@@ -78,7 +77,6 @@ const PracticeManager = ({ cardIds }) =>
     {
         if(currentCardIndex == practiceCardIds.length - 1)
         {
-            debugger
             if(cardsAnsweredCorrectly.length < cardIds.length)
             {
                 setPracticeCardIds(shuffleArray(cardIds.filter(cId => !cardsAnsweredCorrectly.includes(cId))))
