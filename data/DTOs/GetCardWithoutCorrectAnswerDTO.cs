@@ -26,7 +26,7 @@ public class GetCardWithoutCorrectAnswerDTO
         if (otherCards != null)
         {
             Random random = new Random();
-            for (int i = 0; i < Math.Min(NUMBER_OF_ANSWERS, otherCards.Count); i++)
+            for (int i = 0; i <= Math.Min(NUMBER_OF_ANSWERS, otherCards.Count); i++)
             {
                 int randomNumber = random.Next(0, otherCards.Count);
                 Answers.Add(new GetCardsAnswerDTO(otherCards[randomNumber].CorrectAnswer));
