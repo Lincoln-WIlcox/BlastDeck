@@ -201,16 +201,17 @@ public class CardController : ControllerBase
 
     [HttpGet("{id}/no-correct-answer")]
     [Authorize]
-    public IActionResult GetCardByIdWithoutCorrectAnswer(int id)
+    public IActionResult GetCardByIdWithoutCorrectAnswer(int id, List<int> otherCardIds)
     {
         Card? card = _dbContext.Cards.Include(c => c.Answers).SingleOrDefault(c => c.Id == id);
+        List<Card> otherCards = _dbContext.Cards.Where(c => otherCardIds.Any(id => c.Id == id)).Include(c => c.CorrectAnswer).ToList();
 
         if (card == null)
         {
             return BadRequest();
         }
 
-        return Ok(new GetCardWithoutCorrectAnswerDTO(card));
+        return Ok(new GetCardWithoutCorrectAnswerDTO(card, otherCards));
     }
 
     [HttpPut("{id}")]
