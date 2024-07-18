@@ -110,7 +110,7 @@ const PracticeManager = ({ cardIds }) =>
             returnComponent = <PracticeCardAssociation cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedAssociation} />
             break
         case stages.passive:
-            returnComponent = <PracticeCardPassive cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} answeredCard={handleAnsweredCard} />
+            returnComponent = <PracticeCardPassive cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} answeredCard={handleAnsweredCard} otherCardIds={cardIds.filter(id => id != practiceCardIds[currentCardIndex])} />
             break
         case stages.active:
             returnComponent = <PracticeCardActive cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedActive} answeredCard={handleAnsweredCard} />

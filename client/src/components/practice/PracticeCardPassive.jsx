@@ -4,7 +4,7 @@ import { answerCard } from "../../managers/answerManager"
 import { useEffect, useState } from "react"
 import { getCardWithoutCorrectAnswer } from "../../managers/cardManager"
 
-const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard }) =>
+const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard, otherCardIds }) =>
 {
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
     const [card, setCard] = useState({})
@@ -26,7 +26,7 @@ const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard }) =>
 
     const fetchAndSetCard = () =>
     {
-        getCardWithoutCorrectAnswer(cardId).then(setCard)
+        getCardWithoutCorrectAnswer(cardId, otherCardIds).then(setCard)
     }
 
     useEffect(
