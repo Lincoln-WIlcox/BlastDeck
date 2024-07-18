@@ -407,17 +407,8 @@ public class CardController : ControllerBase
         _dbContext.Cards.Add(card);
         _dbContext.SaveChanges();
 
-        for (int i = 0; i < createCard.Answers.Count; i++)
-        {
-            Answer answer = new Answer { Word = createCard.Answers[i], CardId = card.Id };
-            _dbContext.Answers.Add(answer);
-            _dbContext.SaveChanges();
-            if (i == createCard.CorrectAnswerIndex)
-            {
-                card.CorrectAnswerId = answer.Id;
-            }
-        }
-
+        Answer answer = new Answer { Word = createCard.CorrectAnswer, CardId = card.Id };
+        _dbContext.Answers.Add(answer);
         _dbContext.SaveChanges();
     }
 }

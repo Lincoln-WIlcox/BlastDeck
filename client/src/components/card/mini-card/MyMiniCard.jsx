@@ -23,7 +23,7 @@ const MyMiniCard = ({ card, onCardsChanged }) =>
                 <MiniCardHeaderText>{card?.correctAnswer.word}</MiniCardHeaderText>
                 <MiniCardStarButton starred={card?.starred} onStarChanged={onCardsChanged} />
             </MiniCardHeader>
-            <MiniCardSubheader>
+            {/* <MiniCardSubheader>
                 {
                     card?.answers.map(a =>
                         a.word != card?.correctAnswer.word &&
@@ -32,7 +32,7 @@ const MyMiniCard = ({ card, onCardsChanged }) =>
                         </p>
                     )
                 }
-            </MiniCardSubheader>
+            </MiniCardSubheader> */}
             <MiniCardContent>
                 <MiniCardEditButton />
                 <MiniCardDeleteButton onCardDeleted={onCardsChanged} />

@@ -4,26 +4,17 @@ public class GetCardsDTO
 {
     public int Id { get; set; }
     public string ImageURL { get; set; }
-    public int CorrectAnswerId { get; set; }
+    public string CorrectAnswer { get; set; }
     public int CreatorId { get; set; }
-    public List<GetCardsAnswerDTO> Answers { get; set; }
-    public GetCardsAnswerDTO CorrectAnswer { get; set; }
     public string EnglishWord { get; set; }
     public bool? Starred { get; set; }
 
     public GetCardsDTO(Card card)
     {
-        if (card.Answers == null || card.CorrectAnswer == null)
-        {
-            throw new Exception("must include Answers and CorrectAnswer on card for GetCardsDTO.");
-        }
-
         Id = card.Id;
         ImageURL = card.ImageURL;
-        CorrectAnswerId = card.CorrectAnswerId != null ? (int)card.CorrectAnswerId : 0;
         CreatorId = card.CreatorId;
-        Answers = card.Answers.Select(a => new GetCardsAnswerDTO(a)).ToList();
-        CorrectAnswer = new GetCardsAnswerDTO(card.CorrectAnswer);
+        CorrectAnswer = card.Answers[0].Word;
         EnglishWord = card.EnglishWord;
     }
 }

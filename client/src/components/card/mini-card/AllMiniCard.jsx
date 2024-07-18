@@ -23,7 +23,7 @@ const AllMiniCard = ({ card, onCardChanged }) =>
                 <MiniCardHeaderText>{card?.correctAnswer.word}</MiniCardHeaderText>
                 <MiniCardStarButton starred={card?.starred} onStarChanged={onCardChanged} />
             </MiniCardHeader>
-            <MiniCardSubheader>
+            {/* <MiniCardSubheader>
                 {
                     card?.answers.map(a =>
                         a.word != card?.correctAnswer.word &&
@@ -32,7 +32,7 @@ const AllMiniCard = ({ card, onCardChanged }) =>
                         </p>
                     )
                 }
-            </MiniCardSubheader>
+            </MiniCardSubheader> */}
             {/* <CardContext.Provider value={card}>
                         <Row>
                             {
