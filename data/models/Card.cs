@@ -7,11 +7,9 @@ public class Card
 {
     [Key]
     public int Id { get; set; }
-
     public string ImageURL { get; set; }
-
-    [ForeignKey("CorrectAnswer")]
-    public int? CorrectAnswerId { get; set; }
+    [Required]
+    public string? CorrectAnswer { get; set; }
 
     [Required]
     [ForeignKey("Creator")]
@@ -22,7 +20,5 @@ public class Card
 
     // Navigation properties
     public UserProfile? Creator { get; set; }
-    public List<Answer>? Answers { get; set; }
-    public Answer? CorrectAnswer { get; set; }
     public List<UserCard>? UserCards { get; set; }
 }
