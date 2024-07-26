@@ -6,7 +6,6 @@ import { UserContext } from "../../App"
 
 const CardForm = ({ onCardSubmitted, existingCard }) =>
 {
-    const [answers, setAnswers] = useState([])
     const [imageURL, setImageURL] = useState("")
     const [englishWord, setEnglishWord] = useState("")
     const [correctAnswer, setCorrectAnswer] = useState("")
@@ -29,16 +28,8 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
         {
             if(existingCard)
             {
-                setAnswers(existingCard.answers ? existingCard.answers.map(a => a.word) : [])
-                existingCard.answers?.forEach(
-                    (a, i) =>
-                    {
-                        if(a.id == existingCard.correctAnswerId)
-                        {
-                            setCorrectAnswerIndex(i)
-                        }
-                    }
-                );
+                console.log(existingCard)
+                setCorrectAnswer(existingCard.correctAnswer ? existingCard.correctAnswer : "")
                 setImageURL(existingCard.imageURL ? existingCard.imageURL : "")
                 setEnglishWord(existingCard.englishWord ? existingCard.englishWord : "")
             }

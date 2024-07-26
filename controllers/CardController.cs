@@ -164,8 +164,7 @@ public class CardController : ControllerBase
 
         return Ok(
             _dbContext
-                .Cards
-                .Where(c => c.CreatorId == profile.Id)
+                .Cards.Where(c => c.CreatorId == profile.Id)
                 .Select(c => new GetCardsDTO(c))
                 .ToList()
                 .Select(c =>
@@ -184,9 +183,7 @@ public class CardController : ControllerBase
     [Authorize]
     public IActionResult GetCardById(int id)
     {
-        Card? card = _dbContext
-            .Cards.Include(c => c.CorrectAnswer)
-            .SingleOrDefault(c => c.Id == id);
+        Card? card = _dbContext.Cards.SingleOrDefault(c => c.Id == id);
 
         if (card == null)
         {
