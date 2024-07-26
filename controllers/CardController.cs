@@ -279,7 +279,6 @@ public class CardController : ControllerBase
         List<Card> cards = _dbContext
             .UserCards.Include(uc => uc.Card)
             .Include(uc => uc.Card)
-            .ThenInclude(c => c.CorrectAnswer)
             .Include(uc => uc.UserCardSets)
             .Where(uc =>
                 uc.UserId == profile.Id
