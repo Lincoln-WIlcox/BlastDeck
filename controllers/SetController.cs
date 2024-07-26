@@ -54,7 +54,6 @@ public class SetController : ControllerBase
             .Include(s => s.UserCardSets)
             .ThenInclude(ucs => ucs.UserCard)
             .ThenInclude(uc => uc.Card)
-            .ThenInclude(c => c.CorrectAnswer)
             .SingleOrDefault(s => s.Id == id);
 
         if (set == null)

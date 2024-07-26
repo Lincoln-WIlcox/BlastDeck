@@ -389,6 +389,7 @@ public class CardController : ControllerBase
             ImageURL = createCard.ImageURL,
             CreatorId = profile.Id,
             EnglishWord = createCard.EnglishWord,
+            CorrectAnswer = createCard.CorrectAnswer
         };
 
         if (withId != 0)
