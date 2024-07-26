@@ -21,7 +21,7 @@ const SetMiniCard = ({ card, onRemoveFromSetPressed }) =>
         <MiniCardBody>
             <MiniCardHeader>
                 <MiniCardHeaderText>{card?.englishWord}</MiniCardHeaderText>
-                <MiniCardHeaderText>{card?.correctAnswer.word}</MiniCardHeaderText>
+                <MiniCardHeaderText>{card?.correctAnswer}</MiniCardHeaderText>
             </MiniCardHeader>
             {/* <MiniCardSubheader>
                 {

@@ -66,8 +66,7 @@ public class CardController : ControllerBase
 
         return Ok(
             _dbContext
-                .Cards.Include(c => c.Answers)
-                .Select(c => new GetCardsDTO(c))
+                .Cards.Select(c => new GetCardsDTO(c))
                 .ToList()
                 .Select(c =>
                 {
@@ -165,8 +164,7 @@ public class CardController : ControllerBase
 
         return Ok(
             _dbContext
-                .Cards.Include(c => c.Answers)
-                .Include(c => c.CorrectAnswer)
+                .Cards
                 .Where(c => c.CreatorId == profile.Id)
                 .Select(c => new GetCardsDTO(c))
                 .ToList()
@@ -187,8 +185,7 @@ public class CardController : ControllerBase
     public IActionResult GetCardById(int id)
     {
         Card? card = _dbContext
-            .Cards.Include(c => c.Answers)
-            .Include(c => c.CorrectAnswer)
+            .Cards.Include(c => c.CorrectAnswer)
             .SingleOrDefault(c => c.Id == id);
 
         if (card == null)
@@ -201,9 +198,12 @@ public class CardController : ControllerBase
 
     [HttpGet("{id}/no-correct-answer")]
     [Authorize]
-    public IActionResult GetCardByIdWithoutCorrectAnswer(int id,[FromQuery] List<int>? otherCardIds = null)
+    public IActionResult GetCardByIdWithoutCorrectAnswer(
+        int id,
+        [FromQuery] List<int>? otherCardIds = null
+    )
     {
-        Card? card = _dbContext.Cards.Include(c => c.Answers).SingleOrDefault(c => c.Id == id);
+        Card? card = _dbContext.Cards.SingleOrDefault(c => c.Id == id);
         if (card == null)
         {
             return BadRequest();
@@ -237,16 +237,6 @@ public class CardController : ControllerBase
         }
 
         _dbContext.Cards.Remove(existingCard);
-
-        _dbContext.SaveChanges();
-
-        foreach (Answer answer in _dbContext.Answers)
-        {
-            if (answer.CardId == existingCard.Id)
-            {
-                _dbContext.Answers.Remove(answer);
-            }
-        }
 
         _dbContext.SaveChanges();
 
@@ -312,9 +302,6 @@ public class CardController : ControllerBase
 
         List<Card> cards = _dbContext
             .UserCards.Include(uc => uc.Card)
-            .ThenInclude(c => c.Answers)
-            .Include(uc => uc.Card)
-            .ThenInclude(c => c.CorrectAnswer)
             .Include(uc => uc.UserCardSets)
             .ToList()
             .Where(uc =>
@@ -411,13 +398,6 @@ public class CardController : ControllerBase
         }
 
         _dbContext.Cards.Add(card);
-        _dbContext.SaveChanges();
-
-        Answer answer = new Answer { Word = createCard.CorrectAnswer, CardId = card.Id };
-        _dbContext.Answers.Add(answer);
-        _dbContext.SaveChanges();
-
-        card.CorrectAnswerId = answer.Id;
         _dbContext.SaveChanges();
     }
 }

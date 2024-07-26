@@ -14,7 +14,7 @@ public class GetCardsDTO
         Id = card.Id;
         ImageURL = card.ImageURL;
         CreatorId = card.CreatorId;
-        CorrectAnswer = card.Answers[0].Word;
+        CorrectAnswer = card.CorrectAnswer;
         EnglishWord = card.EnglishWord;
     }
 }

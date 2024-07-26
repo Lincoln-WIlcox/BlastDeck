@@ -41,7 +41,7 @@ public class AnswerController : ControllerBase
             return BadRequest();
         }
 
-        bool AnsweredCorrectly = card.CorrectAnswerId == postUserAnswer.AnswerId;
+        bool AnsweredCorrectly = card.CorrectAnswer == postUserAnswer.Answer;
 
         UserAnswer userAnswer = new UserAnswer
         {
@@ -58,7 +58,7 @@ public class AnswerController : ControllerBase
             new WasAnswerCorrectDTO
             {
                 AnsweredCorrectly = AnsweredCorrectly,
-                CorrectAnswer = card.CorrectAnswer.Word
+                CorrectAnswer = card.CorrectAnswer
             }
         );
     }
@@ -86,7 +86,7 @@ public class AnswerController : ControllerBase
         }
 
         bool AnsweredCorrectly =
-            card.CorrectAnswer.Word.ToLower().Trim() == activeAnswer.Answer.ToLower().Trim();
+            card.CorrectAnswer.ToLower().Trim() == activeAnswer.Answer.ToLower().Trim();
 
         UserAnswer userAnswer = new UserAnswer
         {
@@ -103,7 +103,7 @@ public class AnswerController : ControllerBase
             new WasAnswerCorrectDTO
             {
                 AnsweredCorrectly = AnsweredCorrectly,
-                CorrectAnswer = card.CorrectAnswer.Word
+                CorrectAnswer = card.CorrectAnswer
             }
         );
     }

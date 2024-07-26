@@ -51,7 +51,6 @@ public class SetController : ControllerBase
             .Sets.Include(s => s.UserCardSets)
             .ThenInclude(ucs => ucs.UserCard)
             .ThenInclude(uc => uc.Card)
-            .ThenInclude(c => c.Answers)
             .Include(s => s.UserCardSets)
             .ThenInclude(ucs => ucs.UserCard)
             .ThenInclude(uc => uc.Card)

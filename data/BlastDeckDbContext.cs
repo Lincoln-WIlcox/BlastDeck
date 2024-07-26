@@ -8,7 +8,6 @@ namespace BlastDeck.Data;
 public class BlastDeckDbContext : IdentityDbContext<IdentityUser>
 {
     private readonly IConfiguration _configuration;
-    public DbSet<Answer> Answers { get; set; }
     public DbSet<Card> Cards { get; set; }
     public DbSet<Set> Sets { get; set; }
     public DbSet<UserAnswer> UserAnswers { get; set; }
@@ -25,12 +24,6 @@ public class BlastDeckDbContext : IdentityDbContext<IdentityUser>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder
-            .Entity<Answer>()
-            .HasOne(a => a.Card)
-            .WithMany(c => c.Answers)
-            .HasForeignKey(a => a.CardId);
 
         modelBuilder
             .Entity<IdentityRole>()
@@ -81,7 +74,7 @@ public class BlastDeckDbContext : IdentityDbContext<IdentityUser>
                 {
                     Id = 1,
                     ImageURL = "https://example.com/image1.jpg",
-                    CorrectAnswerId = 1,
+                    CorrectAnswer = "איש",
                     CreatorId = 1,
                     EnglishWord = "Man"
                 },
@@ -89,7 +82,7 @@ public class BlastDeckDbContext : IdentityDbContext<IdentityUser>
                 {
                     Id = 2,
                     ImageURL = "https://example.com/image2.jpg",
-                    CorrectAnswerId = 3,
+                    CorrectAnswer = "אישה",
                     CreatorId = 1,
                     EnglishWord = "Woman"
                 }
@@ -109,35 +102,6 @@ public class BlastDeckDbContext : IdentityDbContext<IdentityUser>
                     Id = 2,
                     SetName = "Advanced Set",
                     CreatorId = 1
-                }
-            );
-
-        modelBuilder
-            .Entity<Answer>()
-            .HasData(
-                new Answer
-                {
-                    Id = 1,
-                    Word = "Correct1",
-                    CardId = 1
-                },
-                new Answer
-                {
-                    Id = 2,
-                    Word = "Incorrect1",
-                    CardId = 1
-                },
-                new Answer
-                {
-                    Id = 3,
-                    Word = "Correct2",
-                    CardId = 2
-                },
-                new Answer
-                {
-                    Id = 4,
-                    Word = "Incorrect2",
-                    CardId = 2
                 }
             );
 
