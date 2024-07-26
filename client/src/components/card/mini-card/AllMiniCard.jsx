@@ -20,7 +20,7 @@ const AllMiniCard = ({ card, onCardChanged }) =>
         <MiniCardBody>
             <MiniCardHeader>
                 <MiniCardHeaderText>{card?.englishWord}</MiniCardHeaderText>
-                <MiniCardHeaderText>{card?.correctAnswer.word}</MiniCardHeaderText>
+                <MiniCardHeaderText>{card?.correctAnswer}</MiniCardHeaderText>
                 <MiniCardStarButton starred={card?.starred} onStarChanged={onCardChanged} />
             </MiniCardHeader>
             {/* <MiniCardSubheader>

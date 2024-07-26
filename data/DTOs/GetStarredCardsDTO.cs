@@ -16,7 +16,7 @@ public class GetStarredCardsDTO
         Id = card.Id;
         ImageURL = card.ImageURL;
         CreatorId = card.CreatorId;
-        CorrectAnswer = card.CorrectAnswer.Word;
+        CorrectAnswer = card.CorrectAnswer;
         EnglishWord = card.EnglishWord;
     }
 }

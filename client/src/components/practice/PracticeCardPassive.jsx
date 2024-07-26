@@ -8,13 +8,13 @@ const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard, otherCar
 {
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
     const [card, setCard] = useState({})
-    const [selectedAnswer, setSelectedAnswer] = useState(0)
+    const [selectedAnswer, setSelectedAnswer] = useState(-1)
     const [correctAnswer, setCorrectAnswer] = useState("")
 
     const handleAnswerChosen = () =>
     {
         //the endpoint will return if the answer is correct. The endpoint will also make a userAnswer
-        answerCard(cardId, selectedAnswer).then(
+        answerCard(cardId, card.answers[selectedAnswer]).then(
             (answer) =>
             {
                 setAnsweredCorrectly(answer.answeredCorrectly)
@@ -51,12 +51,12 @@ const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard, otherCar
             content = <div className="d-flex flex-shrink-1 flex-column align-items-center gap-3">
                 <InputGroup className="d-flex flex-column w-25">
                     {
-                        card.answers?.map(a =>
+                        card.answers?.map((a, i) =>
                         {
-                            const id = "a" + a.id
-                            return <div className="d-flex justify-content-end flex-shrink-1 gap-3" key={"a" + a.id}>
-                                <Label className="my-text" htmlFor={id}>{a.word}</Label>
-                                <Input id={id} name="answer" type="radio" onClick={() => setSelectedAnswer(a.id)} />
+                            const id = "a" + i
+                            return <div className="d-flex justify-content-end flex-shrink-1 gap-3" key={"a" + i}>
+                                <Label className="my-text" htmlFor={id}>{a}</Label>
+                                <Input id={id} name="answer" type="radio" onClick={() => setSelectedAnswer(i)} />
                             </div>
                         }
                         )
@@ -87,7 +87,7 @@ const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard, otherCar
             }
             <div className="h-25">
                 {
-                    selectedAnswer != 0 && answeredCorrectly == undefined &&
+                    selectedAnswer != -1 && answeredCorrectly == undefined &&
                     <Button className="my-text bg-battleship-gray" onClick={handleAnswerChosen}>Submit</Button>
                 }
                 {

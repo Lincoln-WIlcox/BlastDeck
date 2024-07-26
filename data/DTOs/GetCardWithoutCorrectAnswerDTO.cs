@@ -6,7 +6,7 @@ public class GetCardWithoutCorrectAnswerDTO
     public int Id { get; set; }
     public string ImageURL { get; set; }
     public int CreatorId { get; set; }
-    public List<GetCardsAnswerDTO> Answers { get; set; }
+    public List<string> Answers { get; set; }
     public string EnglishWord { get; set; }
     public bool? Starred { get; set; }
 
@@ -22,14 +22,14 @@ public class GetCardWithoutCorrectAnswerDTO
         Id = card.Id;
         ImageURL = card.ImageURL;
         CreatorId = card.CreatorId;
-        Answers = [new GetCardsAnswerDTO(card.CorrectAnswer)];
+        Answers = [card.CorrectAnswer];
         if (otherCards != null)
         {
             Random random = new Random();
             for (int i = 0; i <= Math.Min(NUMBER_OF_ANSWERS, otherCards.Count); i++)
             {
                 int randomNumber = random.Next(0, otherCards.Count);
-                Answers.Add(new GetCardsAnswerDTO(otherCards[randomNumber].CorrectAnswer));
+                Answers.Add(otherCards[randomNumber].CorrectAnswer);
                 otherCards.RemoveAt(randomNumber);
             }
         }

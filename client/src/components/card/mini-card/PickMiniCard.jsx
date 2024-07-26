@@ -23,7 +23,7 @@ const PickMiniCard = ({ card, onCardsChanged, onCheckboxChanged }) =>
         <MiniCardBody>
             <MiniCardHeader>
                 <MiniCardHeaderText>{card?.englishWord}</MiniCardHeaderText>
-                <MiniCardHeaderText>{card?.correctAnswer.word}</MiniCardHeaderText>
+                <MiniCardHeaderText>{card?.correctAnswer}</MiniCardHeaderText>
             </MiniCardHeader>
             {/* <MiniCardSubheader>
                 {
