@@ -209,7 +209,6 @@ public class CardController : ControllerBase
         {
             List<Card> otherCards = _dbContext
                 .Cards.Where(c => otherCardIds.Any(id => c.Id == id))
-                .Include(c => c.CorrectAnswer)
                 .ToList();
             return Ok(new GetCardWithoutCorrectAnswerDTO(card, otherCards));
         }

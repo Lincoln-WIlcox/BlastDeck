@@ -28,9 +28,7 @@ public class AnswerController : ControllerBase
             up.IdentityUserId == identityUserId
         );
 
-        Card? card = _dbContext
-            .Cards.Include(card => card.CorrectAnswer)
-            .SingleOrDefault(c => c.Id == postUserAnswer.CardId);
+        Card? card = _dbContext.Cards.SingleOrDefault(c => c.Id == postUserAnswer.CardId);
 
         UserCard? userCard = _dbContext.UserCards.SingleOrDefault(uc =>
             uc.CardId == postUserAnswer.CardId && uc.UserId == profile.Id
@@ -72,9 +70,7 @@ public class AnswerController : ControllerBase
             up.IdentityUserId == identityUserId
         );
 
-        Card? card = _dbContext
-            .Cards.Include(c => c.CorrectAnswer)
-            .SingleOrDefault(c => c.Id == activeAnswer.CardId);
+        Card? card = _dbContext.Cards.SingleOrDefault(c => c.Id == activeAnswer.CardId);
 
         UserCard? userCard = _dbContext.UserCards.SingleOrDefault(uc =>
             uc.CardId == activeAnswer.CardId && uc.UserId == profile.Id
