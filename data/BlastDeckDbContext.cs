@@ -76,7 +76,9 @@ public class BlastDeckDbContext : IdentityDbContext<IdentityUser>
                     ImageURL = "https://example.com/image1.jpg",
                     CorrectAnswer = "איש",
                     CreatorId = 1,
-                    EnglishWord = "Man"
+                    EnglishWord = "Man",
+                    AudioURL =
+                        "https://he-audio.howtopronounce.com/543dbd9392c532f6f0b4310231031d40.mp3"
                 },
                 new Card
                 {
@@ -84,7 +86,8 @@ public class BlastDeckDbContext : IdentityDbContext<IdentityUser>
                     ImageURL = "https://example.com/image2.jpg",
                     CorrectAnswer = "אישה",
                     CreatorId = 1,
-                    EnglishWord = "Woman"
+                    EnglishWord = "Woman",
+                    AudioURL = "https://he-audio.howtopronounce.com/16960531936517b7c94aa04.mp3"
                 }
             );
 
