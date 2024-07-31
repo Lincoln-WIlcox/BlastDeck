@@ -10,6 +10,7 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
     const [englishWord, setEnglishWord] = useState("")
     const [correctAnswer, setCorrectAnswer] = useState("")
     const [imageIsValid, setImageIsValid] = useState(false)
+    const [audioURL, setAudioURL] = useState("")
 
     const user = useContext(UserContext)
 
@@ -99,7 +100,7 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
                     <InputGroupText>
                         Audio URL (mp3)
                     </InputGroupText>
-                    <Input placeholder="URL" value={englishWord} onChange={(e) => setEnglishWord(e.target.value)} />
+                    <Input placeholder="URL" value={audioURL} onChange={(e) => setAudioURL(e.target.value)} />
                 </InputGroup>
                 <AnswerForm
                     answer={correctAnswer}
