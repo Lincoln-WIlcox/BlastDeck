@@ -32,6 +32,7 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
                 setCorrectAnswer(existingCard.correctAnswer ? existingCard.correctAnswer : "")
                 setImageURL(existingCard.imageURL ? existingCard.imageURL : "")
                 setEnglishWord(existingCard.englishWord ? existingCard.englishWord : "")
+                setAudioURL(existingCard.audioURL)
             }
 
 
