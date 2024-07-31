@@ -7,6 +7,7 @@ public class GetCardsDTO
     public string CorrectAnswer { get; set; }
     public int CreatorId { get; set; }
     public string EnglishWord { get; set; }
+    public string AudioURL { get; set; }
     public bool? Starred { get; set; }
 
     public GetCardsDTO(Card card)
@@ -16,5 +17,6 @@ public class GetCardsDTO
         CreatorId = card.CreatorId;
         CorrectAnswer = card.CorrectAnswer;
         EnglishWord = card.EnglishWord;
+        AudioURL = card.AudioURL;
     }
 }

@@ -8,6 +8,7 @@ public class GetCardWithoutCorrectAnswerDTO
     public int CreatorId { get; set; }
     public List<string> Answers { get; set; }
     public string EnglishWord { get; set; }
+    public string AudioURL { get; set; }
     public bool? Starred { get; set; }
 
     public GetCardWithoutCorrectAnswerDTO(Card card, List<Card>? otherCards = null)
@@ -22,6 +23,9 @@ public class GetCardWithoutCorrectAnswerDTO
         Id = card.Id;
         ImageURL = card.ImageURL;
         CreatorId = card.CreatorId;
+        AudioURL = card.AudioURL;
+        EnglishWord = card.EnglishWord;
+
         Answers = [card.CorrectAnswer];
         if (otherCards != null)
         {
@@ -33,6 +37,5 @@ public class GetCardWithoutCorrectAnswerDTO
                 otherCards.RemoveAt(randomNumber);
             }
         }
-        EnglishWord = card.EnglishWord;
     }
 }
