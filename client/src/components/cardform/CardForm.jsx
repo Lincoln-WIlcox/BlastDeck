@@ -71,7 +71,8 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
         {
             imageURL,
             englishWord,
-            correctAnswer
+            correctAnswer,
+            audioURL
         }
 
         onCardSubmitted(card)
@@ -98,9 +99,12 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
                 </InputGroup>
                 <InputGroup>
                     <InputGroupText>
-                        Audio URL (mp3)
+                        Audio URL
                     </InputGroupText>
                     <Input placeholder="URL" value={audioURL} onChange={(e) => setAudioURL(e.target.value)} />
+                    <InputGroupText>
+                        (mp3)
+                    </InputGroupText>
                 </InputGroup>
                 <AnswerForm
                     answer={correctAnswer}
