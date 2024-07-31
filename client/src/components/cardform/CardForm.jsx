@@ -28,7 +28,6 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
         {
             if(existingCard)
             {
-                console.log(existingCard)
                 setCorrectAnswer(existingCard.correctAnswer ? existingCard.correctAnswer : "")
                 setImageURL(existingCard.imageURL ? existingCard.imageURL : "")
                 setEnglishWord(existingCard.englishWord ? existingCard.englishWord : "")
@@ -96,8 +95,12 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
                     </InputGroupText>
                     <Input placeholder="Word" value={englishWord} onChange={(e) => setEnglishWord(e.target.value)} />
                 </InputGroup>
-            </Row>
-            <Row>
+                <InputGroup>
+                    <InputGroupText>
+                        Audio URL (mp3)
+                    </InputGroupText>
+                    <Input placeholder="URL" value={englishWord} onChange={(e) => setEnglishWord(e.target.value)} />
+                </InputGroup>
                 <AnswerForm
                     answer={correctAnswer}
                     answerChanged={setCorrectAnswer}
