@@ -2,6 +2,7 @@ import { Button, Card } from "reactstrap"
 import "./Practice.css"
 import { useEffect, useState } from "react"
 import { getCardById } from "../../managers/cardManager"
+import { playSoundFromURL } from "../../utils/AudioUtils"
 
 const PracticeCardAssociation = ({ cardId, onContinuePressed }) =>
 {
@@ -15,6 +16,13 @@ const PracticeCardAssociation = ({ cardId, onContinuePressed }) =>
                 getCardById(cardId).then(setCard)
             }
         }, [cardId]
+    )
+
+    useEffect(
+        () =>
+        {
+            playSoundFromURL(card.audioURL)
+        }, [card]
     )
 
     return <Card className="d-flex flex-column justify-content-between practice-container bg-black-olive">

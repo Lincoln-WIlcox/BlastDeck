@@ -7,6 +7,7 @@ public class GetSetUserCardSetsUserCardCardDTO
     public int CreatorId { get; set; }
     public string EnglishWord { get; set; }
     public string CorrectAnswer { get; set; }
+    public string AudioURL { get; set; }
 
     public GetSetUserCardSetsUserCardCardDTO(Card card)
     {
@@ -15,5 +16,6 @@ public class GetSetUserCardSetsUserCardCardDTO
         CreatorId = card.CreatorId;
         EnglishWord = card.EnglishWord;
         CorrectAnswer = card.CorrectAnswer;
+        AudioURL = card.AudioURL;
     }
 }

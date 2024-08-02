@@ -56,7 +56,8 @@ public class AnswerController : ControllerBase
             new WasAnswerCorrectDTO
             {
                 AnsweredCorrectly = AnsweredCorrectly,
-                CorrectAnswer = card.CorrectAnswer
+                CorrectAnswer = card.CorrectAnswer,
+                AudioURL = card.AudioURL
             }
         );
     }
@@ -99,7 +100,8 @@ public class AnswerController : ControllerBase
             new WasAnswerCorrectDTO
             {
                 AnsweredCorrectly = AnsweredCorrectly,
-                CorrectAnswer = card.CorrectAnswer
+                CorrectAnswer = card.CorrectAnswer,
+                AudioURL = card.AudioURL
             }
         );
     }

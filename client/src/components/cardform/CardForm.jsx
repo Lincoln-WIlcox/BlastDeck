@@ -10,6 +10,7 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
     const [englishWord, setEnglishWord] = useState("")
     const [correctAnswer, setCorrectAnswer] = useState("")
     const [imageIsValid, setImageIsValid] = useState(false)
+    const [audioURL, setAudioURL] = useState("")
 
     const user = useContext(UserContext)
 
@@ -28,10 +29,10 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
         {
             if(existingCard)
             {
-                console.log(existingCard)
                 setCorrectAnswer(existingCard.correctAnswer ? existingCard.correctAnswer : "")
                 setImageURL(existingCard.imageURL ? existingCard.imageURL : "")
                 setEnglishWord(existingCard.englishWord ? existingCard.englishWord : "")
+                setAudioURL(existingCard.audioURL)
             }
 
 
@@ -71,7 +72,8 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
         {
             imageURL,
             englishWord,
-            correctAnswer
+            correctAnswer,
+            audioURL
         }
 
         onCardSubmitted(card)
@@ -96,8 +98,15 @@ const CardForm = ({ onCardSubmitted, existingCard }) =>
                     </InputGroupText>
                     <Input placeholder="Word" value={englishWord} onChange={(e) => setEnglishWord(e.target.value)} />
                 </InputGroup>
-            </Row>
-            <Row>
+                <InputGroup>
+                    <InputGroupText>
+                        Audio URL
+                    </InputGroupText>
+                    <Input placeholder="URL" value={audioURL} onChange={(e) => setAudioURL(e.target.value)} />
+                    <InputGroupText>
+                        (mp3)
+                    </InputGroupText>
+                </InputGroup>
                 <AnswerForm
                     answer={correctAnswer}
                     answerChanged={setCorrectAnswer}

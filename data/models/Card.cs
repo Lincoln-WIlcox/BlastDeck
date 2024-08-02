@@ -8,8 +8,12 @@ public class Card
     [Key]
     public int Id { get; set; }
     public string ImageURL { get; set; }
+
     [Required]
     public string? CorrectAnswer { get; set; }
+
+    [Required]
+    public string AudioURL { get; set; }
 
     [Required]
     [ForeignKey("Creator")]

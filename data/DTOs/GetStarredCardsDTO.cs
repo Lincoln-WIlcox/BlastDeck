@@ -7,16 +7,17 @@ public class GetStarredCardsDTO
     public int CreatorId { get; set; }
     public string CorrectAnswer { get; set; }
     public string EnglishWord { get; set; }
+    public string AudioURL { get; set; }
     public bool? Starred { get; set; }
     public int? MasteryLevel { get; set; }
 
     public GetStarredCardsDTO(Card card)
     {
-
         Id = card.Id;
         ImageURL = card.ImageURL;
         CreatorId = card.CreatorId;
         CorrectAnswer = card.CorrectAnswer;
         EnglishWord = card.EnglishWord;
+        AudioURL = card.AudioURL;
     }
 }
