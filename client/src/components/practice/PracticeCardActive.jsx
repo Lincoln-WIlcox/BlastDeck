@@ -3,6 +3,7 @@ import "./Practice.css"
 import { answerActive, answerCard } from "../../managers/answerManager"
 import { useEffect, useState } from "react"
 import { getCardWithoutCorrectAnswer } from "../../managers/cardManager"
+import { playSoundFromURL } from "../../utils/AudioUtils"
 
 const PracticeCardActive = ({ cardId, onContinuePressed, answeredCard }) =>
 {
@@ -19,6 +20,7 @@ const PracticeCardActive = ({ cardId, onContinuePressed, answeredCard }) =>
                 setAnsweredCorrectly(answer.answeredCorrectly)
                 setCorrectAnswer(answer.correctAnswer)
                 answeredCard(answer.answeredCorrectly, cardId)
+                playSoundFromURL(answer.audioURL)
             }
         )
     }

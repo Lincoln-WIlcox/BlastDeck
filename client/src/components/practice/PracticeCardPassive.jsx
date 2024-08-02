@@ -3,6 +3,7 @@ import "./Practice.css"
 import { answerCard } from "../../managers/answerManager"
 import { useEffect, useState } from "react"
 import { getCardWithoutCorrectAnswer } from "../../managers/cardManager"
+import { playSoundFromURL } from "../../utils/AudioUtils"
 
 const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard, otherCardIds }) =>
 {
@@ -20,6 +21,7 @@ const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard, otherCar
                 setAnsweredCorrectly(answer.answeredCorrectly)
                 setCorrectAnswer(answer.correctAnswer)
                 answeredCard(answer.answeredCorrectly, card.id)
+                playSoundFromURL(answer.audioURL)
             }
         )
     }
