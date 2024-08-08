@@ -197,6 +197,7 @@ public class CardController : ControllerBase
     [Authorize]
     public IActionResult GetCardByIdWithoutCorrectAnswer(
         int id,
+        bool passiveTwo,
         [FromQuery] List<int>? otherCardIds = null
     )
     {
@@ -210,7 +211,7 @@ public class CardController : ControllerBase
             List<Card> otherCards = _dbContext
                 .Cards.Where(c => otherCardIds.Any(id => c.Id == id))
                 .ToList();
-            return Ok(new GetCardWithoutCorrectAnswerDTO(card, otherCards));
+            return Ok(new GetCardWithoutCorrectAnswerDTO(card, otherCards, passiveTwo));
         }
 
         return Ok(new GetCardWithoutCorrectAnswerDTO(card));
