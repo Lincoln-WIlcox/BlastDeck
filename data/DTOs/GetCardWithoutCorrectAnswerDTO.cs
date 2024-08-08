@@ -47,7 +47,14 @@ public class GetCardWithoutCorrectAnswerDTO
                 otherCardsDuplicate.RemoveAt(randomNumber);
             }
         }
-        int randomIndex = random.Next(0, Answers.Count);
-        Answers.Insert(randomIndex, card.CorrectAnswer);
+        int randomIndex = random.Next(0, Answers.Count + 1);
+        if (randomIndex == Answers.Count)
+        {
+            Answers.Add(card.CorrectAnswer);
+        }
+        else
+        {
+            Answers.Insert(randomIndex, card.CorrectAnswer);
+        }
     }
 }
