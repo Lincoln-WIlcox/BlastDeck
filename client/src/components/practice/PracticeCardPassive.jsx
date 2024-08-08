@@ -42,6 +42,7 @@ const PracticeCardPassive = ({ passiveTwo, cardId, onContinuePressed, answeredCa
     const handleContinuePressed = () =>
     {
         onContinuePressed()
+        setSelectedAnswer(-1)
         setAnsweredCorrectly(undefined)
     }
 
