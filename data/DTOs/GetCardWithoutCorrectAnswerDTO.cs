@@ -33,13 +33,13 @@ public class GetCardWithoutCorrectAnswerDTO
 
         List<Card>? otherCardsDuplicate = otherCards.GetRange(0, otherCards.Count);
         Answers = [];
+        Random random = new Random();
         if (otherCards != null)
         {
             int answerAmount = Math.Min(
                 passiveTwo ? NUMBER_OF_ANSWERS_IN_PASSIVE_TWO - 1 : NUMBER_OF_ANSWERS - 1,
                 otherCardsDuplicate.Count - 1
             );
-            Random random = new Random();
             for (int i = 0; i <= answerAmount; i++)
             {
                 int randomNumber = random.Next(0, otherCardsDuplicate.Count);
@@ -47,6 +47,7 @@ public class GetCardWithoutCorrectAnswerDTO
                 otherCardsDuplicate.RemoveAt(randomNumber);
             }
         }
-        Answers.Add(card.CorrectAnswer);
+        int randomIndex = random.Next(0, Answers.Count);
+        Answers.Insert(randomIndex, card.CorrectAnswer);
     }
 }
