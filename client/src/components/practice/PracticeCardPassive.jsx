@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { getCardWithoutCorrectAnswer } from "../../managers/cardManager"
 import { playSoundFromURL } from "../../utils/AudioUtils"
 
-const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard, otherCardIds }) =>
+const PracticeCardPassive = ({ passiveTwo, cardId, onContinuePressed, answeredCard, otherCardIds }) =>
 {
     const [answeredCorrectly, setAnsweredCorrectly] = useState()
     const [card, setCard] = useState({})
@@ -28,7 +28,7 @@ const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard, otherCar
 
     const fetchAndSetCard = () =>
     {
-        getCardWithoutCorrectAnswer(cardId, otherCardIds).then(setCard)
+        getCardWithoutCorrectAnswer(cardId, otherCardIds, passiveTwo).then(setCard)
     }
 
     useEffect(
@@ -42,6 +42,7 @@ const PracticeCardPassive = ({ cardId, onContinuePressed, answeredCard, otherCar
     const handleContinuePressed = () =>
     {
         onContinuePressed()
+        setSelectedAnswer(-1)
         setAnsweredCorrectly(undefined)
     }
 

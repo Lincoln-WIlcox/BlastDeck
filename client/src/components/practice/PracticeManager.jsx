@@ -8,7 +8,8 @@ import PracticeCardActive from "./PracticeCardActive";
 const stages = Object.freeze({
     association: 1,
     passive: 2,
-    active: 3
+    passiveTwo: 3,
+    active: 4
 });
 
 const PracticeManager = ({ cardIds }) =>
@@ -53,6 +54,27 @@ const PracticeManager = ({ cardIds }) =>
     }
 
     const handleContinuePressedPassive = () =>
+    {
+        if(currentCardIndex == practiceCardIds.length - 1)
+        {
+            if(cardsAnsweredCorrectly.length < cardIds.length)
+            {
+                setPracticeCardIds(shuffleArray(cardIds.filter(cId => !cardsAnsweredCorrectly.includes(cId))))
+                setCurrentCardIndex(0)
+            } else
+            {
+                setCardsAnsweredCorrectly([])
+                setStage(stages.passiveTwo)
+                setCurrentCardIndex(0)
+            }
+
+        } else
+        {
+            setCurrentCardIndex(currentCardIndex + 1)
+        }
+    }
+
+    const handleContinuePressedPassiveTwo = () =>
     {
         if(currentCardIndex == practiceCardIds.length - 1)
         {
@@ -110,7 +132,10 @@ const PracticeManager = ({ cardIds }) =>
             returnComponent = <PracticeCardAssociation cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedAssociation} />
             break
         case stages.passive:
-            returnComponent = <PracticeCardPassive cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} answeredCard={handleAnsweredCard} otherCardIds={cardIds.filter(id => id != practiceCardIds[currentCardIndex])} />
+            returnComponent = <PracticeCardPassive passiveTwo={false} cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} answeredCard={handleAnsweredCard} otherCardIds={cardIds.filter(id => id != practiceCardIds[currentCardIndex])} />
+            break
+        case stages.passiveTwo:
+            returnComponent = <PracticeCardPassive passiveTwo={true} cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassiveTwo} answeredCard={handleAnsweredCard} otherCardIds={cardIds.filter(id => id != practiceCardIds[currentCardIndex])} />
             break
         case stages.active:
             returnComponent = <PracticeCardActive cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedActive} answeredCard={handleAnsweredCard} />
