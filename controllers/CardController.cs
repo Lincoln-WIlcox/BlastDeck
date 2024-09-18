@@ -265,101 +265,9 @@ public class CardController : ControllerBase
         return Ok(cards.Select(c => new GetStarredCardsDTO(c)));
     }
 
-    [HttpGet("cards-to-practice/association")]
-    [Authorize]
-    public IActionResult GetCardsToPracticeIdsAssociation(int? setId)
-    {
-        var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
-            up.IdentityUserId == identityUserId
-        );
-
-        List<Card> cards = _dbContext
-            .UserCards.Include(uc => uc.Card)
-            .Include(uc => uc.UserCardSets)
-            .ToList()
-            .Where(uc =>
-            {
-                if (
-                    uc.UserId == profile.Id
-                    && (
-                        setId == null
-                        || _dbContext.UserCardSets.SingleOrDefault(ucs =>
-                            ucs.UserCardId == uc.Id && ucs.SetId == setId
-                        ) != null
-                    )
-                )
-                {
-                    int masteryLevel = _dbContext
-                        .UserAnswers.Where(ua => ua.UserCardId == uc.Id)
-                        .GroupBy(ua => ua.DateAnswered.Date)
-                        .ToList()
-                        .Aggregate(
-                            0,
-                            (int masteryLevel, IGrouping<DateTime, UserAnswer> userAnswers) =>
-                            {
-                                bool answeredStage2Correctly = false;
-                                bool answeredStage3Correctly = false;
-                                foreach (UserAnswer userAnswer in userAnswers)
-                                {
-                                    if (!userAnswer.AnsweredCorrectly)
-                                    {
-                                        return Math.Max(masteryLevel - 1, 0);
-                                    }
-                                    else if (userAnswer.Stage == 2)
-                                    {
-                                        answeredStage2Correctly = true;
-                                    }
-                                    else if (userAnswer.Stage == 3)
-                                    {
-                                        answeredStage3Correctly = true;
-                                    }
-                                }
-                                if (answeredStage2Correctly && answeredStage3Correctly)
-                                {
-                                    return Math.Min(masteryLevel + 1, 7);
-                                }
-                                return masteryLevel;
-                            }
-                        );
-
-                    if (masteryLevel >= MasteryLevelToSkipAssociation)
-                    {
-                        return false;
-                    }
-
-                    TimeSpan timeBeforePractice = MasteryLevelTimeSpans[masteryLevel];
-
-                    List<UserAnswer> userAnswers = _dbContext
-                        .UserAnswers.Where(ua => ua.UserCardId == uc.Id)
-                        .ToList();
-
-                    DateTime lastDatePracticed;
-                    if (userAnswers.Count > 0)
-                    {
-                        lastDatePracticed = userAnswers.Max(ua => ua.DateAnswered);
-                    }
-                    else
-                    {
-                        return true;
-                    }
-
-                    if (DateTime.Today - lastDatePracticed.Date >= timeBeforePractice)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            })
-            .Select(uc => uc.Card)
-            .ToList();
-
-        return Ok(cards.Select(c => c.Id));
-    }
-
     [HttpGet("cards-to-practice")]
     [Authorize]
-    public IActionResult GetCardsToPracticeIds(int? setId)
+    public IActionResult GetCardsToPracticeIds(int? setId, int stage)
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
@@ -415,10 +323,20 @@ public class CardController : ControllerBase
                             }
                         );
 
+                    switch (stage)
+                    {
+                        case 0: // association
+                            if (masteryLevel >= MasteryLevelToSkipAssociation)
+                            {
+                                return false;
+                            }
+                            break;
+                    }
+
                     TimeSpan timeBeforePractice = MasteryLevelTimeSpans[masteryLevel];
 
                     List<UserAnswer> userAnswers = _dbContext
-                        .UserAnswers.Where(ua => ua.UserCardId == uc.Id)
+                        .UserAnswers.Where(ua => ua.UserCardId == uc.Id && ua.Stage == stage)
                         .ToList();
 
                     DateTime lastDatePracticed;
