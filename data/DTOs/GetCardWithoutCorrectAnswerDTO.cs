@@ -11,7 +11,7 @@ public class GetCardWithoutCorrectAnswerDTO
     public string EnglishWord { get; set; }
     public string AudioURL { get; set; }
     public bool? Starred { get; set; }
-
+    public int MasteryLevel { get; set; }
     public GetCardWithoutCorrectAnswerDTO(
         Card card,
         List<Card>? otherCards = null,
@@ -47,6 +47,7 @@ public class GetCardWithoutCorrectAnswerDTO
                 otherCardsDuplicate.RemoveAt(randomNumber);
             }
         }
+        
         int randomIndex = random.Next(0, Answers.Count + 1);
         if (randomIndex == Answers.Count)
         {
