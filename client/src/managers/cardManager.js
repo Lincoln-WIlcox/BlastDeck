@@ -62,9 +62,9 @@ export const getStarred = (notInSet = null) =>
     return fetch(`/api/card/starred` + (notInSet ? `?notInSet=${notInSet}` : "")).then(res => res.json())
 }
 
-export const getCardIdsToPractice = (setId) =>
+export const getCardIdsToPractice = (stage, setId) =>
 {
-    return fetch(`/api/card/cards-to-practice` + (setId ? `?setId=${setId}` : "")).then(res => res.json())
+    return fetch(`/api/card/cards-to-practice?stage=${stage}` + (setId ? `&setId=${setId}` : "")).then(res => res.json())
 }
 
 export const getCardWithoutCorrectAnswer = (id, otherCardIds = [], passiveTwo) =>
