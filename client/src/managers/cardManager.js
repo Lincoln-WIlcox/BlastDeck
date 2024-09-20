@@ -67,7 +67,7 @@ export const getCardIdsToPractice = (stage, setId) =>
     return fetch(`/api/card/cards-to-practice?stage=${stage}` + (setId ? `&setId=${setId}` : "")).then(res => res.json())
 }
 
-export const getCardWithoutCorrectAnswer = (id, otherCardIds = [], passiveTwo) =>
+export const getCardWithoutCorrectAnswer = (id, otherCardIds = [], passiveTwo = false) =>
 {
     if(otherCardIds != [])
     {

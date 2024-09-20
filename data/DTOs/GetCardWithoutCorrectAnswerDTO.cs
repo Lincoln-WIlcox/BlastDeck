@@ -12,6 +12,7 @@ public class GetCardWithoutCorrectAnswerDTO
     public string AudioURL { get; set; }
     public bool? Starred { get; set; }
     public int MasteryLevel { get; set; }
+
     public GetCardWithoutCorrectAnswerDTO(
         Card card,
         List<Card>? otherCards = null,
@@ -31,11 +32,11 @@ public class GetCardWithoutCorrectAnswerDTO
         AudioURL = card.AudioURL;
         EnglishWord = card.EnglishWord;
 
-        List<Card>? otherCardsDuplicate = otherCards.GetRange(0, otherCards.Count);
         Answers = [];
         Random random = new Random();
         if (otherCards != null)
         {
+            List<Card>? otherCardsDuplicate = otherCards.GetRange(0, otherCards.Count);
             int answerAmount = Math.Min(
                 passiveTwo ? NUMBER_OF_ANSWERS_IN_PASSIVE_TWO - 1 : NUMBER_OF_ANSWERS - 1,
                 otherCardsDuplicate.Count - 1
@@ -47,7 +48,7 @@ public class GetCardWithoutCorrectAnswerDTO
                 otherCardsDuplicate.RemoveAt(randomNumber);
             }
         }
-        
+
         int randomIndex = random.Next(0, Answers.Count + 1);
         if (randomIndex == Answers.Count)
         {
