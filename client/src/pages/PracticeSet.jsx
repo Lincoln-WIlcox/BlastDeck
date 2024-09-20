@@ -9,14 +9,19 @@ const PracticeSet = () =>
 
     const { setId } = useParams()
 
+    const getCardIdsForStage = (stage) =>
+    {
+        getCardIdsToPractice(stage, setId).then(setCardIds)
+    }
+
     useEffect(
         () =>
         {
-            getCardIdsToPractice(setId).then(setCardIds)
+            getCardIdsForStage(0)
         }, [setId]
     )
 
-    return <PracticeManager cardIds={cardIds} />
+    return <PracticeManager cardIds={cardIds} getCardIdsForStage={getCardIdsForStage} />
 }
 
 export default PracticeSet

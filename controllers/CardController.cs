@@ -8,30 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlastDeck.Controllers;
 
-// switch (masteryLevel)
-// {
-//     case 1:
-//     case 2:
-//     case 3:
-//         timeBeforePractice = new TimeSpan(1, 0, 0, 0);
-//         break;
-//     case 4:
-//         timeBeforePractice = new TimeSpan(2, 0, 0, 0);
-//         break;
-//     case 5:
-//         timeBeforePractice = new TimeSpan(3, 0, 0, 0);
-//         break;
-//     case 6:
-//         timeBeforePractice = new TimeSpan(7, 0, 0, 0);
-//         break;
-//     case 7:
-//         timeBeforePractice = new TimeSpan(14, 0, 0, 0);
-//         break;
-//     default:
-//         timeBeforePractice = new TimeSpan(0);
-//         break;
-// }
-
 [ApiController]
 [Route("api/[controller]")]
 public class CardController : ControllerBase
@@ -47,6 +23,8 @@ public class CardController : ControllerBase
         { 6, new TimeSpan(7, 0, 0, 0) },
         { 7, new TimeSpan(14, 0, 0, 0) }
     };
+
+    int MasteryLevelToSkipAssociation = 3;
 
     private BlastDeckDbContext _dbContext;
 
@@ -289,7 +267,7 @@ public class CardController : ControllerBase
 
     [HttpGet("cards-to-practice")]
     [Authorize]
-    public IActionResult GetCardsToPracticeIds(int? setId)
+    public IActionResult GetCardsToPracticeIds(int? setId, int stage)
     {
         var identityUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var profile = _dbContext.UserProfiles.SingleOrDefault(up =>
@@ -345,10 +323,20 @@ public class CardController : ControllerBase
                             }
                         );
 
+                    switch (stage)
+                    {
+                        case 0: // association
+                            if (masteryLevel >= MasteryLevelToSkipAssociation)
+                            {
+                                return false;
+                            }
+                            break;
+                    }
+
                     TimeSpan timeBeforePractice = MasteryLevelTimeSpans[masteryLevel];
 
                     List<UserAnswer> userAnswers = _dbContext
-                        .UserAnswers.Where(ua => ua.UserCardId == uc.Id)
+                        .UserAnswers.Where(ua => ua.UserCardId == uc.Id && ua.Stage == stage)
                         .ToList();
 
                     DateTime lastDatePracticed;

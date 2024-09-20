@@ -6,14 +6,19 @@ const PracticeAll = () =>
 {
     const [cardIds, setCardIds] = useState([])
 
+    const getCardIdsForStage = (stage) =>
+    {
+        getCardIdsToPractice(stage).then(setCardIds)
+    }
+
     useEffect(
         () =>
         {
-            getCardIdsToPractice().then(setCardIds)
+            getCardIdsForStage(0)
         }, []
     )
 
-    return <PracticeManager cardIds={cardIds} />
+    return <PracticeManager cardIds={cardIds} getCardIdsForStage={getCardIdsForStage} />
 }
 
 export default PracticeAll

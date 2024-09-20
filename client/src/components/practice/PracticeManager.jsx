@@ -12,7 +12,7 @@ const stages = Object.freeze({
     active: 4
 });
 
-const PracticeManager = ({ cardIds }) =>
+const PracticeManager = ({ cardIds, getCardIdsForStage }) =>
 {
     const [currentCardIndex, setCurrentCardIndex] = useState(0)
     const [practiceCardIds, setPracticeCardIds] = useState([])
@@ -46,6 +46,7 @@ const PracticeManager = ({ cardIds }) =>
         if(currentCardIndex == cardIds.length - 1)
         {
             setStage(stages.passive)
+            getCardIdsForStage(stages.passive)
             setCurrentCardIndex(0)
         } else
         {
