@@ -57,7 +57,7 @@ const PracticeCardPassive = ({ passiveTwo, cardId, onContinuePressed, answeredCa
                         card.answers?.map((a, i) =>
                         {
                             const id = "a" + i
-                            return <div className="d-flex justify-content-end flex-shrink-1 gap-3" key={"a" + i}>
+                            return <div className="d-flex justify-content-end flex-shrink-1 gap-3 mx-1" key={"a" + i}>
                                 <Label className="my-text" htmlFor={id}>{a}</Label>
                                 <Input id={id} name="answer" type="radio" onClick={() => setSelectedAnswer(i)} />
                             </div>
