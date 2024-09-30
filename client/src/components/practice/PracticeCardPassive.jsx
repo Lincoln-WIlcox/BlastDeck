@@ -52,7 +52,7 @@ const PracticeCardPassive = ({ passiveTwo, cardId, onContinuePressed, answeredCa
     {
         case undefined:
             content = <div className="d-flex flex-shrink-1 flex-column align-items-center gap-3">
-                <InputGroup className="d-flex flex-column w-25">
+                <InputGroup className="d-flex flex-wrap flex-column w-25">
                     {
                         card.answers?.map((a, i) =>
                         {
