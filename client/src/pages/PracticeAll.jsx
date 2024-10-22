@@ -6,9 +6,9 @@ const PracticeAll = () =>
 {
     const [cardIds, setCardIds] = useState([])
 
-    const getCardIdsForStage = (stage) =>
+    const getCardIdsForStage = async (stage) =>
     {
-        getCardIdsToPractice(stage).then(setCardIds)
+        return getCardIdsToPractice(stage).then(setCardIds)
     }
 
     useEffect(

@@ -45,9 +45,14 @@ const PracticeManager = ({ cardIds, getCardIdsForStage }) =>
     {
         if(currentCardIndex == cardIds.length - 1)
         {
-            setStage(stages.passive)
-            getCardIdsForStage(stages.passive)
-            setCurrentCardIndex(0)
+            getCardIdsForStage(stages.passive).then(
+                () =>
+                {
+                    setCurrentCardIndex(0)
+                    setStage(stages.passive)
+                }
+            )
+
         } else
         {
             setCurrentCardIndex(currentCardIndex + 1)
