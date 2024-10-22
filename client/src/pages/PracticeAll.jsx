@@ -5,6 +5,7 @@ import { getCardIdsToPractice } from "../managers/cardManager"
 const PracticeAll = () =>
 {
     const [cardIds, setCardIds] = useState([])
+    const [allCards, setAllCards] = useState([])
 
     const getCardIdsForStage = async (stage) =>
     {
@@ -13,8 +14,14 @@ const PracticeAll = () =>
                 (newCards) =>
                 {
                     setCardIds(newCards)
+                    getCardIdsToPractice(-1).then
+                    (
+                        (newCards) =>
+                        {
+                            setAllCards(newCards)
+                        }
+                    )
                 }
-
             )
     }
 
@@ -25,7 +32,7 @@ const PracticeAll = () =>
         }, []
     )
 
-    return <PracticeManager cardIds={cardIds} getCardIdsForStage={getCardIdsForStage} />
+    return <PracticeManager cardIds={cardIds} getCardIdsForStage={getCardIdsForStage} allCards={allCards} />
 }
 
 export default PracticeAll

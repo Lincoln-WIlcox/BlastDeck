@@ -12,7 +12,7 @@ const stages = Object.freeze({
     active: 4
 });
 
-const PracticeManager = ({ cardIds, getCardIdsForStage }) =>
+const PracticeManager = ({ cardIds, getCardIdsForStage, allCards }) =>
 {
     const [currentCardIndex, setCurrentCardIndex] = useState(0)
     const [practiceCardIds, setPracticeCardIds] = useState([])
@@ -166,10 +166,10 @@ const PracticeManager = ({ cardIds, getCardIdsForStage }) =>
             returnComponent = <PracticeCardAssociation cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedAssociation} />
             break
         case stages.passive:
-            returnComponent = <PracticeCardPassive passiveTwo={false} cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} answeredCard={handleAnsweredCard} otherCardIds={cardIds.filter(id => id != practiceCardIds[currentCardIndex])} />
+            returnComponent = <PracticeCardPassive passiveTwo={false} cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassive} answeredCard={handleAnsweredCard} otherCardIds={allCards.filter(id => id != practiceCardIds[currentCardIndex])} />
             break
         case stages.passiveTwo:
-            returnComponent = <PracticeCardPassive passiveTwo={true} cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassiveTwo} answeredCard={handleAnsweredCard} otherCardIds={cardIds.filter(id => id != practiceCardIds[currentCardIndex])} />
+            returnComponent = <PracticeCardPassive passiveTwo={true} cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedPassiveTwo} answeredCard={handleAnsweredCard} otherCardIds={allCards.filter(id => id != practiceCardIds[currentCardIndex])} />
             break
         case stages.active:
             returnComponent = <PracticeCardActive cardId={practiceCardIds[currentCardIndex]} onContinuePressed={handleContinuePressedActive} answeredCard={handleAnsweredCard} />
