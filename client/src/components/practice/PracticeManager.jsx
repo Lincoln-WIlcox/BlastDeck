@@ -24,6 +24,17 @@ const PracticeManager = ({ cardIds, getCardIdsForStage }) =>
     useEffect(
         () =>
         {
+            if(cardIds.length == 0 && stage == stages.passive)
+            {
+                getCardIdsForStage(stages.active).then(
+                    () =>
+                    {
+                        setCardsAnsweredCorrectly([])
+                        setStage(stages.active)
+                        setCurrentCardIndex(0)
+                    }
+                )
+            }
             setPracticeCardIds(shuffleArray(cardIds))
         }, [cardIds]
     )
@@ -69,11 +80,23 @@ const PracticeManager = ({ cardIds, getCardIdsForStage }) =>
                 setCurrentCardIndex(0)
             } else
             {
-                setCardsAnsweredCorrectly([])
-                setStage(stages.passiveTwo)
-                setCurrentCardIndex(0)
+                if(practiceCardIds.length == 1)
+                {
+                    getCardIdsForStage(stages.active).then(
+                        () =>
+                        {
+                            setCardsAnsweredCorrectly([])
+                            setStage(stages.active)
+                            setCurrentCardIndex(0)
+                        }
+                    )
+                } else
+                {
+                    setCardsAnsweredCorrectly([])
+                    setStage(stages.passiveTwo)
+                    setCurrentCardIndex(0)
+                }
             }
-
         } else
         {
             setCurrentCardIndex(currentCardIndex + 1)
@@ -90,9 +113,14 @@ const PracticeManager = ({ cardIds, getCardIdsForStage }) =>
                 setCurrentCardIndex(0)
             } else
             {
-                setCardsAnsweredCorrectly([])
-                setStage(stages.active)
-                setCurrentCardIndex(0)
+                getCardIdsForStage(stages.active).then(
+                    () =>
+                    {
+                        setCardsAnsweredCorrectly([])
+                        setStage(stages.active)
+                        setCurrentCardIndex(0)
+                    }
+                )
             }
 
         } else

@@ -8,7 +8,14 @@ const PracticeAll = () =>
 
     const getCardIdsForStage = async (stage) =>
     {
-        return getCardIdsToPractice(stage).then(setCardIds)
+        return getCardIdsToPractice(stage).then
+            (
+                (newCards) =>
+                {
+                    setCardIds(newCards)
+                }
+
+            )
     }
 
     useEffect(
