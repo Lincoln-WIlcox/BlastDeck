@@ -11,7 +11,20 @@ const PracticeSet = () =>
 
     const getCardIdsForStage = async (stage) =>
     {
-        return getCardIdsToPractice(stage, setId).then(setCardIds)
+        return getCardIdsToPractice(stage, setId).then
+            (
+                (newCards) =>
+                {
+                    setCardIds(newCards)
+                    getCardIdsToPractice(-1).then
+                        (
+                            (newCards) =>
+                            {
+                                setAllCards(newCards)
+                            }
+                        )
+                }
+            )
     }
 
     useEffect(
@@ -21,7 +34,7 @@ const PracticeSet = () =>
         }, [setId]
     )
 
-    return <PracticeManager cardIds={cardIds} getCardIdsForStage={getCardIdsForStage} />
+    return <PracticeManager cardIds={cardIds} getCardIdsForStage={getCardIdsForStage} allCards={allCards} />
 }
 
 export default PracticeSet

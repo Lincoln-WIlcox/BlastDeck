@@ -5,10 +5,24 @@ import { getCardIdsToPractice } from "../managers/cardManager"
 const PracticeAll = () =>
 {
     const [cardIds, setCardIds] = useState([])
+    const [allCards, setAllCards] = useState([])
 
     const getCardIdsForStage = async (stage) =>
     {
-        return getCardIdsToPractice(stage).then(setCardIds)
+        return getCardIdsToPractice(stage).then
+            (
+                (newCards) =>
+                {
+                    setCardIds(newCards)
+                    getCardIdsToPractice(-1).then
+                    (
+                        (newCards) =>
+                        {
+                            setAllCards(newCards)
+                        }
+                    )
+                }
+            )
     }
 
     useEffect(
@@ -18,7 +32,7 @@ const PracticeAll = () =>
         }, []
     )
 
-    return <PracticeManager cardIds={cardIds} getCardIdsForStage={getCardIdsForStage} />
+    return <PracticeManager cardIds={cardIds} getCardIdsForStage={getCardIdsForStage} allCards={allCards} />
 }
 
 export default PracticeAll

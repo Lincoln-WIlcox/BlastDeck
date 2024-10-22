@@ -25,6 +25,8 @@ public class CardController : ControllerBase
     };
 
     int MasteryLevelToSkipAssociation = 3;
+    int MasteryLevelToBeginPassive = 4;
+    int MasteryLevelToEndPassive = 6;
 
     private BlastDeckDbContext _dbContext;
 
@@ -327,6 +329,15 @@ public class CardController : ControllerBase
                     {
                         case 0: // association
                             if (masteryLevel >= MasteryLevelToSkipAssociation)
+                            {
+                                return false;
+                            }
+                            break;
+                        case 1: // passive
+                            if (
+                                masteryLevel <= MasteryLevelToBeginPassive
+                                && masteryLevel >= MasteryLevelToEndPassive
+                            )
                             {
                                 return false;
                             }
