@@ -9,9 +9,9 @@ const PracticeSet = () =>
 
     const { setId } = useParams()
 
-    const getCardIdsForStage = (stage) =>
+    const getCardIdsForStage = async (stage) =>
     {
-        getCardIdsToPractice(stage, setId).then(setCardIds)
+        return getCardIdsToPractice(stage, setId).then(setCardIds)
     }
 
     useEffect(
